@@ -82,8 +82,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::NCollection_BaseList^ theList);
-        Iterator(Macad::Occt::TopTools_ListOfShape::Iterator^ parameter1);
         bool More() override;
         void Next() override;
         Macad::Occt::TopoDS_Shape^ Value() override;
@@ -92,7 +90,6 @@ public:
 
     TopTools_ListOfShape();
     TopTools_ListOfShape(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    TopTools_ListOfShape(Macad::Occt::TopTools_ListOfShape^ theOther);
     int Size();
     Macad::Occt::TopTools_ListOfShape^ Assign(Macad::Occt::TopTools_ListOfShape^ theOther);
     void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
@@ -100,66 +97,21 @@ public:
     Macad::Occt::TopoDS_Shape^ First();
     Macad::Occt::TopoDS_Shape^ Last();
     Macad::Occt::TopoDS_Shape^ Append(Macad::Occt::TopoDS_Shape^ theItem);
-    void Append(Macad::Occt::TopoDS_Shape^ theItem, Macad::Occt::TopTools_ListOfShape::Iterator^ theIter);
-    void Append(Macad::Occt::TopTools_ListOfShape^ theOther);
     Macad::Occt::TopoDS_Shape^ Prepend(Macad::Occt::TopoDS_Shape^ theItem);
-    void Prepend(Macad::Occt::TopTools_ListOfShape^ theOther);
     void RemoveFirst();
     void Remove(Macad::Occt::TopTools_ListOfShape::Iterator^ theIter);
     Macad::Occt::TopoDS_Shape^ InsertBefore(Macad::Occt::TopoDS_Shape^ theItem, Macad::Occt::TopTools_ListOfShape::Iterator^ theIter);
-    void InsertBefore(Macad::Occt::TopTools_ListOfShape^ theOther, Macad::Occt::TopTools_ListOfShape::Iterator^ theIter);
     Macad::Occt::TopoDS_Shape^ InsertAfter(Macad::Occt::TopoDS_Shape^ theItem, Macad::Occt::TopTools_ListOfShape::Iterator^ theIter);
-    void InsertAfter(Macad::Occt::TopTools_ListOfShape^ theOther, Macad::Occt::TopTools_ListOfShape::Iterator^ theIter);
     void Reverse();
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopTools_ListOfShape
 
 //---------------------------------------------------------------------
-//  Class  TopTools_ListIteratorOfListOfShape
-//---------------------------------------------------------------------
-public ref class TopTools_ListIteratorOfListOfShape sealed
-    : public Macad::Occt::BaseClass<::TopTools_ListIteratorOfListOfShape>
-{
-
-#ifdef Include_TopTools_ListIteratorOfListOfShape_h
-public:
-    Include_TopTools_ListIteratorOfListOfShape_h
-#endif
-
-public:
-    TopTools_ListIteratorOfListOfShape(::TopTools_ListIteratorOfListOfShape* nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_ListIteratorOfListOfShape>( nativeInstance, true )
-    {}
-
-    TopTools_ListIteratorOfListOfShape(::TopTools_ListIteratorOfListOfShape& nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_ListIteratorOfListOfShape>( &nativeInstance, false )
-    {}
-
-    property ::TopTools_ListIteratorOfListOfShape* NativeInstance
-    {
-        ::TopTools_ListIteratorOfListOfShape* get()
-        {
-            return static_cast<::TopTools_ListIteratorOfListOfShape*>(_NativeInstance);
-        }
-    }
-
-public:
-    TopTools_ListIteratorOfListOfShape();
-    TopTools_ListIteratorOfListOfShape(Macad::Occt::NCollection_BaseList^ theList);
-    TopTools_ListIteratorOfListOfShape(Macad::Occt::TopTools_ListIteratorOfListOfShape^ parameter1);
-    bool More();
-    void Next();
-    Macad::Occt::TopoDS_Shape^ Value();
-    Macad::Occt::TopoDS_Shape^ ChangeValue();
-}; // class TopTools_ListIteratorOfListOfShape
-
-//---------------------------------------------------------------------
 //  Class  TopTools_Array1OfListOfShape
 //---------------------------------------------------------------------
 public ref class TopTools_Array1OfListOfShape sealed
     : public Macad::Occt::BaseClass<::TopTools_Array1OfListOfShape>
-    , public IIndexEnumerable<Macad::Occt::TopoDS_ListOfShape^>
 {
 
 #ifdef Include_TopTools_Array1OfListOfShape_h
@@ -212,45 +164,32 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::TopTools_Array1OfListOfShape^ theArray, bool theToEnd);
-        Iterator(Macad::Occt::TopTools_Array1OfListOfShape^ theArray);
-        Iterator(Macad::Occt::TopTools_Array1OfListOfShape::Iterator^ parameter1);
-        void Init(Macad::Occt::TopTools_Array1OfListOfShape^ theArray);
-        bool More();
-        void Next();
-        void Previous();
-        void Offset(long long int theOffset);
-        long long int Differ(Macad::Occt::TopTools_Array1OfListOfShape::Iterator^ theOther);
-        Macad::Occt::TopoDS_ListOfShape^ Value();
-        Macad::Occt::TopoDS_ListOfShape^ ChangeValue();
-        bool IsEqual(Macad::Occt::TopTools_Array1OfListOfShape::Iterator^ theOther);
     }; // class Iterator
 
     TopTools_Array1OfListOfShape();
     TopTools_Array1OfListOfShape(int theLower, int theUpper);
-    TopTools_Array1OfListOfShape(Macad::Occt::TopTools_Array1OfListOfShape^ theOther);
-    TopTools_Array1OfListOfShape(Macad::Occt::TopoDS_ListOfShape^ theBegin, int theLower, int theUpper);
-    void Init(Macad::Occt::TopoDS_ListOfShape^ theValue);
+    /* Method skipped due to unknown mapping: void TopTools_Array1OfListOfShape(allocator_type theAlloc, int theLower, int theUpper, ) */
+    /* Method skipped due to unknown mapping: void TopTools_Array1OfListOfShape(const_reference theBegin, int theLower, int theUpper, bool theUseBuffer, ) */
+    /* Method skipped due to unknown mapping: void TopTools_Array1OfListOfShape(const_reference theBegin, int theLower, int theUpper, bool theUseBuffer, ) */
+    /* Method skipped due to unknown mapping: void Init(const_reference theValue, ) */
     int Size();
     int Length();
     bool IsEmpty();
     int Lower();
     int Upper();
-    bool IsDeletable();
-    bool IsAllocated();
     Macad::Occt::TopTools_Array1OfListOfShape^ Assign(Macad::Occt::TopTools_Array1OfListOfShape^ theOther);
     Macad::Occt::TopTools_Array1OfListOfShape^ Move(Macad::Occt::TopTools_Array1OfListOfShape^ theOther);
-    Macad::Occt::TopoDS_ListOfShape^ First();
-    Macad::Occt::TopoDS_ListOfShape^ ChangeFirst();
-    Macad::Occt::TopoDS_ListOfShape^ Last();
-    Macad::Occt::TopoDS_ListOfShape^ ChangeLast();
-    virtual Macad::Occt::TopoDS_ListOfShape^ Value(int theIndex);
-    Macad::Occt::TopoDS_ListOfShape^ ChangeValue(int theIndex);
-    void SetValue(int theIndex, Macad::Occt::TopoDS_ListOfShape^ theItem);
+    /* Method skipped due to unknown mapping: const_reference First() */
+    /* Method skipped due to unknown mapping: reference ChangeFirst() */
+    /* Method skipped due to unknown mapping: const_reference Last() */
+    /* Method skipped due to unknown mapping: reference ChangeLast() */
+    /* Method skipped due to unknown mapping: const_reference Value(int theIndex, ) */
+    /* Method skipped due to unknown mapping: reference ChangeValue(int theIndex, ) */
+    /* Method skipped due to unknown mapping: void SetValue(int theIndex, value_type theItem, ) */
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
     void Resize(int theLower, int theUpper, bool theToCopyData);
-    virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_ListOfShape^>^ GetEnumerator();
-    virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
+    bool IsDeletable();
 }; // class TopTools_Array1OfListOfShape
 
 //---------------------------------------------------------------------
@@ -311,24 +250,12 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::TopTools_Array1OfShape^ theArray, bool theToEnd);
-        Iterator(Macad::Occt::TopTools_Array1OfShape^ theArray);
-        Iterator(Macad::Occt::TopTools_Array1OfShape::Iterator^ parameter1);
-        void Init(Macad::Occt::TopTools_Array1OfShape^ theArray);
-        bool More();
-        void Next();
-        void Previous();
-        void Offset(long long int theOffset);
-        long long int Differ(Macad::Occt::TopTools_Array1OfShape::Iterator^ theOther);
-        Macad::Occt::TopoDS_Shape^ Value();
-        Macad::Occt::TopoDS_Shape^ ChangeValue();
-        bool IsEqual(Macad::Occt::TopTools_Array1OfShape::Iterator^ theOther);
     }; // class Iterator
 
     TopTools_Array1OfShape();
     TopTools_Array1OfShape(int theLower, int theUpper);
-    TopTools_Array1OfShape(Macad::Occt::TopTools_Array1OfShape^ theOther);
+    /* Method skipped due to unknown mapping: void TopTools_Array1OfShape(allocator_type theAlloc, int theLower, int theUpper, ) */
+    TopTools_Array1OfShape(Macad::Occt::TopoDS_Shape^ theBegin, int theLower, int theUpper, bool theUseBuffer);
     TopTools_Array1OfShape(Macad::Occt::TopoDS_Shape^ theBegin, int theLower, int theUpper);
     void Init(Macad::Occt::TopoDS_Shape^ theValue);
     int Size();
@@ -336,8 +263,6 @@ public:
     bool IsEmpty();
     int Lower();
     int Upper();
-    bool IsDeletable();
-    bool IsAllocated();
     Macad::Occt::TopTools_Array1OfShape^ Assign(Macad::Occt::TopTools_Array1OfShape^ theOther);
     Macad::Occt::TopTools_Array1OfShape^ Move(Macad::Occt::TopTools_Array1OfShape^ theOther);
     Macad::Occt::TopoDS_Shape^ First();
@@ -347,7 +272,10 @@ public:
     virtual Macad::Occt::TopoDS_Shape^ Value(int theIndex);
     Macad::Occt::TopoDS_Shape^ ChangeValue(int theIndex);
     void SetValue(int theIndex, Macad::Occt::TopoDS_Shape^ theItem);
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
     void Resize(int theLower, int theUpper, bool theToCopyData);
+    bool IsDeletable();
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopTools_Array1OfShape
@@ -357,7 +285,6 @@ public:
 //---------------------------------------------------------------------
 public ref class TopTools_Array2OfShape sealed
     : public Macad::Occt::BaseClass<::TopTools_Array2OfShape>
-    , public IEnumerable<Macad::Occt::TopoDS_Shape^>
 {
 
 #ifdef Include_TopTools_Array2OfShape_h
@@ -384,7 +311,7 @@ public:
 
 public:
     ref class Iterator sealed
-        : public Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_Array2OfShape::Iterator>
+        : public Macad::Occt::BaseClass<::TopTools_Array2OfShape::Iterator>
     {
 
 #ifdef Include_TopTools_Array2OfShape_Iterator_h
@@ -394,11 +321,11 @@ public:
 
     public:
         Iterator(::TopTools_Array2OfShape::Iterator* nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_Array2OfShape::Iterator>( nativeInstance, true )
+            : Macad::Occt::BaseClass<::TopTools_Array2OfShape::Iterator>( nativeInstance, true )
         {}
 
         Iterator(::TopTools_Array2OfShape::Iterator& nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_Array2OfShape::Iterator>( &nativeInstance, false )
+            : Macad::Occt::BaseClass<::TopTools_Array2OfShape::Iterator>( &nativeInstance, false )
         {}
 
         property ::TopTools_Array2OfShape::Iterator* NativeInstance
@@ -410,21 +337,14 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::TopTools_Array2OfShape^ theArray);
-        Iterator(Macad::Occt::TopTools_Array2OfShape::Iterator^ parameter1);
-        void Init(Macad::Occt::TopTools_Array2OfShape^ theArray);
-        bool More() override;
-        void Next() override;
-        Macad::Occt::TopoDS_Shape^ Value() override;
-        Macad::Occt::TopoDS_Shape^ ChangeValue();
     }; // class Iterator
 
     TopTools_Array2OfShape();
     TopTools_Array2OfShape(int theRowLower, int theRowUpper, int theColLower, int theColUpper);
-    TopTools_Array2OfShape(Macad::Occt::TopTools_Array2OfShape^ theOther);
+    /* Method skipped due to unknown mapping: void TopTools_Array2OfShape(allocator_type theAlloc, int theRowLower, int theRowUpper, int theColLower, int theColUpper, ) */
     TopTools_Array2OfShape(Macad::Occt::TopoDS_Shape^ theBegin, int theRowLower, int theRowUpper, int theColLower, int theColUpper);
-    void Init(Macad::Occt::TopoDS_Shape^ theValue);
+    static int BeginPosition(int theRowLower, int parameter1, int theColLower, int theColUpper);
+    static int LastPosition(int theRowLower, int theRowUpper, int theColLower, int theColUpper);
     int Size();
     int Length();
     int NbRows();
@@ -435,15 +355,23 @@ public:
     int UpperRow();
     int LowerCol();
     int UpperCol();
-    bool IsDeletable();
     Macad::Occt::TopTools_Array2OfShape^ Assign(Macad::Occt::TopTools_Array2OfShape^ theOther);
     Macad::Occt::TopTools_Array2OfShape^ Move(Macad::Occt::TopTools_Array2OfShape^ theOther);
     Macad::Occt::TopoDS_Shape^ Value(int theRow, int theCol);
     Macad::Occt::TopoDS_Shape^ ChangeValue(int theRow, int theCol);
     void SetValue(int theRow, int theCol, Macad::Occt::TopoDS_Shape^ theItem);
     void Resize(int theRowLower, int theRowUpper, int theColLower, int theColUpper, bool theToCopyData);
-    virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
-    virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
+    void Init(Macad::Occt::TopoDS_Shape^ theValue);
+    bool IsEmpty();
+    int Lower();
+    int Upper();
+    Macad::Occt::TopoDS_Shape^ First();
+    Macad::Occt::TopoDS_Shape^ ChangeFirst();
+    Macad::Occt::TopoDS_Shape^ Last();
+    Macad::Occt::TopoDS_Shape^ ChangeLast();
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
+    bool IsDeletable();
 }; // class TopTools_Array2OfShape
 
 //---------------------------------------------------------------------
@@ -504,8 +432,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfIntegerListOfShape^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfIntegerListOfShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_ListOfShape^ Value();
@@ -516,7 +442,6 @@ public:
     TopTools_DataMapOfIntegerListOfShape();
     TopTools_DataMapOfIntegerListOfShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfIntegerListOfShape(int theNbBuckets);
-    TopTools_DataMapOfIntegerListOfShape(Macad::Occt::TopTools_DataMapOfIntegerListOfShape^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfIntegerListOfShape^ theOther);
     Macad::Occt::TopTools_DataMapOfIntegerListOfShape^ Assign(Macad::Occt::TopTools_DataMapOfIntegerListOfShape^ theOther);
     void ReSize(int N);
@@ -526,12 +451,10 @@ public:
     bool UnBind(int theKey);
     Macad::Occt::TopoDS_ListOfShape^ Seek(int theKey);
     Macad::Occt::TopoDS_ListOfShape^ Find(int theKey);
-    bool Find(int theKey, Macad::Occt::TopoDS_ListOfShape^ theValue);
     Macad::Occt::TopoDS_ListOfShape^ ChangeSeek(int theKey);
     Macad::Occt::TopoDS_ListOfShape^ ChangeFind(int theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfIntegerListOfShape
 
@@ -593,8 +516,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfIntegerShape^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfIntegerShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_Shape^ Value();
@@ -605,7 +526,6 @@ public:
     TopTools_DataMapOfIntegerShape();
     TopTools_DataMapOfIntegerShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfIntegerShape(int theNbBuckets);
-    TopTools_DataMapOfIntegerShape(Macad::Occt::TopTools_DataMapOfIntegerShape^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfIntegerShape^ theOther);
     Macad::Occt::TopTools_DataMapOfIntegerShape^ Assign(Macad::Occt::TopTools_DataMapOfIntegerShape^ theOther);
     void ReSize(int N);
@@ -615,12 +535,10 @@ public:
     bool UnBind(int theKey);
     Macad::Occt::TopoDS_Shape^ Seek(int theKey);
     Macad::Occt::TopoDS_Shape^ Find(int theKey);
-    bool Find(int theKey, Macad::Occt::TopoDS_Shape^ theValue);
     Macad::Occt::TopoDS_Shape^ ChangeSeek(int theKey);
     Macad::Occt::TopoDS_Shape^ ChangeFind(int theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfIntegerShape
 
@@ -691,8 +609,6 @@ public:
         }
 
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfOrientedShapeInteger^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfOrientedShapeInteger::Iterator^ parameter1);
         bool More();
         void Next();
         int Value();
@@ -702,7 +618,6 @@ public:
     TopTools_DataMapOfOrientedShapeInteger();
     TopTools_DataMapOfOrientedShapeInteger(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfOrientedShapeInteger(int theNbBuckets);
-    TopTools_DataMapOfOrientedShapeInteger(Macad::Occt::TopTools_DataMapOfOrientedShapeInteger^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfOrientedShapeInteger^ theOther);
     Macad::Occt::TopTools_DataMapOfOrientedShapeInteger^ Assign(Macad::Occt::TopTools_DataMapOfOrientedShapeInteger^ theOther);
     void ReSize(int N);
@@ -712,12 +627,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     int Seek(Macad::Occt::TopoDS_Shape^ theKey);
     int Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, int% theValue);
     int ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     int ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfOrientedShapeInteger
 
@@ -779,8 +692,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfOrientedShapeShape^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfOrientedShapeShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_Shape^ Value();
@@ -791,7 +702,6 @@ public:
     TopTools_DataMapOfOrientedShapeShape();
     TopTools_DataMapOfOrientedShapeShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfOrientedShapeShape(int theNbBuckets);
-    TopTools_DataMapOfOrientedShapeShape(Macad::Occt::TopTools_DataMapOfOrientedShapeShape^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfOrientedShapeShape^ theOther);
     Macad::Occt::TopTools_DataMapOfOrientedShapeShape^ Assign(Macad::Occt::TopTools_DataMapOfOrientedShapeShape^ theOther);
     void ReSize(int N);
@@ -801,12 +711,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_Shape^ Seek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_Shape^ Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, Macad::Occt::TopoDS_Shape^ theValue);
     Macad::Occt::TopoDS_Shape^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_Shape^ ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfOrientedShapeShape
 
@@ -877,8 +785,6 @@ public:
         }
 
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeInteger^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeInteger::Iterator^ parameter1);
         bool More();
         void Next();
         int Value();
@@ -888,7 +794,6 @@ public:
     TopTools_DataMapOfShapeInteger();
     TopTools_DataMapOfShapeInteger(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfShapeInteger(int theNbBuckets);
-    TopTools_DataMapOfShapeInteger(Macad::Occt::TopTools_DataMapOfShapeInteger^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfShapeInteger^ theOther);
     Macad::Occt::TopTools_DataMapOfShapeInteger^ Assign(Macad::Occt::TopTools_DataMapOfShapeInteger^ theOther);
     void ReSize(int N);
@@ -898,12 +803,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     int Seek(Macad::Occt::TopoDS_Shape^ theKey);
     int Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, int% theValue);
     int ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     int ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfShapeInteger
 
@@ -965,8 +868,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeListOfInteger^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeListOfInteger::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TColStd_ListOfInteger^ Value();
@@ -977,7 +878,6 @@ public:
     TopTools_DataMapOfShapeListOfInteger();
     TopTools_DataMapOfShapeListOfInteger(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfShapeListOfInteger(int theNbBuckets);
-    TopTools_DataMapOfShapeListOfInteger(Macad::Occt::TopTools_DataMapOfShapeListOfInteger^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfShapeListOfInteger^ theOther);
     Macad::Occt::TopTools_DataMapOfShapeListOfInteger^ Assign(Macad::Occt::TopTools_DataMapOfShapeListOfInteger^ theOther);
     void ReSize(int N);
@@ -987,12 +887,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TColStd_ListOfInteger^ Seek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TColStd_ListOfInteger^ Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, Macad::Occt::TColStd_ListOfInteger^ theValue);
     Macad::Occt::TColStd_ListOfInteger^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TColStd_ListOfInteger^ ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfShapeListOfInteger
 
@@ -1054,8 +952,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeListOfShape^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeListOfShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_ListOfShape^ Value();
@@ -1066,7 +962,6 @@ public:
     TopTools_DataMapOfShapeListOfShape();
     TopTools_DataMapOfShapeListOfShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfShapeListOfShape(int theNbBuckets);
-    TopTools_DataMapOfShapeListOfShape(Macad::Occt::TopTools_DataMapOfShapeListOfShape^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfShapeListOfShape^ theOther);
     Macad::Occt::TopTools_DataMapOfShapeListOfShape^ Assign(Macad::Occt::TopTools_DataMapOfShapeListOfShape^ theOther);
     void ReSize(int N);
@@ -1076,12 +971,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_ListOfShape^ Seek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_ListOfShape^ Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, Macad::Occt::TopoDS_ListOfShape^ theValue);
     Macad::Occt::TopoDS_ListOfShape^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_ListOfShape^ ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfShapeListOfShape
 
@@ -1152,8 +1045,6 @@ public:
         }
 
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeReal^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeReal::Iterator^ parameter1);
         bool More();
         void Next();
         double Value();
@@ -1163,7 +1054,6 @@ public:
     TopTools_DataMapOfShapeReal();
     TopTools_DataMapOfShapeReal(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfShapeReal(int theNbBuckets);
-    TopTools_DataMapOfShapeReal(Macad::Occt::TopTools_DataMapOfShapeReal^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfShapeReal^ theOther);
     Macad::Occt::TopTools_DataMapOfShapeReal^ Assign(Macad::Occt::TopTools_DataMapOfShapeReal^ theOther);
     void ReSize(int N);
@@ -1173,12 +1063,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     double Seek(Macad::Occt::TopoDS_Shape^ theKey);
     double Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, double% theValue);
     double ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     double ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfShapeReal
 
@@ -1241,19 +1129,16 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_SequenceOfShape^ theSeq, bool isStart);
-        Iterator(Macad::Occt::TopTools_SequenceOfShape^ theSeq);
-        Iterator(Macad::Occt::TopTools_SequenceOfShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_Shape^ Value();
         Macad::Occt::TopoDS_Shape^ ChangeValue();
         bool IsEqual(Macad::Occt::TopTools_SequenceOfShape::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     TopTools_SequenceOfShape();
     TopTools_SequenceOfShape(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    TopTools_SequenceOfShape(Macad::Occt::TopTools_SequenceOfShape^ theOther);
     int Size();
     int Length();
     int Lower();
@@ -1266,17 +1151,10 @@ public:
     void Clear();
     Macad::Occt::TopTools_SequenceOfShape^ Assign(Macad::Occt::TopTools_SequenceOfShape^ theOther);
     void Remove(Macad::Occt::TopTools_SequenceOfShape::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
     void Append(Macad::Occt::TopoDS_Shape^ theItem);
-    void Append(Macad::Occt::TopTools_SequenceOfShape^ theSeq);
     void Prepend(Macad::Occt::TopoDS_Shape^ theItem);
-    void Prepend(Macad::Occt::TopTools_SequenceOfShape^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::TopoDS_Shape^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::TopTools_SequenceOfShape^ theSeq);
     void InsertAfter(Macad::Occt::TopTools_SequenceOfShape::Iterator^ thePosition, Macad::Occt::TopoDS_Shape^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::TopTools_SequenceOfShape^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::TopoDS_Shape^ theItem);
     void Split(int theIndex, Macad::Occt::TopTools_SequenceOfShape^ theSeq);
     Macad::Occt::TopoDS_Shape^ First();
     Macad::Occt::TopoDS_Shape^ ChangeFirst();
@@ -1347,8 +1225,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeSequenceOfShape^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeSequenceOfShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopTools_SequenceOfShape^ Value();
@@ -1359,7 +1235,6 @@ public:
     TopTools_DataMapOfShapeSequenceOfShape();
     TopTools_DataMapOfShapeSequenceOfShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfShapeSequenceOfShape(int theNbBuckets);
-    TopTools_DataMapOfShapeSequenceOfShape(Macad::Occt::TopTools_DataMapOfShapeSequenceOfShape^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfShapeSequenceOfShape^ theOther);
     Macad::Occt::TopTools_DataMapOfShapeSequenceOfShape^ Assign(Macad::Occt::TopTools_DataMapOfShapeSequenceOfShape^ theOther);
     void ReSize(int N);
@@ -1369,12 +1244,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopTools_SequenceOfShape^ Seek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopTools_SequenceOfShape^ Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, Macad::Occt::TopTools_SequenceOfShape^ theValue);
     Macad::Occt::TopTools_SequenceOfShape^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopTools_SequenceOfShape^ ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfShapeSequenceOfShape
 
@@ -1436,8 +1309,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeShape^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_Shape^ Value();
@@ -1448,7 +1319,6 @@ public:
     TopTools_DataMapOfShapeShape();
     TopTools_DataMapOfShapeShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfShapeShape(int theNbBuckets);
-    TopTools_DataMapOfShapeShape(Macad::Occt::TopTools_DataMapOfShapeShape^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfShapeShape^ theOther);
     Macad::Occt::TopTools_DataMapOfShapeShape^ Assign(Macad::Occt::TopTools_DataMapOfShapeShape^ theOther);
     void ReSize(int N);
@@ -1458,12 +1328,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_Shape^ Seek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_Shape^ Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, Macad::Occt::TopoDS_Shape^ theValue);
     Macad::Occt::TopoDS_Shape^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TopoDS_Shape^ ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfShapeShape
 
@@ -1525,8 +1393,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeBox^ theMap);
-        Iterator(Macad::Occt::TopTools_DataMapOfShapeBox::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::Bnd_Box^ Value();
@@ -1537,7 +1403,6 @@ public:
     TopTools_DataMapOfShapeBox();
     TopTools_DataMapOfShapeBox(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_DataMapOfShapeBox(int theNbBuckets);
-    TopTools_DataMapOfShapeBox(Macad::Occt::TopTools_DataMapOfShapeBox^ theOther);
     void Exchange(Macad::Occt::TopTools_DataMapOfShapeBox^ theOther);
     Macad::Occt::TopTools_DataMapOfShapeBox^ Assign(Macad::Occt::TopTools_DataMapOfShapeBox^ theOther);
     void ReSize(int N);
@@ -1547,12 +1412,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::Bnd_Box^ Seek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::Bnd_Box^ Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, Macad::Occt::Bnd_Box^ theValue);
     Macad::Occt::Bnd_Box^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::Bnd_Box^ ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_DataMapOfShapeBox
 
@@ -1614,21 +1477,21 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeAddress^ theMap);
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeAddress::Iterator^ parameter1);
         bool More();
         void Next();
         /* Method skipped due to unknown mapping: void * Value() */
         /* Method skipped due to unknown mapping: void * ChangeValue() */
         Macad::Occt::TopoDS_Shape^ Key();
         bool IsEqual(Macad::Occt::TopTools_IndexedDataMapOfShapeAddress::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     TopTools_IndexedDataMapOfShapeAddress();
     TopTools_IndexedDataMapOfShapeAddress(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_IndexedDataMapOfShapeAddress(int theNbBuckets);
-    TopTools_IndexedDataMapOfShapeAddress(Macad::Occt::TopTools_IndexedDataMapOfShapeAddress^ theOther);
     void Exchange(Macad::Occt::TopTools_IndexedDataMapOfShapeAddress^ theOther);
+    Macad::Occt::TopTools_IndexedDataMapOfShapeAddress^ Assign(Macad::Occt::TopTools_IndexedDataMapOfShapeAddress^ theOther);
+    void ReSize(int N);
     /* Method skipped due to unknown mapping: int Add(TopoDS_Shape theKey1, void * theItem, ) */
     bool Contains(Macad::Occt::TopoDS_Shape^ theKey1);
     /* Method skipped due to unknown mapping: void Substitute(int theIndex, TopoDS_Shape theKey1, void * theItem, ) */
@@ -1644,10 +1507,8 @@ public:
     /* Method skipped due to unknown mapping: void * ChangeFromKey(TopoDS_Shape theKey1, ) */
     /* Method skipped due to unknown mapping: void * Seek(TopoDS_Shape theKey1, ) */
     /* Method skipped due to unknown mapping: void * ChangeSeek(TopoDS_Shape theKey1, ) */
-    /* Method skipped due to unknown mapping: bool FindFromKey(TopoDS_Shape theKey1, void * theValue, ) */
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_IndexedDataMapOfShapeAddress
 
@@ -1709,21 +1570,21 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeListOfShape^ theMap);
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeListOfShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_ListOfShape^ Value();
         Macad::Occt::TopoDS_ListOfShape^ ChangeValue();
         Macad::Occt::TopoDS_Shape^ Key();
         bool IsEqual(Macad::Occt::TopTools_IndexedDataMapOfShapeListOfShape::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     TopTools_IndexedDataMapOfShapeListOfShape();
     TopTools_IndexedDataMapOfShapeListOfShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_IndexedDataMapOfShapeListOfShape(int theNbBuckets);
-    TopTools_IndexedDataMapOfShapeListOfShape(Macad::Occt::TopTools_IndexedDataMapOfShapeListOfShape^ theOther);
     void Exchange(Macad::Occt::TopTools_IndexedDataMapOfShapeListOfShape^ theOther);
+    Macad::Occt::TopTools_IndexedDataMapOfShapeListOfShape^ Assign(Macad::Occt::TopTools_IndexedDataMapOfShapeListOfShape^ theOther);
+    void ReSize(int N);
     int Add(Macad::Occt::TopoDS_Shape^ theKey1, Macad::Occt::TopoDS_ListOfShape^ theItem);
     bool Contains(Macad::Occt::TopoDS_Shape^ theKey1);
     void Substitute(int theIndex, Macad::Occt::TopoDS_Shape^ theKey1, Macad::Occt::TopoDS_ListOfShape^ theItem);
@@ -1739,10 +1600,8 @@ public:
     Macad::Occt::TopoDS_ListOfShape^ ChangeFromKey(Macad::Occt::TopoDS_Shape^ theKey1);
     Macad::Occt::TopoDS_ListOfShape^ Seek(Macad::Occt::TopoDS_Shape^ theKey1);
     Macad::Occt::TopoDS_ListOfShape^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey1);
-    bool FindFromKey(Macad::Occt::TopoDS_Shape^ theKey1, Macad::Occt::TopoDS_ListOfShape^ theValue);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_IndexedDataMapOfShapeListOfShape
 
@@ -1813,20 +1672,20 @@ public:
         }
 
         Iterator();
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeReal^ theMap);
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeReal::Iterator^ parameter1);
         bool More();
         void Next();
         double Value();
         Macad::Occt::TopoDS_Shape^ Key();
         bool IsEqual(Macad::Occt::TopTools_IndexedDataMapOfShapeReal::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     TopTools_IndexedDataMapOfShapeReal();
     TopTools_IndexedDataMapOfShapeReal(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_IndexedDataMapOfShapeReal(int theNbBuckets);
-    TopTools_IndexedDataMapOfShapeReal(Macad::Occt::TopTools_IndexedDataMapOfShapeReal^ theOther);
     void Exchange(Macad::Occt::TopTools_IndexedDataMapOfShapeReal^ theOther);
+    Macad::Occt::TopTools_IndexedDataMapOfShapeReal^ Assign(Macad::Occt::TopTools_IndexedDataMapOfShapeReal^ theOther);
+    void ReSize(int N);
     int Add(Macad::Occt::TopoDS_Shape^ theKey1, double theItem);
     bool Contains(Macad::Occt::TopoDS_Shape^ theKey1);
     void Substitute(int theIndex, Macad::Occt::TopoDS_Shape^ theKey1, double theItem);
@@ -1842,10 +1701,8 @@ public:
     double ChangeFromKey(Macad::Occt::TopoDS_Shape^ theKey1);
     double Seek(Macad::Occt::TopoDS_Shape^ theKey1);
     double ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey1);
-    bool FindFromKey(Macad::Occt::TopoDS_Shape^ theKey1, double% theValue);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_IndexedDataMapOfShapeReal
 
@@ -1907,21 +1764,21 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeShape^ theMap);
-        Iterator(Macad::Occt::TopTools_IndexedDataMapOfShapeShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_Shape^ Value();
         Macad::Occt::TopoDS_Shape^ ChangeValue();
         Macad::Occt::TopoDS_Shape^ Key();
         bool IsEqual(Macad::Occt::TopTools_IndexedDataMapOfShapeShape::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     TopTools_IndexedDataMapOfShapeShape();
     TopTools_IndexedDataMapOfShapeShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_IndexedDataMapOfShapeShape(int theNbBuckets);
-    TopTools_IndexedDataMapOfShapeShape(Macad::Occt::TopTools_IndexedDataMapOfShapeShape^ theOther);
     void Exchange(Macad::Occt::TopTools_IndexedDataMapOfShapeShape^ theOther);
+    Macad::Occt::TopTools_IndexedDataMapOfShapeShape^ Assign(Macad::Occt::TopTools_IndexedDataMapOfShapeShape^ theOther);
+    void ReSize(int N);
     int Add(Macad::Occt::TopoDS_Shape^ theKey1, Macad::Occt::TopoDS_Shape^ theItem);
     bool Contains(Macad::Occt::TopoDS_Shape^ theKey1);
     void Substitute(int theIndex, Macad::Occt::TopoDS_Shape^ theKey1, Macad::Occt::TopoDS_Shape^ theItem);
@@ -1937,108 +1794,16 @@ public:
     Macad::Occt::TopoDS_Shape^ ChangeFromKey(Macad::Occt::TopoDS_Shape^ theKey1);
     Macad::Occt::TopoDS_Shape^ Seek(Macad::Occt::TopoDS_Shape^ theKey1);
     Macad::Occt::TopoDS_Shape^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey1);
-    bool FindFromKey(Macad::Occt::TopoDS_Shape^ theKey1, Macad::Occt::TopoDS_Shape^ theValue);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class TopTools_IndexedDataMapOfShapeShape
-
-//---------------------------------------------------------------------
-//  Class  TopTools_IndexedMapOfOrientedShape
-//---------------------------------------------------------------------
-public ref class TopTools_IndexedMapOfOrientedShape sealed
-    : public Macad::Occt::BaseClass<::TopTools_IndexedMapOfOrientedShape>
-    , public IEnumerable<Macad::Occt::TopoDS_Shape^>
-{
-
-#ifdef Include_TopTools_IndexedMapOfOrientedShape_h
-public:
-    Include_TopTools_IndexedMapOfOrientedShape_h
-#endif
-
-public:
-    TopTools_IndexedMapOfOrientedShape(::TopTools_IndexedMapOfOrientedShape* nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_IndexedMapOfOrientedShape>( nativeInstance, true )
-    {}
-
-    TopTools_IndexedMapOfOrientedShape(::TopTools_IndexedMapOfOrientedShape& nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_IndexedMapOfOrientedShape>( &nativeInstance, false )
-    {}
-
-    property ::TopTools_IndexedMapOfOrientedShape* NativeInstance
-    {
-        ::TopTools_IndexedMapOfOrientedShape* get()
-        {
-            return static_cast<::TopTools_IndexedMapOfOrientedShape*>(_NativeInstance);
-        }
-    }
-
-public:
-    ref class Iterator sealed
-        : public Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_IndexedMapOfOrientedShape::Iterator>
-    {
-
-#ifdef Include_TopTools_IndexedMapOfOrientedShape_Iterator_h
-    public:
-        Include_TopTools_IndexedMapOfOrientedShape_Iterator_h
-#endif
-
-    public:
-        Iterator(::TopTools_IndexedMapOfOrientedShape::Iterator* nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_IndexedMapOfOrientedShape::Iterator>( nativeInstance, true )
-        {}
-
-        Iterator(::TopTools_IndexedMapOfOrientedShape::Iterator& nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_IndexedMapOfOrientedShape::Iterator>( &nativeInstance, false )
-        {}
-
-        property ::TopTools_IndexedMapOfOrientedShape::Iterator* NativeInstance
-        {
-            ::TopTools_IndexedMapOfOrientedShape::Iterator* get()
-            {
-                return static_cast<::TopTools_IndexedMapOfOrientedShape::Iterator*>(_NativeInstance);
-            }
-        }
-
-    public:
-        Iterator();
-        Iterator(Macad::Occt::TopTools_IndexedMapOfOrientedShape^ theMap);
-        Iterator(Macad::Occt::TopTools_IndexedMapOfOrientedShape::Iterator^ parameter1);
-        bool More() override;
-        void Next() override;
-        Macad::Occt::TopoDS_Shape^ Value() override;
-        bool IsEqual(Macad::Occt::TopTools_IndexedMapOfOrientedShape::Iterator^ theOther);
-    }; // class Iterator
-
-    TopTools_IndexedMapOfOrientedShape();
-    TopTools_IndexedMapOfOrientedShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    TopTools_IndexedMapOfOrientedShape(int theNbBuckets);
-    TopTools_IndexedMapOfOrientedShape(Macad::Occt::TopTools_IndexedMapOfOrientedShape^ theOther);
-    void Exchange(Macad::Occt::TopTools_IndexedMapOfOrientedShape^ theOther);
-    int Add(Macad::Occt::TopoDS_Shape^ theKey1);
-    bool Contains(Macad::Occt::TopoDS_Shape^ theKey1);
-    void Substitute(int theIndex, Macad::Occt::TopoDS_Shape^ theKey1);
-    void Swap(int theIndex1, int theIndex2);
-    void RemoveLast();
-    void RemoveFromIndex(int theIndex);
-    bool RemoveKey(Macad::Occt::TopoDS_Shape^ theKey1);
-    Macad::Occt::TopoDS_Shape^ FindKey(int theIndex);
-    int FindIndex(Macad::Occt::TopoDS_Shape^ theKey1);
-    void Clear(bool doReleaseMemory);
-    void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    int Size();
-    virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
-    virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
-}; // class TopTools_IndexedMapOfOrientedShape
 
 //---------------------------------------------------------------------
 //  Class  TopTools_IndexedMapOfShape
 //---------------------------------------------------------------------
 public ref class TopTools_IndexedMapOfShape sealed
     : public Macad::Occt::BaseClass<::TopTools_IndexedMapOfShape>
-    , public IEnumerable<Macad::Occt::TopoDS_Shape^>
 {
 
 #ifdef Include_TopTools_IndexedMapOfShape_h
@@ -2065,7 +1830,7 @@ public:
 
 public:
     ref class Iterator sealed
-        : public Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_IndexedMapOfShape::Iterator>
+        : public Macad::Occt::BaseClass<::TopTools_IndexedMapOfShape::Iterator>
     {
 
 #ifdef Include_TopTools_IndexedMapOfShape_Iterator_h
@@ -2075,11 +1840,11 @@ public:
 
     public:
         Iterator(::TopTools_IndexedMapOfShape::Iterator* nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_IndexedMapOfShape::Iterator>( nativeInstance, true )
+            : Macad::Occt::BaseClass<::TopTools_IndexedMapOfShape::Iterator>( nativeInstance, true )
         {}
 
         Iterator(::TopTools_IndexedMapOfShape::Iterator& nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_IndexedMapOfShape::Iterator>( &nativeInstance, false )
+            : Macad::Occt::BaseClass<::TopTools_IndexedMapOfShape::Iterator>( &nativeInstance, false )
         {}
 
         property ::TopTools_IndexedMapOfShape::Iterator* NativeInstance
@@ -2092,18 +1857,16 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_IndexedMapOfShape^ theMap);
-        Iterator(Macad::Occt::TopTools_IndexedMapOfShape::Iterator^ parameter1);
-        bool More() override;
-        void Next() override;
-        Macad::Occt::TopoDS_Shape^ Value() override;
+        bool More();
+        void Next();
+        Macad::Occt::TopoDS_Shape^ Value();
         bool IsEqual(Macad::Occt::TopTools_IndexedMapOfShape::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     TopTools_IndexedMapOfShape();
     TopTools_IndexedMapOfShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_IndexedMapOfShape(int theNbBuckets);
-    TopTools_IndexedMapOfShape(Macad::Occt::TopTools_IndexedMapOfShape^ theOther);
     void Exchange(Macad::Occt::TopTools_IndexedMapOfShape^ theOther);
     Macad::Occt::TopTools_IndexedMapOfShape^ Assign(Macad::Occt::TopTools_IndexedMapOfShape^ theOther);
     void ReSize(int theExtent);
@@ -2118,10 +1881,7 @@ public:
     int FindIndex(Macad::Occt::TopoDS_Shape^ theKey1);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
-    virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
-    virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopTools_IndexedMapOfShape
 
 //---------------------------------------------------------------------
@@ -2183,8 +1943,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::NCollection_BaseList^ theList);
-        Iterator(Macad::Occt::TopTools_ListOfListOfShape::Iterator^ parameter1);
         bool More() override;
         void Next() override;
         Macad::Occt::TopoDS_ListOfShape^ Value() override;
@@ -2193,7 +1951,6 @@ public:
 
     TopTools_ListOfListOfShape();
     TopTools_ListOfListOfShape(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    TopTools_ListOfListOfShape(Macad::Occt::TopTools_ListOfListOfShape^ theOther);
     int Size();
     Macad::Occt::TopTools_ListOfListOfShape^ Assign(Macad::Occt::TopTools_ListOfListOfShape^ theOther);
     void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
@@ -2201,59 +1958,15 @@ public:
     Macad::Occt::TopoDS_ListOfShape^ First();
     Macad::Occt::TopoDS_ListOfShape^ Last();
     Macad::Occt::TopoDS_ListOfShape^ Append(Macad::Occt::TopoDS_ListOfShape^ theItem);
-    void Append(Macad::Occt::TopoDS_ListOfShape^ theItem, Macad::Occt::TopTools_ListOfListOfShape::Iterator^ theIter);
-    void Append(Macad::Occt::TopTools_ListOfListOfShape^ theOther);
     Macad::Occt::TopoDS_ListOfShape^ Prepend(Macad::Occt::TopoDS_ListOfShape^ theItem);
-    void Prepend(Macad::Occt::TopTools_ListOfListOfShape^ theOther);
     void RemoveFirst();
     void Remove(Macad::Occt::TopTools_ListOfListOfShape::Iterator^ theIter);
     Macad::Occt::TopoDS_ListOfShape^ InsertBefore(Macad::Occt::TopoDS_ListOfShape^ theItem, Macad::Occt::TopTools_ListOfListOfShape::Iterator^ theIter);
-    void InsertBefore(Macad::Occt::TopTools_ListOfListOfShape^ theOther, Macad::Occt::TopTools_ListOfListOfShape::Iterator^ theIter);
     Macad::Occt::TopoDS_ListOfShape^ InsertAfter(Macad::Occt::TopoDS_ListOfShape^ theItem, Macad::Occt::TopTools_ListOfListOfShape::Iterator^ theIter);
-    void InsertAfter(Macad::Occt::TopTools_ListOfListOfShape^ theOther, Macad::Occt::TopTools_ListOfListOfShape::Iterator^ theIter);
     void Reverse();
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_ListOfShape^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopTools_ListOfListOfShape
-
-//---------------------------------------------------------------------
-//  Class  TopTools_ListIteratorOfListOfListOfShape
-//---------------------------------------------------------------------
-public ref class TopTools_ListIteratorOfListOfListOfShape sealed
-    : public Macad::Occt::BaseClass<::TopTools_ListIteratorOfListOfListOfShape>
-{
-
-#ifdef Include_TopTools_ListIteratorOfListOfListOfShape_h
-public:
-    Include_TopTools_ListIteratorOfListOfListOfShape_h
-#endif
-
-public:
-    TopTools_ListIteratorOfListOfListOfShape(::TopTools_ListIteratorOfListOfListOfShape* nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_ListIteratorOfListOfListOfShape>( nativeInstance, true )
-    {}
-
-    TopTools_ListIteratorOfListOfListOfShape(::TopTools_ListIteratorOfListOfListOfShape& nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_ListIteratorOfListOfListOfShape>( &nativeInstance, false )
-    {}
-
-    property ::TopTools_ListIteratorOfListOfListOfShape* NativeInstance
-    {
-        ::TopTools_ListIteratorOfListOfListOfShape* get()
-        {
-            return static_cast<::TopTools_ListIteratorOfListOfListOfShape*>(_NativeInstance);
-        }
-    }
-
-public:
-    TopTools_ListIteratorOfListOfListOfShape();
-    TopTools_ListIteratorOfListOfListOfShape(Macad::Occt::NCollection_BaseList^ theList);
-    TopTools_ListIteratorOfListOfListOfShape(Macad::Occt::TopTools_ListIteratorOfListOfListOfShape^ parameter1);
-    bool More();
-    void Next();
-    Macad::Occt::TopoDS_ListOfShape^ Value();
-    Macad::Occt::TopoDS_ListOfShape^ ChangeValue();
-}; // class TopTools_ListIteratorOfListOfListOfShape
 
 //---------------------------------------------------------------------
 //  Class  TopTools_MapOfOrientedShape
@@ -2314,8 +2027,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_MapOfOrientedShape^ theMap);
-        Iterator(Macad::Occt::TopTools_MapOfOrientedShape::Iterator^ parameter1);
         bool More() override;
         void Next() override;
         Macad::Occt::TopoDS_Shape^ Value() override;
@@ -2325,20 +2036,17 @@ public:
     TopTools_MapOfOrientedShape();
     TopTools_MapOfOrientedShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_MapOfOrientedShape(int theNbBuckets);
-    TopTools_MapOfOrientedShape(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
     void Exchange(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
     Macad::Occt::TopTools_MapOfOrientedShape^ Assign(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
     void ReSize(int N);
-    bool Add(Macad::Occt::TopoDS_Shape^ K);
-    Macad::Occt::TopoDS_Shape^ Added(Macad::Occt::TopoDS_Shape^ K);
-    bool Contains(Macad::Occt::TopoDS_Shape^ K);
+    bool Add(Macad::Occt::TopoDS_Shape^ theKey);
+    Macad::Occt::TopoDS_Shape^ Added(Macad::Occt::TopoDS_Shape^ theKey);
+    bool Contains(Macad::Occt::TopoDS_Shape^ theKey);
     bool Remove(Macad::Occt::TopoDS_Shape^ K);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
     bool IsEqual(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
-    bool Contains(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
     void Union(Macad::Occt::TopTools_MapOfOrientedShape^ theLeft, Macad::Occt::TopTools_MapOfOrientedShape^ theRight);
     bool Unite(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
     bool HasIntersection(Macad::Occt::TopTools_MapOfOrientedShape^ theMap);
@@ -2348,6 +2056,7 @@ public:
     bool Subtract(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
     void Difference(Macad::Occt::TopTools_MapOfOrientedShape^ theLeft, Macad::Occt::TopTools_MapOfOrientedShape^ theRight);
     bool Differ(Macad::Occt::TopTools_MapOfOrientedShape^ theOther);
+    bool Equals(System::Object^ obj) override;
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopTools_MapOfOrientedShape
@@ -2357,7 +2066,6 @@ public:
 //---------------------------------------------------------------------
 public ref class TopTools_MapOfShape sealed
     : public Macad::Occt::BaseClass<::TopTools_MapOfShape>
-    , public IEnumerable<Macad::Occt::TopoDS_Shape^>
 {
 
 #ifdef Include_TopTools_MapOfShape_h
@@ -2384,7 +2092,7 @@ public:
 
 public:
     ref class Iterator sealed
-        : public Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_MapOfShape::Iterator>
+        : public Macad::Occt::BaseClass<::TopTools_MapOfShape::Iterator>
     {
 
 #ifdef Include_TopTools_MapOfShape_Iterator_h
@@ -2394,11 +2102,11 @@ public:
 
     public:
         Iterator(::TopTools_MapOfShape::Iterator* nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_MapOfShape::Iterator>( nativeInstance, true )
+            : Macad::Occt::BaseClass<::TopTools_MapOfShape::Iterator>( nativeInstance, true )
         {}
 
         Iterator(::TopTools_MapOfShape::Iterator& nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_MapOfShape::Iterator>( &nativeInstance, false )
+            : Macad::Occt::BaseClass<::TopTools_MapOfShape::Iterator>( &nativeInstance, false )
         {}
 
         property ::TopTools_MapOfShape::Iterator* NativeInstance
@@ -2411,31 +2119,26 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_MapOfShape^ theMap);
-        Iterator(Macad::Occt::TopTools_MapOfShape::Iterator^ parameter1);
-        bool More() override;
-        void Next() override;
-        Macad::Occt::TopoDS_Shape^ Value() override;
+        bool More();
+        void Next();
+        Macad::Occt::TopoDS_Shape^ Value();
         Macad::Occt::TopoDS_Shape^ Key();
     }; // class Iterator
 
     TopTools_MapOfShape();
     TopTools_MapOfShape(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     TopTools_MapOfShape(int theNbBuckets);
-    TopTools_MapOfShape(Macad::Occt::TopTools_MapOfShape^ theOther);
     void Exchange(Macad::Occt::TopTools_MapOfShape^ theOther);
     Macad::Occt::TopTools_MapOfShape^ Assign(Macad::Occt::TopTools_MapOfShape^ theOther);
     void ReSize(int N);
-    bool Add(Macad::Occt::TopoDS_Shape^ K);
-    Macad::Occt::TopoDS_Shape^ Added(Macad::Occt::TopoDS_Shape^ K);
-    bool Contains(Macad::Occt::TopoDS_Shape^ K);
+    bool Add(Macad::Occt::TopoDS_Shape^ theKey);
+    Macad::Occt::TopoDS_Shape^ Added(Macad::Occt::TopoDS_Shape^ theKey);
+    bool Contains(Macad::Occt::TopoDS_Shape^ theKey);
     bool Remove(Macad::Occt::TopoDS_Shape^ K);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
     bool IsEqual(Macad::Occt::TopTools_MapOfShape^ theOther);
-    bool Contains(Macad::Occt::TopTools_MapOfShape^ theOther);
     void Union(Macad::Occt::TopTools_MapOfShape^ theLeft, Macad::Occt::TopTools_MapOfShape^ theRight);
     bool Unite(Macad::Occt::TopTools_MapOfShape^ theOther);
     bool HasIntersection(Macad::Occt::TopTools_MapOfShape^ theMap);
@@ -2445,8 +2148,7 @@ public:
     bool Subtract(Macad::Occt::TopTools_MapOfShape^ theOther);
     void Difference(Macad::Occt::TopTools_MapOfShape^ theLeft, Macad::Occt::TopTools_MapOfShape^ theRight);
     bool Differ(Macad::Occt::TopTools_MapOfShape^ theOther);
-    virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
-    virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
+    bool Equals(System::Object^ obj) override;
 }; // class TopTools_MapOfShape
 
 //---------------------------------------------------------------------
@@ -2522,7 +2224,6 @@ public:
 
 public:
     TopTools();
-    TopTools(Macad::Occt::TopTools^ parameter1);
     /// <summary>
     /// A set of Shapes. Can be dump, wrote or read.
     /// Dumps the topological structure  of <Sh>  on the
@@ -2537,59 +2238,6 @@ public:
     /// </summary>
     static void Dummy(int I);
 }; // class TopTools
-
-//---------------------------------------------------------------------
-//  Class  TopTools_OrientedShapeMapHasher
-//---------------------------------------------------------------------
-public ref class TopTools_OrientedShapeMapHasher sealed
-    : public Macad::Occt::BaseClass<::TopTools_OrientedShapeMapHasher>
-{
-
-#ifdef Include_TopTools_OrientedShapeMapHasher_h
-public:
-    Include_TopTools_OrientedShapeMapHasher_h
-#endif
-
-public:
-    TopTools_OrientedShapeMapHasher(::TopTools_OrientedShapeMapHasher* nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_OrientedShapeMapHasher>( nativeInstance, true )
-    {}
-
-    TopTools_OrientedShapeMapHasher(::TopTools_OrientedShapeMapHasher& nativeInstance)
-        : Macad::Occt::BaseClass<::TopTools_OrientedShapeMapHasher>( &nativeInstance, false )
-    {}
-
-    property ::TopTools_OrientedShapeMapHasher* NativeInstance
-    {
-        ::TopTools_OrientedShapeMapHasher* get()
-        {
-            return static_cast<::TopTools_OrientedShapeMapHasher*>(_NativeInstance);
-        }
-    }
-
-public:
-    TopTools_OrientedShapeMapHasher();
-    TopTools_OrientedShapeMapHasher(Macad::Occt::TopTools_OrientedShapeMapHasher^ parameter1);
-    /// <summary>
-    /// Computes a hash code for the given shape, in the range [1, theUpperBound]
-    /// </summary>
-    /// <param name="theShape">
-    /// the shape which hash code is to be computed
-    /// </param>
-    /// <param name="theUpperBound">
-    /// the upper bound of the range a computing hash code must be within
-    /// </param>
-    /// <returns>
-    /// a computed hash code, in the range [1, theUpperBound]
-    /// </returns>
-    static int HashCode(Macad::Occt::TopoDS_Shape^ theShape, int theUpperBound);
-    /// <summary>
-    /// Returns True when the two keys are equal. Two same
-    /// keys must have the same hashcode,  the contrary is
-    /// not necessary.
-    /// </summary>
-    static bool IsEqual(Macad::Occt::TopoDS_Shape^ S1, Macad::Occt::TopoDS_Shape^ S2);
-}; // class TopTools_OrientedShapeMapHasher
 
 //---------------------------------------------------------------------
 //  Class  TopTools_ShapeMapHasher
@@ -2625,26 +2273,6 @@ public:
 
 public:
     TopTools_ShapeMapHasher();
-    TopTools_ShapeMapHasher(Macad::Occt::TopTools_ShapeMapHasher^ parameter1);
-    /// <summary>
-    /// Computes a hash code for the given shape, in the range [1, theUpperBound]
-    /// </summary>
-    /// <param name="theShape">
-    /// the shape which hash code is to be computed
-    /// </param>
-    /// <param name="theUpperBound">
-    /// the upper bound of the range a computing hash code must be within
-    /// </param>
-    /// <returns>
-    /// a computed hash code, in the range [1, theUpperBound]
-    /// </returns>
-    static int HashCode(Macad::Occt::TopoDS_Shape^ theShape, int theUpperBound);
-    /// <summary>
-    /// Returns True  when the two  keys are the same. Two
-    /// same  keys  must   have  the  same  hashcode,  the
-    /// contrary is not necessary.
-    /// </summary>
-    static bool IsEqual(Macad::Occt::TopoDS_Shape^ S1, Macad::Occt::TopoDS_Shape^ S2);
 }; // class TopTools_ShapeMapHasher
 
 //---------------------------------------------------------------------
@@ -2652,7 +2280,6 @@ public:
 //---------------------------------------------------------------------
 public ref class TopTools_HArray1OfListOfShape sealed
     : public Macad::Occt::Standard_Transient
-    , public IIndexEnumerable<Macad::Occt::TopoDS_ListOfShape^>
 {
 
 #ifdef Include_TopTools_HArray1OfListOfShape_h
@@ -2705,49 +2332,35 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::TopTools_HArray1OfListOfShape^ theArray, bool theToEnd);
-        Iterator(Macad::Occt::TopTools_HArray1OfListOfShape^ theArray);
-        Iterator(Macad::Occt::TopTools_HArray1OfListOfShape::Iterator^ parameter1);
-        void Init(Macad::Occt::TopTools_HArray1OfListOfShape^ theArray);
-        bool More();
-        void Next();
-        void Previous();
-        void Offset(long long int theOffset);
-        long long int Differ(Macad::Occt::TopTools_HArray1OfListOfShape::Iterator^ theOther);
-        Macad::Occt::TopoDS_ListOfShape^ Value();
-        Macad::Occt::TopoDS_ListOfShape^ ChangeValue();
-        bool IsEqual(Macad::Occt::TopTools_HArray1OfListOfShape::Iterator^ theOther);
     }; // class Iterator
 
     TopTools_HArray1OfListOfShape();
     TopTools_HArray1OfListOfShape(int theLower, int theUpper);
     /* Method skipped due to unknown mapping: void TopTools_HArray1OfListOfShape(int theLower, int theUpper, value_type theValue, ) */
+    /* Method skipped due to unknown mapping: void TopTools_HArray1OfListOfShape(value_type theBegin, int theLower, int theUpper, bool parameter1, ) */
     TopTools_HArray1OfListOfShape(Macad::Occt::TopTools_Array1OfListOfShape^ theOther);
-    TopTools_HArray1OfListOfShape(Macad::Occt::TopTools_HArray1OfListOfShape^ parameter1);
     Macad::Occt::TopTools_Array1OfListOfShape^ Array1();
     Macad::Occt::TopTools_Array1OfListOfShape^ ChangeArray1();
-    void Init(Macad::Occt::TopoDS_ListOfShape^ theValue);
+    /* Method skipped due to unknown mapping: void Init(const_reference theValue, ) */
     int Size();
     int Length();
     bool IsEmpty();
     int Lower();
     int Upper();
-    bool IsDeletable();
-    bool IsAllocated();
     Macad::Occt::TopTools_HArray1OfListOfShape^ Assign(Macad::Occt::TopTools_HArray1OfListOfShape^ theOther);
     Macad::Occt::TopTools_HArray1OfListOfShape^ Move(Macad::Occt::TopTools_HArray1OfListOfShape^ theOther);
-    Macad::Occt::TopoDS_ListOfShape^ First();
-    Macad::Occt::TopoDS_ListOfShape^ ChangeFirst();
-    Macad::Occt::TopoDS_ListOfShape^ Last();
-    Macad::Occt::TopoDS_ListOfShape^ ChangeLast();
-    virtual Macad::Occt::TopoDS_ListOfShape^ Value(int theIndex);
-    Macad::Occt::TopoDS_ListOfShape^ ChangeValue(int theIndex);
-    void SetValue(int theIndex, Macad::Occt::TopoDS_ListOfShape^ theItem);
+    /* Method skipped due to unknown mapping: const_reference First() */
+    /* Method skipped due to unknown mapping: reference ChangeFirst() */
+    /* Method skipped due to unknown mapping: const_reference Last() */
+    /* Method skipped due to unknown mapping: reference ChangeLast() */
+    /* Method skipped due to unknown mapping: const_reference Value(int theIndex, ) */
+    /* Method skipped due to unknown mapping: reference ChangeValue(int theIndex, ) */
+    /* Method skipped due to unknown mapping: void SetValue(int theIndex, value_type theItem, ) */
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
     void Resize(int theLower, int theUpper, bool theToCopyData);
+    bool IsDeletable();
     static Macad::Occt::TopTools_HArray1OfListOfShape^ CreateDowncasted(::TopTools_HArray1OfListOfShape* instance);
-    virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_ListOfShape^>^ GetEnumerator();
-    virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopTools_HArray1OfListOfShape
 
 //---------------------------------------------------------------------
@@ -2808,26 +2421,13 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::TopTools_HArray1OfShape^ theArray, bool theToEnd);
-        Iterator(Macad::Occt::TopTools_HArray1OfShape^ theArray);
-        Iterator(Macad::Occt::TopTools_HArray1OfShape::Iterator^ parameter1);
-        void Init(Macad::Occt::TopTools_HArray1OfShape^ theArray);
-        bool More();
-        void Next();
-        void Previous();
-        void Offset(long long int theOffset);
-        long long int Differ(Macad::Occt::TopTools_HArray1OfShape::Iterator^ theOther);
-        Macad::Occt::TopoDS_Shape^ Value();
-        Macad::Occt::TopoDS_Shape^ ChangeValue();
-        bool IsEqual(Macad::Occt::TopTools_HArray1OfShape::Iterator^ theOther);
     }; // class Iterator
 
     TopTools_HArray1OfShape();
     TopTools_HArray1OfShape(int theLower, int theUpper);
     TopTools_HArray1OfShape(int theLower, int theUpper, Macad::Occt::TopoDS_Shape^ theValue);
+    TopTools_HArray1OfShape(Macad::Occt::TopoDS_Shape^ theBegin, int theLower, int theUpper, bool parameter1);
     TopTools_HArray1OfShape(Macad::Occt::TopTools_Array1OfShape^ theOther);
-    TopTools_HArray1OfShape(Macad::Occt::TopTools_HArray1OfShape^ parameter1);
     Macad::Occt::TopTools_Array1OfShape^ Array1();
     Macad::Occt::TopTools_Array1OfShape^ ChangeArray1();
     void Init(Macad::Occt::TopoDS_Shape^ theValue);
@@ -2836,8 +2436,6 @@ public:
     bool IsEmpty();
     int Lower();
     int Upper();
-    bool IsDeletable();
-    bool IsAllocated();
     Macad::Occt::TopTools_HArray1OfShape^ Assign(Macad::Occt::TopTools_HArray1OfShape^ theOther);
     Macad::Occt::TopTools_HArray1OfShape^ Move(Macad::Occt::TopTools_HArray1OfShape^ theOther);
     Macad::Occt::TopoDS_Shape^ First();
@@ -2847,7 +2445,10 @@ public:
     virtual Macad::Occt::TopoDS_Shape^ Value(int theIndex);
     Macad::Occt::TopoDS_Shape^ ChangeValue(int theIndex);
     void SetValue(int theIndex, Macad::Occt::TopoDS_Shape^ theItem);
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
     void Resize(int theLower, int theUpper, bool theToCopyData);
+    bool IsDeletable();
     static Macad::Occt::TopTools_HArray1OfShape^ CreateDowncasted(::TopTools_HArray1OfShape* instance);
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
@@ -2858,7 +2459,6 @@ public:
 //---------------------------------------------------------------------
 public ref class TopTools_HArray2OfShape sealed
     : public Macad::Occt::Standard_Transient
-    , public IEnumerable<Macad::Occt::TopoDS_Shape^>
 {
 
 #ifdef Include_TopTools_HArray2OfShape_h
@@ -2885,7 +2485,7 @@ public:
 
 public:
     ref class Iterator sealed
-        : public Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_HArray2OfShape::Iterator>
+        : public Macad::Occt::BaseClass<::TopTools_HArray2OfShape::Iterator>
     {
 
 #ifdef Include_TopTools_HArray2OfShape_Iterator_h
@@ -2895,11 +2495,11 @@ public:
 
     public:
         Iterator(::TopTools_HArray2OfShape::Iterator* nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_HArray2OfShape::Iterator>( nativeInstance, true )
+            : Macad::Occt::BaseClass<::TopTools_HArray2OfShape::Iterator>( nativeInstance, true )
         {}
 
         Iterator(::TopTools_HArray2OfShape::Iterator& nativeInstance)
-            : Macad::Occt::IteratorEnumerator<Macad::Occt::TopoDS_Shape^, ::TopTools_HArray2OfShape::Iterator>( &nativeInstance, false )
+            : Macad::Occt::BaseClass<::TopTools_HArray2OfShape::Iterator>( &nativeInstance, false )
         {}
 
         property ::TopTools_HArray2OfShape::Iterator* NativeInstance
@@ -2911,23 +2511,15 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::TopTools_HArray2OfShape^ theArray);
-        Iterator(Macad::Occt::TopTools_HArray2OfShape::Iterator^ parameter1);
-        void Init(Macad::Occt::TopTools_HArray2OfShape^ theArray);
-        bool More() override;
-        void Next() override;
-        Macad::Occt::TopoDS_Shape^ Value() override;
-        Macad::Occt::TopoDS_Shape^ ChangeValue();
     }; // class Iterator
 
     TopTools_HArray2OfShape(int theRowLow, int theRowUpp, int theColLow, int theColUpp);
     TopTools_HArray2OfShape(int theRowLow, int theRowUpp, int theColLow, int theColUpp, Macad::Occt::TopoDS_Shape^ theValue);
     TopTools_HArray2OfShape(Macad::Occt::TopTools_Array2OfShape^ theOther);
-    TopTools_HArray2OfShape(Macad::Occt::TopTools_HArray2OfShape^ parameter1);
     Macad::Occt::TopTools_Array2OfShape^ Array2();
     Macad::Occt::TopTools_Array2OfShape^ ChangeArray2();
-    void Init(Macad::Occt::TopoDS_Shape^ theValue);
+    static int BeginPosition(int theRowLower, int parameter1, int theColLower, int theColUpper);
+    static int LastPosition(int theRowLower, int theRowUpper, int theColLower, int theColUpper);
     int Size();
     int Length();
     int NbRows();
@@ -2938,16 +2530,24 @@ public:
     int UpperRow();
     int LowerCol();
     int UpperCol();
-    bool IsDeletable();
     Macad::Occt::TopTools_HArray2OfShape^ Assign(Macad::Occt::TopTools_HArray2OfShape^ theOther);
     Macad::Occt::TopTools_HArray2OfShape^ Move(Macad::Occt::TopTools_HArray2OfShape^ theOther);
     Macad::Occt::TopoDS_Shape^ Value(int theRow, int theCol);
     Macad::Occt::TopoDS_Shape^ ChangeValue(int theRow, int theCol);
     void SetValue(int theRow, int theCol, Macad::Occt::TopoDS_Shape^ theItem);
     void Resize(int theRowLower, int theRowUpper, int theColLower, int theColUpper, bool theToCopyData);
+    void Init(Macad::Occt::TopoDS_Shape^ theValue);
+    bool IsEmpty();
+    int Lower();
+    int Upper();
+    Macad::Occt::TopoDS_Shape^ First();
+    Macad::Occt::TopoDS_Shape^ ChangeFirst();
+    Macad::Occt::TopoDS_Shape^ Last();
+    Macad::Occt::TopoDS_Shape^ ChangeLast();
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
+    bool IsDeletable();
     static Macad::Occt::TopTools_HArray2OfShape^ CreateDowncasted(::TopTools_HArray2OfShape* instance);
-    virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
-    virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopTools_HArray2OfShape
 
 //---------------------------------------------------------------------
@@ -3009,20 +2609,18 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::TopTools_HSequenceOfShape^ theSeq, bool isStart);
-        Iterator(Macad::Occt::TopTools_HSequenceOfShape^ theSeq);
-        Iterator(Macad::Occt::TopTools_HSequenceOfShape::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TopoDS_Shape^ Value();
         Macad::Occt::TopoDS_Shape^ ChangeValue();
         bool IsEqual(Macad::Occt::TopTools_HSequenceOfShape::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     TopTools_HSequenceOfShape();
     TopTools_HSequenceOfShape(Macad::Occt::TopTools_SequenceOfShape^ theOther);
-    TopTools_HSequenceOfShape(Macad::Occt::TopTools_HSequenceOfShape^ parameter1);
     Macad::Occt::TopTools_SequenceOfShape^ Sequence();
+    void Append(Macad::Occt::TopoDS_Shape^ theItem);
     void Append(Macad::Occt::TopTools_SequenceOfShape^ theSequence);
     Macad::Occt::TopTools_SequenceOfShape^ ChangeSequence();
     int Size();
@@ -3037,17 +2635,9 @@ public:
     void Clear();
     Macad::Occt::TopTools_HSequenceOfShape^ Assign(Macad::Occt::TopTools_HSequenceOfShape^ theOther);
     void Remove(Macad::Occt::TopTools_HSequenceOfShape::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
-    void Append(Macad::Occt::TopoDS_Shape^ theItem);
-    void Append(Macad::Occt::TopTools_HSequenceOfShape^ theSeq);
     void Prepend(Macad::Occt::TopoDS_Shape^ theItem);
-    void Prepend(Macad::Occt::TopTools_HSequenceOfShape^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::TopoDS_Shape^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::TopTools_HSequenceOfShape^ theSeq);
     void InsertAfter(Macad::Occt::TopTools_HSequenceOfShape::Iterator^ thePosition, Macad::Occt::TopoDS_Shape^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::TopTools_HSequenceOfShape^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::TopoDS_Shape^ theItem);
     void Split(int theIndex, Macad::Occt::TopTools_HSequenceOfShape^ theSeq);
     Macad::Occt::TopoDS_Shape^ First();
     Macad::Occt::TopoDS_Shape^ ChangeFirst();
@@ -3105,7 +2695,6 @@ public:
     /// Returns an empty set of locations.
     /// </summary>
     TopTools_LocationSet();
-    TopTools_LocationSet(Macad::Occt::TopTools_LocationSet^ parameter1);
     /// <summary>
     /// Clears the content of the set.
     /// </summary>
@@ -3240,7 +2829,6 @@ public:
     /// Builds an empty ShapeSet.
     /// </summary>
     TopTools_ShapeSet();
-    TopTools_ShapeSet(Macad::Occt::TopTools_ShapeSet^ parameter1);
     /// <summary>
     /// Sets the TopTools_FormatVersion
     /// </summary>

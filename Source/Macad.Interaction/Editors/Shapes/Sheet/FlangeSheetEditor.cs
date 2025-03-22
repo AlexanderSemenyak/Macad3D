@@ -1,4 +1,5 @@
-﻿using Macad.Common;
+﻿using System;
+using Macad.Common;
 using Macad.Core;
 using Macad.Core.Shapes;
 using Macad.Interaction.Panels;
@@ -8,7 +9,7 @@ using Macad.Interaction.Visual;
 
 namespace Macad.Interaction.Editors.Shapes;
 
-public class FlangeSheetEditor : Editor<FlangeSheet>
+public sealed class FlangeSheetEditor : Editor<FlangeSheet>
 {
     RotateLiveAction _AngleAction;
     TranslateAxisLiveAction _LengthAction;
@@ -107,10 +108,10 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         // Angle
         if (_AngleAction == null)
         {
-            _AngleAction = new()
+            _AngleAction = new(Entity.Body)
             {
                 Color = Colors.ActionRed,
-                SectorAutoUpdate = RotateLiveAction.SectorAutoMode.Forward,
+                SectorAutoUpdate = RotateLiveAction.SectorAutoMode.Forward
             };
             _AngleAction.Preview += _AngleAction_Preview;
             _AngleAction.Finished += _RotateActions_Finished;
@@ -120,7 +121,7 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         // Length
         if (_LengthAction == null)
         {
-            _LengthAction = new()
+            _LengthAction = new(Entity.Body)
             {
                 Color = Colors.ActionBlue,
                 NoResize = true,
@@ -145,11 +146,11 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
             _RadiusAction.Finished += _TranslateAxisActions_Finished;
             StartAction(_RadiusAction);
         }
-
+        
         // Start Gap
         if (_StartGapAction == null)
         {
-            _StartGapAction = new()
+            _StartGapAction = new(Entity.Body)
             {
                 Color = Colors.ActionRed,
                 NoResize = true,
@@ -163,7 +164,7 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         // End Gap
         if (_EndGapAction == null)
         {
-            _EndGapAction = new()
+            _EndGapAction = new(Entity.Body)
             {
                 Color = Colors.ActionRed,
                 NoResize = true,
@@ -197,6 +198,8 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
             if (!_IsMoving)
             {
                 _AngleAction.Position = bendAxis;
+                _AngleAction.SnapAngleOffset = Entity.Angle.ToRad() + (Entity.Reverse ? -Maths.HalfPI : Maths.HalfPI);
+                _AngleAction.SnapCenterOffset = new Vec(_LastSupportData.FlangeExtrudeAxis.Location.Transformed(Entity.GetTransformation()), bendAxis.Location);
             }
         }
 
@@ -265,7 +268,7 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         if (!_IsMoving)
         {
             _IsMoving = true;
-            WorkspaceController.HudManager?.SetHintMessage(this, "Adjust angle using gizmo, press 'CTRL' to round to 5°.");
+            WorkspaceController.HudManager?.SetHintMessage(this, "__Adjust angle__ using gizmo, press `k:Ctrl` to round to 5°.");
             StopAction(_LengthAction);
             _LengthAction = null;
             StopAction(_RadiusAction);
@@ -305,7 +308,7 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         if (!_IsMoving)
         {
             _IsMoving = true;
-            SetHintMessage("Adjust length using gizmo, press 'CTRL' to round to grid stepping.");
+            SetHintMessage("__Adjust length__ using gizmo, press `k:Ctrl` to round to grid stepping.");
             StopAction(_AngleAction);
             _AngleAction = null;
             StopAction(_RadiusAction);
@@ -321,9 +324,9 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         {
             newLength = Maths.RoundToNearest(newLength, WorkspaceController.Workspace.GridStep);
         }
-        if (newLength < 0.001)
+        if (newLength < 0.0)
         {
-            newLength = 0.001;
+            newLength = 0.0;
         }
 
         if (Entity.Length != newLength)
@@ -348,7 +351,7 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         if (!_IsMoving)
         {
             _IsMoving = true;
-            SetHintMessage("Adjust radius using gizmo, press 'CTRL' to round to grid stepping.");
+            SetHintMessage("__Adjust radius__ using gizmo, press `k:Ctrl` to round to grid stepping.");
             StopAction(_AngleAction);
             _AngleAction = null;
             StopAction(_LengthAction);
@@ -389,7 +392,7 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         if (!_IsMoving)
         {
             _IsMoving = true;
-            SetHintMessage("Adjust gap width using gizmo, press 'CTRL' to round to grid stepping.");
+            SetHintMessage("__Adjust gap width__ using gizmo, press `k:Ctrl` to round to grid stepping.");
             StopAction(_AngleAction);
             _AngleAction = null;
             StopAction(_LengthAction);
@@ -436,7 +439,7 @@ public class FlangeSheetEditor : Editor<FlangeSheet>
         if (!_IsMoving)
         {
             _IsMoving = true;
-            SetHintMessage( "Adjust gap width using gizmo, press 'CTRL' to round to grid stepping.");
+            SetHintMessage( "__Adjust gap width__ using gizmo, press `k:Ctrl` to round to grid stepping.");
             StopAction(_AngleAction);
             _AngleAction = null;
             StopAction(_LengthAction);

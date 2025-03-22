@@ -137,7 +137,7 @@ public class RotateAction : ToolAction
 
     //--------------------------------------------------------------------------------------------------
 
-    Quantity_Color _GetColorByMode(RotateMode mode)
+    Color _GetColorByMode(RotateMode mode)
     {
         return mode switch
         {
@@ -160,7 +160,7 @@ public class RotateAction : ToolAction
         for (int i = 0; i < _Gizmos.Length; i++)
         {
             var gizmo = _Gizmos[i];
-            if (data.DetectedAisInteractives.Contains(gizmo?.AisObject))
+            if (Equals(data.DetectedAisObject, gizmo?.AisObject))
             {
                 _RotateMode = (RotateMode)i;
                 Dir axisDir = Dir.DX;
@@ -192,7 +192,7 @@ public class RotateAction : ToolAction
         if (_RotateMode != RotateMode.None)
         {
             Pnt resultPnt;
-            if (WorkspaceController.ActiveViewport.ScreenToPoint(_RotationPlane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out resultPnt))
+            if (WorkspaceController.ActiveViewControlller.ScreenToPoint(_RotationPlane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out resultPnt))
             {
                 var planeDelta = ProjLib.Project(_RotationPlane, resultPnt);
                 _StartValue = Dir2d.DX.Angle(new Dir2d(planeDelta.Coord));
@@ -250,7 +250,7 @@ public class RotateAction : ToolAction
         if (_RotateMode != RotateMode.None)
         {
             Pnt resultPnt;
-            if (!WorkspaceController.ActiveViewport.ScreenToPoint(_RotationPlane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out resultPnt))
+            if (!WorkspaceController.ActiveViewControlller.ScreenToPoint(_RotationPlane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out resultPnt))
                 return false;
 
             var planeDelta = ProjLib.Project(_RotationPlane, resultPnt);
@@ -267,7 +267,7 @@ public class RotateAction : ToolAction
             }
 
             _UpdateGizmo();
-            data.ForceReDetection = true;
+            data.Return.ForceReDetection = true;
 
             if (_DeltaHudElement == null)
             {

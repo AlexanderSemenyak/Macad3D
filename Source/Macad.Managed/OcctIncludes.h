@@ -1,6 +1,6 @@
 #pragma once
 
-#pragma managed(push, off)
+#pragma managed( push, off )
 
 #include <Standard.hxx>
 #include <Standard_DefineHandle.hxx>
@@ -74,6 +74,7 @@
 #include <BRepBuilderAPI_MakeEdge.hxx>
 #include <BRepBuilderAPI_MakeFace.hxx>
 #include <BRepBuilderAPI_MakeWire.hxx>
+#include <BRepBuilderAPI_MakeShapeOnMesh.hxx>
 
 #include <BRepMesh_ShapeTool.hxx>
 #include <BRepMesh_IncrementalMesh.hxx>
@@ -82,6 +83,7 @@
 #include <Poly_Triangulation.hxx>
 
 #include <Image_PixMap.hxx>
+#include <Image_AlienPixMap.hxx>
 
 #include <Aspect_DisplayConnection.hxx>
 #include <Aspect_TypeOfLine.hxx>
@@ -116,6 +118,7 @@
 #include <Graphic3d_Texture2Dmanual.hxx>
 
 #include <V3d.hxx>
+#pragma warning( suppress: 4996 ) // Deprecation warning for Handle_Graphic3d_CLight
 #include <V3d_View.hxx>
 
 #include <SelectMgr_Selection.hxx>
@@ -152,7 +155,10 @@
 #include <OpenGl_ArbFBO.hxx>
 #include <OpenGl_GlCore20.hxx>
 #include <OpenGl_GraphicDriver.hxx>
+#include "OpenGl_Workspace.hxx"
+#include "OpenGl_Element.hxx"
+#include "OpenGl_Group.hxx"
 
 #include <WNT_Window.hxx>
 
-#pragma managed(pop)
+#pragma managed( pop )

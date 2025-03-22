@@ -78,7 +78,6 @@ public:
     /// Make a box with Ax2 (the left corner and the axis) and size dx, dy, dz.
     /// </summary>
     BRepPrimAPI_MakeBox(Macad::Occt::Ax2 Axes, double dx, double dy, double dz);
-    BRepPrimAPI_MakeBox(Macad::Occt::BRepPrimAPI_MakeBox^ parameter1);
     /// <summary>
     /// Init a box with a corner at 0,0,0 and the other theDX, theDY, theDZ
     /// </summary>
@@ -178,7 +177,6 @@ public:
 
 public:
     BRepPrimAPI_MakeOneAxis();
-    BRepPrimAPI_MakeOneAxis(Macad::Occt::BRepPrimAPI_MakeOneAxis^ parameter1);
     /// <summary>
     /// The inherited commands should provide the algorithm.
     /// Returned as a pointer.
@@ -246,46 +244,46 @@ public:
     /// <summary>
     /// Make a cone.
     /// </summary>
-    /// <param name="R1">
-    /// [in] cone bottom radius, may be null (z = 0)
+    /// <param name="in]">
+    /// R1  cone bottom radius, may be null (z = 0)
     /// </param>
-    /// <param name="R2">
-    /// [in] cone top radius, may be null (z = H)
+    /// <param name="in]">
+    /// R2  cone top radius, may be null (z = H)
     /// </param>
-    /// <param name="H">
-    ///  [in] cone height
+    /// <param name="in]">
+    /// H   cone height
     /// </param>
     BRepPrimAPI_MakeCone(double R1, double R2, double H);
     /// <summary>
     /// Make a cone.
     /// </summary>
-    /// <param name="R1">
-    ///    [in] cone bottom radius, may be null (z = 0)
+    /// <param name="in]">
+    /// R1     cone bottom radius, may be null (z = 0)
     /// </param>
-    /// <param name="R2">
-    ///    [in] cone top radius, may be null (z = H)
+    /// <param name="in]">
+    /// R2     cone top radius, may be null (z = H)
     /// </param>
-    /// <param name="H">
-    ///     [in] cone height
+    /// <param name="in]">
+    /// H      cone height
     /// </param>
-    /// <param name="angle">
-    /// [in] angle to create a part cone
+    /// <param name="in]">
+    /// angle  angle to create a part cone
     /// </param>
     BRepPrimAPI_MakeCone(double R1, double R2, double H, double angle);
     /// <summary>
     /// Make a cone.
     /// </summary>
-    /// <param name="axes">
-    /// [in] coordinate system for the construction of the cone
+    /// <param name="in]">
+    /// axes  coordinate system for the construction of the cone
     /// </param>
-    /// <param name="R1">
-    ///   [in] cone bottom radius, may be null (z = 0)
+    /// <param name="in]">
+    /// R1    cone bottom radius, may be null (z = 0)
     /// </param>
-    /// <param name="R2">
-    ///   [in] cone top radius, may be null (z = H)
+    /// <param name="in]">
+    /// R2    cone top radius, may be null (z = H)
     /// </param>
-    /// <param name="H">
-    ///    [in] cone height
+    /// <param name="in]">
+    /// H     cone height
     /// </param>
     BRepPrimAPI_MakeCone(Macad::Occt::Ax2 Axes, double R1, double R2, double H);
     /// <summary>
@@ -322,7 +320,6 @@ public:
     /// (Pi/2)-Precision::Confusion()/H.f
     /// </summary>
     BRepPrimAPI_MakeCone(Macad::Occt::Ax2 Axes, double R1, double R2, double H, double angle);
-    BRepPrimAPI_MakeCone(Macad::Occt::BRepPrimAPI_MakeCone^ parameter1);
     /// <summary>
     /// Returns the algorithm.
     /// </summary>
@@ -370,37 +367,37 @@ public:
     /// <summary>
     /// Make a cylinder.
     /// </summary>
-    /// <param name="R">
-    /// [in] cylinder radius
+    /// <param name="in]">
+    /// R  cylinder radius
     /// </param>
-    /// <param name="H">
-    /// [in] cylinder height
+    /// <param name="in]">
+    /// H  cylinder height
     /// </param>
     BRepPrimAPI_MakeCylinder(double R, double H);
     /// <summary>
     /// Make a cylinder (part cylinder).
     /// </summary>
-    /// <param name="R">
-    ///     [in] cylinder radius
+    /// <param name="in]">
+    /// R      cylinder radius
     /// </param>
-    /// <param name="H">
-    ///     [in] cylinder height
+    /// <param name="in]">
+    /// H      cylinder height
     /// </param>
-    /// <param name="Angle">
-    /// [in] defines the missing portion of the cylinder
+    /// <param name="in]">
+    /// Angle  defines the missing portion of the cylinder
     /// </param>
     BRepPrimAPI_MakeCylinder(double R, double H, double Angle);
     /// <summary>
     /// Make a cylinder of radius R and length H.
     /// </summary>
-    /// <param name="Axes">
-    /// [in] coordinate system for the construction of the cylinder
+    /// <param name="in]">
+    /// Axes  coordinate system for the construction of the cylinder
     /// </param>
-    /// <param name="R">
-    ///    [in] cylinder radius
+    /// <param name="in]">
+    /// R     cylinder radius
     /// </param>
-    /// <param name="H">
-    ///    [in] cylinder height
+    /// <param name="in]">
+    /// H     cylinder height
     /// </param>
     BRepPrimAPI_MakeCylinder(Macad::Occt::Ax2 Axes, double R, double H);
     /// <summary>
@@ -432,7 +429,6 @@ public:
     /// -   H is less than or equal to Precision::Confusion().
     /// </summary>
     BRepPrimAPI_MakeCylinder(Macad::Occt::Ax2 Axes, double R, double H, double Angle);
-    BRepPrimAPI_MakeCylinder(Macad::Occt::BRepPrimAPI_MakeCylinder^ parameter1);
     /// <summary>
     /// Returns the algorithm.
     /// </summary>
@@ -490,7 +486,6 @@ public:
     /// Make a HalfSpace defined with a Shell and a Point.
     /// </summary>
     BRepPrimAPI_MakeHalfSpace(Macad::Occt::TopoDS_Shell^ Shell, Macad::Occt::Pnt RefPnt);
-    BRepPrimAPI_MakeHalfSpace(Macad::Occt::BRepPrimAPI_MakeHalfSpace^ parameter1);
     /// <summary>
     /// Returns the constructed half-space as a solid.
     /// </summary>
@@ -550,7 +545,6 @@ public:
     }
 
 public:
-    BRepPrimAPI_MakeSweep(Macad::Occt::BRepPrimAPI_MakeSweep^ parameter1);
     BRepPrimAPI_MakeSweep();
     /// <summary>
     /// Returns the  TopoDS  Shape of the bottom of the sweep.
@@ -665,7 +659,6 @@ public:
     /// are attempted to be canonized in simple types
     /// </summary>
     BRepPrimAPI_MakePrism(Macad::Occt::TopoDS_Shape^ S, Macad::Occt::Dir D);
-    BRepPrimAPI_MakePrism(Macad::Occt::BRepPrimAPI_MakePrism^ parameter1);
     /* Method skipped due to unknown mapping: BRepSweep_Prism Prism() */
     /// <summary>
     /// Builds the resulting shape (redefined from MakeShape).
@@ -791,7 +784,6 @@ public:
     /// C is true, S is copied.
     /// </summary>
     BRepPrimAPI_MakeRevol(Macad::Occt::TopoDS_Shape^ S, Macad::Occt::Ax1 A);
-    BRepPrimAPI_MakeRevol(Macad::Occt::BRepPrimAPI_MakeRevol^ parameter1);
     /* Method skipped due to unknown mapping: BRepSweep_Revol Revol() */
     /// <summary>
     /// Builds the resulting shape (redefined from MakeShape).
@@ -917,7 +909,6 @@ public:
     /// planar faces to close the shape (in the planes u = 0 and u = angle).
     /// </summary>
     BRepPrimAPI_MakeRevolution(Macad::Occt::Ax2 Axes, Macad::Occt::Geom_Curve^ Meridian, double VMin, double VMax, double angle);
-    BRepPrimAPI_MakeRevolution(Macad::Occt::BRepPrimAPI_MakeRevolution^ parameter1);
     /// <summary>
     /// Returns the algorithm.
     /// </summary>
@@ -965,144 +956,144 @@ public:
     /// <summary>
     /// Make a sphere.
     /// </summary>
-    /// <param name="R">
-    /// [in] sphere radius
+    /// <param name="in]">
+    /// R  sphere radius
     /// </param>
     BRepPrimAPI_MakeSphere(double R);
     /// <summary>
     /// Make a sphere (spherical wedge).
     /// </summary>
-    /// <param name="R">
-    ///     [in] sphere radius
+    /// <param name="in]">
+    /// R      sphere radius
     /// </param>
-    /// <param name="angle">
-    /// [in] angle between the radii lying within the bounding semidisks
+    /// <param name="in]">
+    /// angle  angle between the radii lying within the bounding semidisks
     /// </param>
     BRepPrimAPI_MakeSphere(double R, double angle);
     /// <summary>
     /// Make a sphere (spherical segment).
     /// </summary>
-    /// <param name="R">
-    /// [in] sphere radius
+    /// <param name="in]">
+    /// R  sphere radius
     /// </param>
-    /// <param name="angle1">
-    /// [in] first angle defining a spherical segment
+    /// <param name="in]">
+    /// angle1  first angle defining a spherical segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle defining a spherical segment
+    /// <param name="in]">
+    /// angle2  second angle defining a spherical segment
     /// </param>
     BRepPrimAPI_MakeSphere(double R, double angle1, double angle2);
     /// <summary>
     /// Make a sphere (spherical segment).
     /// </summary>
-    /// <param name="R">
-    ///      [in] sphere radius
+    /// <param name="in]">
+    /// R       sphere radius
     /// </param>
-    /// <param name="angle1">
-    /// [in] first angle defining a spherical segment
+    /// <param name="in]">
+    /// angle1  first angle defining a spherical segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle defining a spherical segment
+    /// <param name="in]">
+    /// angle2  second angle defining a spherical segment
     /// </param>
-    /// <param name="angle3">
-    /// [in] angle between the radii lying within the bounding semidisks
+    /// <param name="in]">
+    /// angle3  angle between the radii lying within the bounding semidisks
     /// </param>
     BRepPrimAPI_MakeSphere(double R, double angle1, double angle2, double angle3);
     /// <summary>
     /// Make a sphere.
     /// </summary>
-    /// <param name="Center">
-    /// [in] sphere center coordinates
+    /// <param name="in]">
+    /// Center  sphere center coordinates
     /// </param>
-    /// <param name="R">
-    ///      [in] sphere radius
+    /// <param name="in]">
+    /// R       sphere radius
     /// </param>
     BRepPrimAPI_MakeSphere(Macad::Occt::Pnt Center, double R);
     /// <summary>
     /// Make a sphere (spherical wedge).
     /// </summary>
-    /// <param name="Center">
-    /// [in] sphere center coordinates
+    /// <param name="in]">
+    /// Center  sphere center coordinates
     /// </param>
-    /// <param name="R">
-    ///      [in] sphere radius
+    /// <param name="in]">
+    /// R       sphere radius
     /// </param>
-    /// <param name="angle">
-    ///  [in] angle between the radii lying within the bounding semidisks
+    /// <param name="in]">
+    /// angle   angle between the radii lying within the bounding semidisks
     /// </param>
     BRepPrimAPI_MakeSphere(Macad::Occt::Pnt Center, double R, double angle);
     /// <summary>
     /// Make a sphere (spherical segment).
     /// </summary>
-    /// <param name="Center">
-    /// [in] sphere center coordinates
+    /// <param name="in]">
+    /// Center  sphere center coordinates
     /// </param>
-    /// <param name="R">
-    ///      [in] sphere radius
+    /// <param name="in]">
+    /// R       sphere radius
     /// </param>
-    /// <param name="angle1">
-    /// [in] first angle defining a spherical segment
+    /// <param name="in]">
+    /// angle1  first angle defining a spherical segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle defining a spherical segment
+    /// <param name="in]">
+    /// angle2  second angle defining a spherical segment
     /// </param>
     BRepPrimAPI_MakeSphere(Macad::Occt::Pnt Center, double R, double angle1, double angle2);
     /// <summary>
     /// Make a sphere (spherical segment).
     /// </summary>
-    /// <param name="Center">
-    /// [in] sphere center coordinates
+    /// <param name="in]">
+    /// Center  sphere center coordinates
     /// </param>
-    /// <param name="R">
-    ///      [in] sphere radius
+    /// <param name="in]">
+    /// R       sphere radius
     /// </param>
-    /// <param name="angle1">
-    /// [in] first angle defining a spherical segment
+    /// <param name="in]">
+    /// angle1  first angle defining a spherical segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle defining a spherical segment
+    /// <param name="in]">
+    /// angle2  second angle defining a spherical segment
     /// </param>
-    /// <param name="angle3">
-    /// [in] angle between the radii lying within the bounding semidisks
+    /// <param name="in]">
+    /// angle3  angle between the radii lying within the bounding semidisks
     /// </param>
     BRepPrimAPI_MakeSphere(Macad::Occt::Pnt Center, double R, double angle1, double angle2, double angle3);
     /// <summary>
     /// Make a sphere.
     /// </summary>
-    /// <param name="Axis">
-    /// [in] coordinate system for the construction of the sphere
+    /// <param name="in]">
+    /// Axis  coordinate system for the construction of the sphere
     /// </param>
-    /// <param name="R">
-    ///    [in] sphere radius
+    /// <param name="in]">
+    /// R     sphere radius
     /// </param>
     BRepPrimAPI_MakeSphere(Macad::Occt::Ax2 Axis, double R);
     /// <summary>
     /// Make a sphere (spherical wedge).
     /// </summary>
-    /// <param name="Axis">
-    ///  [in] coordinate system for the construction of the sphere
+    /// <param name="in]">
+    /// Axis   coordinate system for the construction of the sphere
     /// </param>
-    /// <param name="R">
-    ///     [in] sphere radius
+    /// <param name="in]">
+    /// R      sphere radius
     /// </param>
-    /// <param name="angle">
-    /// [in] angle between the radii lying within the bounding semidisks
+    /// <param name="in]">
+    /// angle  angle between the radii lying within the bounding semidisks
     /// </param>
     BRepPrimAPI_MakeSphere(Macad::Occt::Ax2 Axis, double R, double angle);
     /// <summary>
     /// Make a sphere (spherical segment).
     /// </summary>
-    /// <param name="Axis">
-    ///   [in] coordinate system for the construction of the sphere
+    /// <param name="in]">
+    /// Axis    coordinate system for the construction of the sphere
     /// </param>
-    /// <param name="R">
-    ///      [in] sphere radius
+    /// <param name="in]">
+    /// R       sphere radius
     /// </param>
-    /// <param name="angle1">
-    /// [in] first angle defining a spherical segment
+    /// <param name="in]">
+    /// angle1  first angle defining a spherical segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle defining a spherical segment
+    /// <param name="in]">
+    /// angle2  second angle defining a spherical segment
     /// </param>
     BRepPrimAPI_MakeSphere(Macad::Occt::Ax2 Axis, double R, double angle1, double angle2);
     /// <summary>
@@ -1118,7 +1109,6 @@ public:
     /// to shut the shape.(in the planes u = 0 and u = angle).
     /// </summary>
     BRepPrimAPI_MakeSphere(Macad::Occt::Ax2 Axis, double R, double angle1, double angle2, double angle3);
-    BRepPrimAPI_MakeSphere(Macad::Occt::BRepPrimAPI_MakeSphere^ parameter1);
     /// <summary>
     /// Returns the algorithm.
     /// </summary>
@@ -1166,107 +1156,107 @@ public:
     /// <summary>
     /// Make a torus.
     /// </summary>
-    /// <param name="R1">
-    /// [in] distance from the center of the pipe to the center of the torus
+    /// <param name="in]">
+    /// R1  distance from the center of the pipe to the center of the torus
     /// </param>
-    /// <param name="R2">
-    /// [in] radius of the pipe
+    /// <param name="in]">
+    /// R2  radius of the pipe
     /// </param>
     BRepPrimAPI_MakeTorus(double R1, double R2);
     /// <summary>
     /// Make a section of a torus.
     /// </summary>
-    /// <param name="R1">
-    ///    [in] distance from the center of the pipe to the center of the torus
+    /// <param name="in]">
+    /// R1     distance from the center of the pipe to the center of the torus
     /// </param>
-    /// <param name="R2">
-    ///    [in] radius of the pipe
+    /// <param name="in]">
+    /// R2     radius of the pipe
     /// </param>
-    /// <param name="angle">
-    /// [in] angle to create a torus pipe segment
+    /// <param name="in]">
+    /// angle  angle to create a torus pipe segment
     /// </param>
     BRepPrimAPI_MakeTorus(double R1, double R2, double angle);
     /// <summary>
     /// Make  a torus with angles on the small circle.
     /// </summary>
-    /// <param name="R1">
-    ///     [in] distance from the center of the pipe to the center of the torus
+    /// <param name="in]">
+    /// R1      distance from the center of the pipe to the center of the torus
     /// </param>
-    /// <param name="R2">
-    ///     [in] radius of the pipe
+    /// <param name="in]">
+    /// R2      radius of the pipe
     /// </param>
-    /// <param name="angle1">
-    /// [in] first  angle to create a torus ring segment
+    /// <param name="in]">
+    /// angle1  first  angle to create a torus ring segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle to create a torus ring segment
+    /// <param name="in]">
+    /// angle2  second angle to create a torus ring segment
     /// </param>
     BRepPrimAPI_MakeTorus(double R1, double R2, double angle1, double angle2);
     /// <summary>
     /// Make  a torus with angles on the small circle.
     /// </summary>
-    /// <param name="R1">
-    ///     [in] distance from the center of the pipe to the center of the torus
+    /// <param name="in]">
+    /// R1      distance from the center of the pipe to the center of the torus
     /// </param>
-    /// <param name="R2">
-    ///     [in] radius of the pipe
+    /// <param name="in]">
+    /// R2      radius of the pipe
     /// </param>
-    /// <param name="angle1">
-    /// [in] first  angle to create a torus ring segment
+    /// <param name="in]">
+    /// angle1  first  angle to create a torus ring segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle to create a torus ring segment
+    /// <param name="in]">
+    /// angle2  second angle to create a torus ring segment
     /// </param>
-    /// <param name="angle">
-    ///  [in] angle to create a torus pipe segment
+    /// <param name="in]">
+    /// angle   angle to create a torus pipe segment
     /// </param>
     BRepPrimAPI_MakeTorus(double R1, double R2, double angle1, double angle2, double angle);
     /// <summary>
     /// Make a torus.
     /// </summary>
-    /// <param name="Axes">
-    /// [in] coordinate system for the construction of the sphere
+    /// <param name="in]">
+    /// Axes  coordinate system for the construction of the sphere
     /// </param>
-    /// <param name="R1">
-    ///   [in] distance from the center of the pipe to the center of the torus
+    /// <param name="in]">
+    /// R1    distance from the center of the pipe to the center of the torus
     /// </param>
-    /// <param name="R2">
-    ///   [in] radius of the pipe
+    /// <param name="in]">
+    /// R2    radius of the pipe
     /// </param>
     BRepPrimAPI_MakeTorus(Macad::Occt::Ax2 Axes, double R1, double R2);
     /// <summary>
     /// Make a section of a torus.
     /// </summary>
-    /// <param name="Axes">
-    ///  [in] coordinate system for the construction of the sphere
+    /// <param name="in]">
+    /// Axes   coordinate system for the construction of the sphere
     /// </param>
-    /// <param name="R1">
-    ///    [in] distance from the center of the pipe to the center of the torus
+    /// <param name="in]">
+    /// R1     distance from the center of the pipe to the center of the torus
     /// </param>
-    /// <param name="R2">
-    ///    [in] radius of the pipe
+    /// <param name="in]">
+    /// R2     radius of the pipe
     /// </param>
-    /// <param name="angle">
-    /// [in] angle to create a torus pipe segment
+    /// <param name="in]">
+    /// angle  angle to create a torus pipe segment
     /// </param>
     BRepPrimAPI_MakeTorus(Macad::Occt::Ax2 Axes, double R1, double R2, double angle);
     /// <summary>
     /// Make a torus.
     /// </summary>
-    /// <param name="Axes">
-    ///   [in] coordinate system for the construction of the sphere
+    /// <param name="in]">
+    /// Axes    coordinate system for the construction of the sphere
     /// </param>
-    /// <param name="R1">
-    ///     [in] distance from the center of the pipe to the center of the torus
+    /// <param name="in]">
+    /// R1      distance from the center of the pipe to the center of the torus
     /// </param>
-    /// <param name="R2">
-    ///     [in] radius of the pipe
+    /// <param name="in]">
+    /// R2      radius of the pipe
     /// </param>
-    /// <param name="angle1">
-    /// [in] first  angle to create a torus ring segment
+    /// <param name="in]">
+    /// angle1  first  angle to create a torus ring segment
     /// </param>
-    /// <param name="angle2">
-    /// [in] second angle to create a torus ring segment
+    /// <param name="in]">
+    /// angle2  second angle to create a torus ring segment
     /// </param>
     BRepPrimAPI_MakeTorus(Macad::Occt::Ax2 Axes, double R1, double R2, double angle1, double angle2);
     /// <summary>
@@ -1292,7 +1282,6 @@ public:
     /// parameter. Near 0, as v increases, the Z coordinate decreases.
     /// </summary>
     BRepPrimAPI_MakeTorus(Macad::Occt::Ax2 Axes, double R1, double R2, double angle1, double angle2, double angle);
-    BRepPrimAPI_MakeTorus(Macad::Occt::BRepPrimAPI_MakeTorus^ parameter1);
     /// <summary>
     /// Returns the algorithm.
     /// </summary>
@@ -1353,7 +1342,6 @@ public:
     /// Make a wedge. The face at dy is xmin,zmin xmax,zmax
     /// </summary>
     BRepPrimAPI_MakeWedge(Macad::Occt::Ax2 Axes, double dx, double dy, double dz, double xmin, double zmin, double xmax, double zmax);
-    BRepPrimAPI_MakeWedge(Macad::Occt::BRepPrimAPI_MakeWedge^ parameter1);
     /* Method skipped due to unknown mapping: BRepPrim_Wedge Wedge() */
     /// <summary>
     /// Stores the solid in myShape.

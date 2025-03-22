@@ -179,7 +179,7 @@ public class TranslateAction : ToolAction
         for (int i = 0; i < _AxisGizmos.Length; i++)
         {
             var gizmo = _AxisGizmos[i];
-            if (data.DetectedAisInteractives.Contains(gizmo?.AisObject))
+            if (Equals(data.DetectedAisObject, gizmo?.AisObject))
             {
                 _MoveMode = (MoveMode)i + 1;
                 Dir translateDir = _MoveMode switch
@@ -201,7 +201,7 @@ public class TranslateAction : ToolAction
         for (int i = 0; i < _PlaneGizmos.Length; i++)
         {
             var gizmo = _PlaneGizmos[i];
-            if (data.DetectedAisInteractives.Contains(gizmo?.AisObject))
+            if (Equals(data.DetectedAisObject, gizmo?.AisObject))
             {
                 _MoveMode = (MoveMode)(i + 1 << 2);
 
@@ -235,7 +235,7 @@ public class TranslateAction : ToolAction
 
     //--------------------------------------------------------------------------------------------------
     
-    Quantity_Color _GetColorByMode(MoveMode mode)
+    Color _GetColorByMode(MoveMode mode)
     {
         return mode switch
         {
@@ -289,7 +289,7 @@ public class TranslateAction : ToolAction
 
         if ((_MoveMode & MoveMode.Plane) != 0)
         {
-            if (WorkspaceController.ActiveViewport.ScreenToPoint(_MovePlane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out var resultPnt))
+            if (WorkspaceController.ActiveViewControlller.ScreenToPoint(_MovePlane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out var resultPnt))
             {
                 _MoveStartValue = ProjLib.Project(_MovePlane, resultPnt);
             }
@@ -366,7 +366,7 @@ public class TranslateAction : ToolAction
             else if ((_MoveMode & MoveMode.Plane) != 0)
             {
                 Pnt resultPnt;
-                if (!WorkspaceController.ActiveViewport.ScreenToPoint(_MovePlane, (int) data.ScreenPoint.X, (int) data.ScreenPoint.Y, out resultPnt))
+                if (!WorkspaceController.ActiveViewControlller.ScreenToPoint(_MovePlane, (int) data.ScreenPoint.X, (int) data.ScreenPoint.Y, out resultPnt))
                     return false;
 
                 _Delta = Vec.Zero;
@@ -411,7 +411,7 @@ public class TranslateAction : ToolAction
             // Transform into unrotated frame
             _Delta.Transform(_InverseRotation);
             UpdateGizmo();
-            data.ForceReDetection = true;
+            data.Return.ForceReDetection = true;
 
             EventArgs args = new()
             {
@@ -438,7 +438,7 @@ public class TranslateAction : ToolAction
         var plane = new Pln(new Ax3(_MoveAxis.Location, planeDir, _MoveAxis.Direction));
 
         Pnt convertedPoint;
-        if (WorkspaceController.ActiveViewport.ScreenToPoint(plane, Convert.ToInt32(data.ScreenPoint.X), Convert.ToInt32(data.ScreenPoint.Y), out convertedPoint))
+        if (WorkspaceController.ActiveViewControlller.ScreenToPoint(plane, Convert.ToInt32(data.ScreenPoint.X), Convert.ToInt32(data.ScreenPoint.Y), out convertedPoint))
         {
             var extrema = new Extrema_ExtPC(convertedPoint, new GeomAdaptor_Curve(new Geom_Line(_MoveAxis)), 1.0e-10);
             if (extrema.IsDone() && extrema.NbExt() >= 1)

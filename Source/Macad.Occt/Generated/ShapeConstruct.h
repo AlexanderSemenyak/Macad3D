@@ -49,7 +49,6 @@ public:
 
 public:
     ShapeConstruct();
-    ShapeConstruct(Macad::Occt::ShapeConstruct^ parameter1);
     /// <summary>
     /// Tool for wire triangulation
     /// </summary>
@@ -82,9 +81,8 @@ public:
     /// (re-calculate with account of orientation edges)
     /// c3dOut - result curve
     /// isRev1,isRev2 - out parameters indicative on possible errors.
-    /// isError - input parameter indicative possible errors due to that one from edges have one vertex
-    /// Return value : True - if curves were joined successfully,
-    /// else - False.
+    /// isError - input parameter indicative possible errors due to that one from edges have one
+    /// vertex Return value : True - if curves were joined successfully, else - False.
     /// </summary>
     static bool JoinCurves(Macad::Occt::Geom2d_Curve^ c2d1, Macad::Occt::Geom2d_Curve^ ac2d2, Macad::Occt::TopAbs_Orientation Orient1, Macad::Occt::TopAbs_Orientation Orient2, double% first1, double% last1, double% first2, double% last2, Macad::Occt::Geom2d_Curve^ c2dOut, bool% isRev1, bool% isRev2, bool isError);
     /// <summary>
@@ -95,9 +93,8 @@ public:
     /// (re-calculate with account of orientation edges)
     /// c3dOut - result curve
     /// isRev1,isRev2 - out parameters indicative on possible errors.
-    /// isError - input parameter indicative possible errors due to that one from edges have one vertex
-    /// Return value : True - if curves were joined successfully,
-    /// else - False.
+    /// isError - input parameter indicative possible errors due to that one from edges have one
+    /// vertex Return value : True - if curves were joined successfully, else - False.
     /// </summary>
     static bool JoinCurves(Macad::Occt::Geom2d_Curve^ c2d1, Macad::Occt::Geom2d_Curve^ ac2d2, Macad::Occt::TopAbs_Orientation Orient1, Macad::Occt::TopAbs_Orientation Orient2, double% first1, double% last1, double% first2, double% last2, Macad::Occt::Geom2d_Curve^ c2dOut, bool% isRev1, bool% isRev2);
 }; // class ShapeConstruct
@@ -137,7 +134,6 @@ public:
 
 public:
     ShapeConstruct_Curve();
-    ShapeConstruct_Curve(Macad::Occt::ShapeConstruct_Curve^ parameter1);
     /// <summary>
     /// Modifies a curve in order to make its bounds confused with
     /// given points.
@@ -277,7 +273,6 @@ public:
     ShapeConstruct_MakeTriangulation(Macad::Occt::TColgp_Array1OfPnt^ pnts);
     ShapeConstruct_MakeTriangulation(Macad::Occt::TopoDS_Wire^ wire, double prec);
     ShapeConstruct_MakeTriangulation(Macad::Occt::TopoDS_Wire^ wire);
-    ShapeConstruct_MakeTriangulation(Macad::Occt::ShapeConstruct_MakeTriangulation^ parameter1);
     void Build(Macad::Occt::Message_ProgressRange^ theRange);
     void Build();
     bool IsDone();
@@ -365,7 +360,6 @@ public:
     /// Empty constructor.
     /// </summary>
     ShapeConstruct_ProjectCurveOnSurface();
-    ShapeConstruct_ProjectCurveOnSurface(Macad::Occt::ShapeConstruct_ProjectCurveOnSurface^ parameter1);
     /// <summary>
     /// Initializes the object with all necessary parameters,
     /// i.e. surface and precision

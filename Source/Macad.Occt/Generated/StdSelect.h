@@ -115,7 +115,6 @@ public:
 
 public:
     StdSelect();
-    StdSelect(Macad::Occt::StdSelect^ parameter1);
     /// <summary>
     /// puts The same drawer in every BRepOwner Of SensitivePrimitive
     /// Used Only for hilight Of BRepOwner...
@@ -158,7 +157,6 @@ public:
 public:
     StdSelect_Shape(Macad::Occt::TopoDS_Shape^ theShape, Macad::Occt::Prs3d_Drawer^ theDrawer);
     StdSelect_Shape(Macad::Occt::TopoDS_Shape^ theShape);
-    StdSelect_Shape(Macad::Occt::StdSelect_Shape^ parameter1);
     void Compute(Macad::Occt::PrsMgr_PresentationManager^ thePrsMgr, Macad::Occt::Graphic3d_Structure^ thePrs, int theMode);
     Macad::Occt::TopoDS_Shape^ Shape();
     void Shape(Macad::Occt::TopoDS_Shape^ theShape);
@@ -271,7 +269,6 @@ public:
     /// priority is the one stored.
     /// </summary>
     StdSelect_BRepOwner(Macad::Occt::TopoDS_Shape^ aShape, Macad::Occt::SelectMgr_SelectableObject^ theOrigin);
-    StdSelect_BRepOwner(Macad::Occt::StdSelect_BRepOwner^ parameter1);
     /// <summary>
     /// returns False if no shape was set
     /// </summary>
@@ -338,7 +335,8 @@ public:
     void Clear(Macad::Occt::PrsMgr_PresentationManager^ aPM);
     void SetLocation(Macad::Occt::TopLoc_Location^ aLoc);
     /// <summary>
-    /// Implements immediate application of location transformation of parent object to dynamic highlight structure
+    /// Implements immediate application of location transformation of parent object to dynamic
+    /// highlight structure
     /// </summary>
     void UpdateHighlightTrsf(Macad::Occt::V3d_Viewer^ theViewer, Macad::Occt::PrsMgr_PresentationManager^ theManager, int theDispMode);
     /// <summary>
@@ -413,7 +411,6 @@ public:
 
 public:
     StdSelect_BRepSelectionTool();
-    StdSelect_BRepSelectionTool(Macad::Occt::StdSelect_BRepSelectionTool^ parameter1);
     /// <summary>
     /// Decomposition of <aShape> into sensitive entities following
     /// a mode of decomposition <aType>. These entities are stored in <aSelection>.
@@ -553,7 +550,8 @@ public:
     /// </summary>
     static int GetStandardPriority(Macad::Occt::TopoDS_Shape^ theShape, Macad::Occt::TopAbs_ShapeEnum theType);
     /// <summary>
-    /// Computes the sensitive primitives, stores them in the SelectMgr_Selection object, and returns this object.
+    /// Computes the sensitive primitives, stores them in the SelectMgr_Selection object, and returns
+    /// this object.
     /// </summary>
     /// <param name="in]">
     /// theShape        shape to compute sensitive entities
@@ -574,14 +572,16 @@ public:
     /// theNbPOnEdge    sensitivity parameters for edges and wires
     /// </param>
     /// <param name="in]">
-    /// theMaxiParam    sensitivity parameters for infinite objects (the default value is 500)
+    /// theMaxiParam    sensitivity parameters for infinite objects (the default value is
+    /// 500)
     /// </param>
     /// <param name="in]">
     /// theAutoTriang   flag to compute triangulation for the faces which have none
     /// </param>
     static void ComputeSensitive(Macad::Occt::TopoDS_Shape^ theShape, Macad::Occt::SelectMgr_EntityOwner^ theOwner, Macad::Occt::SelectMgr_Selection^ theSelection, double theDeflection, double theDeflAngle, int theNbPOnEdge, double theMaxiParam, bool theAutoTriang);
     /// <summary>
-    /// Computes the sensitive primitives, stores them in the SelectMgr_Selection object, and returns this object.
+    /// Computes the sensitive primitives, stores them in the SelectMgr_Selection object, and returns
+    /// this object.
     /// </summary>
     /// <param name="in]">
     /// theShape        shape to compute sensitive entities
@@ -602,7 +602,8 @@ public:
     /// theNbPOnEdge    sensitivity parameters for edges and wires
     /// </param>
     /// <param name="in]">
-    /// theMaxiParam    sensitivity parameters for infinite objects (the default value is 500)
+    /// theMaxiParam    sensitivity parameters for infinite objects (the default value is
+    /// 500)
     /// </param>
     /// <param name="in]">
     /// theAutoTriang   flag to compute triangulation for the faces which have none
@@ -629,7 +630,8 @@ public:
     /* Method skipped due to unknown mapping: void GetEdgeSensitive(TopoDS_Shape theShape, SelectMgr_EntityOwner theOwner, SelectMgr_Selection theSelection, double theDeflection, double theDeviationAngle, int theNbPOnEdge, double theMaxiParam, Select3D_SensitiveEntity theSensitive, ) */
     /// <summary>
     /// Traverses the selection given and pre-builds BVH trees for heavyweight
-    /// sensitive entities containing more than BVH_PRIMITIVE_LIMIT (defined in .cxx file) sub-elements.
+    /// sensitive entities containing more than BVH_PRIMITIVE_LIMIT (defined in .cxx file)
+    /// sub-elements.
     /// </summary>
     static void PreBuildBVH(Macad::Occt::SelectMgr_Selection^ theSelection);
 }; // class StdSelect_BRepSelectionTool
@@ -675,7 +677,6 @@ public:
     /// Constructs an edge filter object defined by the type of edge Edge.
     /// </summary>
     StdSelect_EdgeFilter(Macad::Occt::StdSelect_TypeOfEdge Edge);
-    StdSelect_EdgeFilter(Macad::Occt::StdSelect_EdgeFilter^ parameter1);
     /// <summary>
     /// Sets the type of edge aNewType. aNewType is to be highlighted in selection.
     /// </summary>
@@ -733,7 +734,6 @@ public:
     /// Constructs a face filter object defined by the type of face aTypeOfFace.
     /// </summary>
     StdSelect_FaceFilter(Macad::Occt::StdSelect_TypeOfFace aTypeOfFace);
-    StdSelect_FaceFilter(Macad::Occt::StdSelect_FaceFilter^ parameter1);
     /// <summary>
     /// Sets the type of face aNewType. aNewType is to be highlighted in selection.
     /// </summary>
@@ -784,7 +784,6 @@ public:
     /// Constructs a filter object defined by the shape type aType.
     /// </summary>
     StdSelect_ShapeTypeFilter(Macad::Occt::TopAbs_ShapeEnum aType);
-    StdSelect_ShapeTypeFilter(Macad::Occt::StdSelect_ShapeTypeFilter^ parameter1);
     /// <summary>
     /// Returns the type of shape selected by the filter.
     /// </summary>

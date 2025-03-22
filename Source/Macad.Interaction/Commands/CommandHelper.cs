@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Macad.Core.Shapes;
 using Macad.Core.Topology;
 
@@ -22,6 +23,24 @@ internal static class CommandHelper
     {
         return _WorkspaceController != null;
     }
+    
+    //--------------------------------------------------------------------------------------------------
+    
+    public static bool CanExecuteOnSingle(Func<InteractiveEntity,bool> predicate)
+    {
+        return _WorkspaceController?.Selection != null
+               && _WorkspaceController.Selection.SelectedEntities.Count > 0
+               && predicate((_WorkspaceController.Selection.SelectedEntities.First()));
+    }
+    
+    //--------------------------------------------------------------------------------------------------
+    
+    public static bool CanExecuteOnMulti(Func<InteractiveEntity,bool> predicate)
+    {
+        return _WorkspaceController?.Selection != null
+               && _WorkspaceController.Selection.SelectedEntities.Count > 0
+               && _WorkspaceController.Selection.SelectedEntities.All(predicate);
+    }
 
     //--------------------------------------------------------------------------------------------------
 
@@ -40,7 +59,7 @@ internal static class CommandHelper
                && _WorkspaceController.Selection.SelectedEntities.Count > 0
                && _WorkspaceController.Selection.SelectedEntities.All(e => (e as Body)?.Shape?.ShapeType == ShapeType.Solid);
     }
-        
+
     //--------------------------------------------------------------------------------------------------
 
     public static bool CanExecuteOnSingleSketch()

@@ -10,11 +10,17 @@ namespace Macad.Core.Toolkits;
 
 public class ConvertToEditableSketch : IDrawingRenderer, IRendererCapabilities
 {
-    public static Sketch Convert(TopoDS_Shape brepShape)
+    public static Sketch Convert(TopoDS_Shape brepShape, Entity context = null)
     {
-        var converter = new ConvertToEditableSketch();
-        converter.Add(brepShape);
-        return converter._Sketch;
+        Sketch sketch = Sketch.Create();
+        ProcessingScope.ExecuteWithGuards(context, "Converting Sketch", () =>
+        {
+            var converter = new ConvertToEditableSketch(sketch);
+            converter.Add(brepShape);
+            return true;
+        });
+
+        return sketch;
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -47,12 +53,17 @@ public class ConvertToEditableSketch : IDrawingRenderer, IRendererCapabilities
             }
 
             Sketch newSketch = Convert(originalBreps[i]);
+            if (newSketch == null)
+            {
+                result = false;
+                continue;
+            }
             
             Body body = bodies[i];
             body.CollapseShapeStack(newSketch, saveUndo);
 
             // Correct transformation
-            if(EdgeAlgo.GetPlaneOfEdges(originalBreps[i], out Geom_Plane plane))
+            if(Topo2dUtils.GetPlaneOfEdges(originalBreps[i], out Geom_Plane plane))
             {
                 var worldPosition = plane.Position().Transformed(body.GetTransformation());
                 Trsf trsf = new Trsf(new Ax3(Pnt.Origin, worldPosition.Direction, worldPosition.XDirection), Ax3.XOY);
@@ -75,17 +86,17 @@ public class ConvertToEditableSketch : IDrawingRenderer, IRendererCapabilities
 
     //--------------------------------------------------------------------------------------------------
 
-    ConvertToEditableSketch()
+    public ConvertToEditableSketch(Sketch sketch)
     {
-        _Sketch = new Sketch();
+        _Sketch = sketch;
         _Builder = new SketchBuilder(_Sketch);
     }
 
     //--------------------------------------------------------------------------------------------------
 
-    void Add(TopoDS_Shape brepShape)
+    public bool Add(TopoDS_Shape brepShape)
     {
-        BrepRenderHelper.RenderShape(this, brepShape);
+        return BrepRenderHelper.RenderShape(this, brepShape);
     }
 
     //--------------------------------------------------------------------------------------------------

@@ -2,165 +2,225 @@
 using System.Linq;
 using Macad.Interaction.Visual;
 using Macad.Core.Components;
+using Macad.Core.Shapes;
 using Macad.Core.Topology;
 using Macad.Interaction.Panels;
+using Macad.Occt;
 using Macad.Presentation;
 
-namespace Macad.Interaction.Editors.Topology
+namespace Macad.Interaction.Editors.Topology;
+
+public sealed class BodyEditor : Editor<Body>
 {
-    public sealed class BodyEditor : Editor<Body>
+    VisualShape _GhostVisualObject;
+    BodyShapePropertyPanel _ShapePanel;
+    readonly Dictionary<Component, Editor> _ComponentEditors = new();
+
+    //--------------------------------------------------------------------------------------------------
+
+    protected override void OnStart()
     {
-        VisualShape _GhostVisualObject;
-        BodyShapePropertyPanel _ShapePanel;
-        readonly Dictionary<Component, Editor> _ComponentEditors = new();
+        CreatePanel<BodyPropertyPanel>(Entity, PropertyPanelSortingKey.Body);
+        _ShapePanel = CreatePanel<BodyShapePropertyPanel>(Entity, PropertyPanelSortingKey.BodyShape);
 
-        //--------------------------------------------------------------------------------------------------
+        _UpdateComponents();
 
-        protected override void OnStart()
+        Entity.PropertyChanged += _Body_PropertyChanged;
+        InteractiveEntity.VisualChanged += _InteractiveEntity_VisualChanged;
+        Layer.InteractivityChanged += _Layer_InteractivityChanged;
+
+        _UpdateGhost();
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    protected override void OnStop() 
+    {
+        Layer.InteractivityChanged -= _Layer_InteractivityChanged;
+        InteractiveEntity.VisualChanged -= _InteractiveEntity_VisualChanged;                 
+        Entity.PropertyChanged -= _Body_PropertyChanged;
+
+        _GhostVisualObject?.Remove();
+        _GhostVisualObject = null;
+
+        _ShapePanel = null;
+
+        foreach (var componentEditor in _ComponentEditors.Values)
         {
-            CreatePanel<BodyPropertyPanel>(Entity, PropertyPanelSortingKey.Body);
-            _ShapePanel = CreatePanel<BodyShapePropertyPanel>(Entity, PropertyPanelSortingKey.BodyShape);
+            componentEditor.Stop();
+        }
+        _ComponentEditors.Clear();
+    }
 
-            _UpdateComponents();
+    //--------------------------------------------------------------------------------------------------
 
-            Entity.PropertyChanged += _Body_PropertyChanged;
-            InteractiveEntity.VisualChanged += _InteractiveEntity_VisualChanged;
-            Layer.InteractivityChanged += _Layer_InteractivityChanged;
+    #region Forwarding Editor Events
 
+    protected override IEnumerable<WorkspaceControl> GetChildren()
+    {
+        if (_ShapePanel?.SelectedEditor != null)
+        {
+            yield return _ShapePanel?.SelectedEditor;
+        }
+
+        foreach (var editor in _ComponentEditors.Values)
+        {
+            yield return editor;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    public override (IActionCommand, object) GetStartEditingCommand()
+    {
+        return _ShapePanel?.SelectedEditor?.GetStartEditingCommand() ?? base.GetStartEditingCommand();
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
+
+    void _Body_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName is nameof(Body.IsVisible) or nameof(Body.Shape))
+        {
             _UpdateGhost();
         }
-
-        //--------------------------------------------------------------------------------------------------
-
-        protected override void OnStop() 
+        else if (e.PropertyName == nameof(Body.Components))
         {
-            Layer.InteractivityChanged -= _Layer_InteractivityChanged;
-            InteractiveEntity.VisualChanged -= _InteractiveEntity_VisualChanged;                 
-            Entity.PropertyChanged -= _Body_PropertyChanged;
-
-            _GhostVisualObject?.Remove();
-            _GhostVisualObject = null;
-
-            _ShapePanel = null;
-
-            foreach (var componentEditor in _ComponentEditors.Values)
-            {
-                componentEditor.Stop();
-            }
-            _ComponentEditors.Clear();
+            _UpdateComponents();
         }
-
-        //--------------------------------------------------------------------------------------------------
-
-        #region Forwarding Editor Events
-
-        protected override IEnumerable<WorkspaceControl> GetChildren()
-        {
-            if (_ShapePanel?.SelectedEditor != null)
-            {
-                yield return _ShapePanel?.SelectedEditor;
-            }
-
-            foreach (var editor in _ComponentEditors.Values)
-            {
-                yield return editor;
-            }
-        }
-
-        //--------------------------------------------------------------------------------------------------
-
-        public override (IActionCommand, object) GetStartEditingCommand()
-        {
-            return _ShapePanel?.SelectedEditor?.GetStartEditingCommand() ?? base.GetStartEditingCommand();
-        }
-
-        //--------------------------------------------------------------------------------------------------
-
-        #endregion
-
-        void _Body_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(Body.IsVisible))
-            {
-                _UpdateGhost();
-            }
-            else if (e.PropertyName == nameof(Body.Components))
-            {
-                _UpdateComponents();
-            }
-        }
+    }
         
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        void _InteractiveEntity_VisualChanged(InteractiveEntity entity)
+    void _InteractiveEntity_VisualChanged(InteractiveEntity entity)
+    {
+        if (entity == Entity)
         {
-            if (entity == Entity)
-            {
-                _GhostVisualObject?.Update();
-            }
+            _GhostVisualObject?.Update();
         }
+    }
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
         
-        void _Layer_InteractivityChanged(Layer layer)
+    void _Layer_InteractivityChanged(Layer layer)
+    {
+        if (Entity?.Layer == layer)
         {
-            if (Entity?.Layer == layer)
-            {
-                _UpdateGhost();
-            }
+            _UpdateGhost();
         }
+    }
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        void _UpdateGhost()
+    Shape _FindPrimaryPredecessorForGhost()
+    {
+        bool __HasOperandRecursive(IEnumerable<IShapeOperand> operands, IShapeOperand needle)
         {
-            if (Entity.IsVisible && Entity.Layer.IsVisible)
+            foreach (var operand in operands)
             {
-                _GhostVisualObject?.Remove();
-                _GhostVisualObject = null;
-            }
-            else
-            {
-                _GhostVisualObject ??= new VisualShape(WorkspaceController, Entity, VisualShape.Options.Ghosting);
-            }
-        }
+                if (operand == needle)
+                    return true;
 
-        //--------------------------------------------------------------------------------------------------
-
-        void _UpdateComponents()
-        {
-            // Add new
-            foreach (var component in Entity.Components.Except(_ComponentEditors.Keys))
-            {
-                var editor = Editor.CreateEditor(component);
-                if (editor != null)
+                if (operand is ModifierBase nextModifier)
                 {
-                    _ComponentEditors.Add(component, editor);
-                    editor.Start();
+                    if (__HasOperandRecursive(nextModifier.Operands, needle))
+                        return true;
                 }
             }
+            return false;
+        }
 
-            // Remove old
-            foreach (var component in _ComponentEditors.Keys.Except(Entity.Components).ToList())
+        //--------------------------------------------------------------------------------------------------
+
+        Shape active = Entity.Shape;
+        Shape current = Entity.RootShape;
+
+        while (current != null)
+        {
+            if (Entity.IsShapeEffective(current))
+                return null; // Primary operand already visible
+
+            if (current is not ModifierBase currentModifier)
+                return null; // End of tree
+
+            current = currentModifier.Predecessor as Shape;
+            if (__HasOperandRecursive(currentModifier.Operands.Skip(1), active))
             {
-                _ComponentEditors[component]?.Stop();
-                _ComponentEditors.Remove(component);
+                return current;
             }
         }
 
-        //--------------------------------------------------------------------------------------------------
+        return null; // None found
+    }
 
-        public override void EnrichContextMenu(ContextMenuItems itemList)
+    //--------------------------------------------------------------------------------------------------
+
+    void _UpdateGhost()
+    {
+        bool showGhost = !(Entity.IsVisible && Entity.Layer.IsVisible);
+        TopoDS_Shape ghostBrep = null;
+
+        if (!showGhost)
         {
-            _ShapePanel?.SelectedEditor?.EnrichContextMenu(itemList);
+            // Check if a shape is selected which is not on the primary path
+            ghostBrep = _FindPrimaryPredecessorForGhost()?.GetTransformedBRep();
+            showGhost = ghostBrep != null;
         }
 
-        //--------------------------------------------------------------------------------------------------
-
-        [AutoRegister]
-        internal static void Register()
+        if (showGhost)
         {
-            RegisterEditor<BodyEditor>();
+            _GhostVisualObject ??= new VisualShape(WorkspaceController, Entity, VisualShape.Options.Ghosting);
+            _GhostVisualObject.OverrideBrep = ghostBrep;
         }
+        else
+        {
+            _GhostVisualObject?.Remove();
+            _GhostVisualObject = null;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    void _UpdateComponents()
+    {
+        // Add new
+        foreach (var component in Entity.Components.Except(_ComponentEditors.Keys))
+        {
+            var editor = Editor.CreateEditor(component);
+            if (editor != null)
+            {
+                _ComponentEditors.Add(component, editor);
+                editor.Start();
+            }
+        }
+
+        // Remove old
+        foreach (var component in _ComponentEditors.Keys.Except(Entity.Components).ToList())
+        {
+            _ComponentEditors[component]?.Stop();
+            _ComponentEditors.Remove(component);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    public override void EnrichContextMenu(ContextMenuItems itemList)
+    {
+        if (Entity?.Shape?.ShapeType == ShapeType.Mesh)
+        {
+            itemList.AddCommand(ToolboxCommands.ConvertToSolid);
+        }
+
+        _ShapePanel?.SelectedEditor?.EnrichContextMenu(itemList);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    [AutoRegister]
+    internal static void Register()
+    {
+        RegisterEditor<BodyEditor>();
     }
 }

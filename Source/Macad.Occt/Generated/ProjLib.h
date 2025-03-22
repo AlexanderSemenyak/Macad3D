@@ -69,19 +69,16 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSeq, bool isStart);
-        Iterator(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSeq);
-        Iterator(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TColgp_HSequenceOfPnt^ Value();
         Macad::Occt::TColgp_HSequenceOfPnt^ ChangeValue();
         bool IsEqual(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     ProjLib_SequenceOfHSequenceOfPnt();
     ProjLib_SequenceOfHSequenceOfPnt(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    ProjLib_SequenceOfHSequenceOfPnt(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theOther);
     int Size();
     int Length();
     int Lower();
@@ -94,17 +91,10 @@ public:
     void Clear();
     Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ Assign(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theOther);
     void Remove(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
     void Append(Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void Append(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSeq);
     void Prepend(Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void Prepend(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSeq);
     void InsertAfter(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt::Iterator^ thePosition, Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
     void Split(int theIndex, Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSeq);
     Macad::Occt::TColgp_HSequenceOfPnt^ First();
     Macad::Occt::TColgp_HSequenceOfPnt^ ChangeFirst();
@@ -126,10 +116,10 @@ public:
 /// done. For approximation some parameters are used, including
 /// required tolerance of approximation.
 /// Tolerance is maximal possible value of 3d deviation of 3d projection of projected curve from
-/// "exact" 3d projection. Since algorithm searches 2d curve on surface, required 2d tolerance is computed
-/// from 3d tolerance with help of U,V resolutions of surface.
-/// 3d and 2d tolerances have sense only for curves on surface, it defines precision of projecting and approximation
-/// and have nothing to do with distance between the projected curve and the surface.
+/// "exact" 3d projection. Since algorithm searches 2d curve on surface, required 2d tolerance is
+/// computed from 3d tolerance with help of U,V resolutions of surface. 3d and 2d tolerances have
+/// sense only for curves on surface, it defines precision of projecting and approximation and have
+/// nothing to do with distance between the projected curve and the surface.
 /// </summary>
 public ref class ProjLib_ProjectedCurve sealed
     : public Macad::Occt::Adaptor2d_Curve2d
@@ -168,8 +158,8 @@ public:
     ProjLib_ProjectedCurve(Macad::Occt::Adaptor3d_Surface^ S);
     /// <summary>
     /// Constructor, which performs projecting.
-    /// If projecting uses approximation, default parameters are used, in particular, 3d tolerance of approximation
-    /// is Precision::Confusion()
+    /// If projecting uses approximation, default parameters are used, in particular, 3d tolerance of
+    /// approximation is Precision::Confusion()
     /// </summary>
     ProjLib_ProjectedCurve(Macad::Occt::Adaptor3d_Surface^ S, Macad::Occt::Adaptor3d_Curve^ C);
     /// <summary>
@@ -177,7 +167,6 @@ public:
     /// If projecting uses approximation, 3d tolerance is Tol, default parameters are used,
     /// </summary>
     ProjLib_ProjectedCurve(Macad::Occt::Adaptor3d_Surface^ S, Macad::Occt::Adaptor3d_Curve^ C, double Tol);
-    ProjLib_ProjectedCurve(Macad::Occt::ProjLib_ProjectedCurve^ parameter1);
     /// <summary>
     /// Shallow copy of adaptor
     /// </summary>
@@ -212,10 +201,10 @@ public:
     void SetMaxSegments(int theMaxSegments);
     /* Method skipped due to unknown mapping: void SetBndPnt(AppParCurves_Constraint theBndPnt, ) */
     /// <summary>
-    /// Set the parameter, which degines maximal possible distance between projected curve and surface.
-    /// It uses only for projecting on not analytical surfaces.
-    /// If theMaxDist < 0, algorithm uses default value 100.*Tolerance.
-    /// If real distance between curve and surface more then theMaxDist, algorithm stops working.
+    /// Set the parameter, which degines maximal possible distance between projected curve and
+    /// surface. It uses only for projecting on not analytical surfaces. If theMaxDist < 0, algorithm
+    /// uses default value 100.*Tolerance. If real distance between curve and surface more then
+    /// theMaxDist, algorithm stops working.
     /// </summary>
     void SetMaxDist(double theMaxDist);
     Macad::Occt::Adaptor3d_Surface^ GetSurface();
@@ -333,8 +322,8 @@ public:
 /// The ProjLib package first provides projection of curves on a plane along a given Direction.
 /// The result will be a 3D curve.
 /// 
-/// The ProjLib package provides projection of curves on surfaces to compute the curve in the parametric space.
-/// It is assumed that the curve is on the surface.
+/// The ProjLib package provides projection of curves on surfaces to compute the curve in the
+/// parametric space. It is assumed that the curve is on the surface.
 /// 
 /// It provides:
 /// 
@@ -380,7 +369,6 @@ public:
 
 public:
     ProjLib();
-    ProjLib(Macad::Occt::ProjLib^ parameter1);
     static Macad::Occt::Pnt2d Project(Macad::Occt::Pln Pl, Macad::Occt::Pnt P);
     static Macad::Occt::gp_Lin2d^ Project(Macad::Occt::Pln Pl, Macad::Occt::gp_Lin^ L);
     static Macad::Occt::gp_Circ2d^ Project(Macad::Occt::Pln Pl, Macad::Occt::gp_Circ^ C);
@@ -468,20 +456,18 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theSeq, bool isStart);
-        Iterator(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theSeq);
-        Iterator(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TColgp_HSequenceOfPnt^ Value();
         Macad::Occt::TColgp_HSequenceOfPnt^ ChangeValue();
         bool IsEqual(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     ProjLib_HSequenceOfHSequenceOfPnt();
     ProjLib_HSequenceOfHSequenceOfPnt(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theOther);
-    ProjLib_HSequenceOfHSequenceOfPnt(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ parameter1);
     Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ Sequence();
+    void Append(Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
     void Append(Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ theSequence);
     Macad::Occt::ProjLib_SequenceOfHSequenceOfPnt^ ChangeSequence();
     int Size();
@@ -496,17 +482,9 @@ public:
     void Clear();
     Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ Assign(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theOther);
     void Remove(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
-    void Append(Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void Append(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theSeq);
     void Prepend(Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void Prepend(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theSeq);
     void InsertAfter(Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt::Iterator^ thePosition, Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::TColgp_HSequenceOfPnt^ theItem);
     void Split(int theIndex, Macad::Occt::ProjLib_HSequenceOfHSequenceOfPnt^ theSeq);
     Macad::Occt::TColgp_HSequenceOfPnt^ First();
     Macad::Occt::TColgp_HSequenceOfPnt^ ChangeFirst();
@@ -562,7 +540,6 @@ public:
     /// Sets the type to OtherCurve
     /// </summary>
     ProjLib_Projector();
-    ProjLib_Projector(Macad::Occt::ProjLib_Projector^ parameter1);
     bool IsDone();
     /// <summary>
     /// Set isDone = Standard_True;
@@ -658,7 +635,6 @@ public:
     /// Tolerances of parameters are calculated automatically.
     /// </summary>
     ProjLib_CompProjectedCurve(double Tol3d, Macad::Occt::Adaptor3d_Surface^ S, Macad::Occt::Adaptor3d_Curve^ C);
-    ProjLib_CompProjectedCurve(Macad::Occt::ProjLib_CompProjectedCurve^ parameter1);
     /// <summary>
     /// Shallow copy of adaptor
     /// </summary>
@@ -726,15 +702,18 @@ public:
     /// </summary>
     void Bounds(int Index, double% Udeb, double% Ufin);
     /// <summary>
-    /// returns  True  if  part  of  projection with  number  Index is  a  single  point  and  writes  its  coordinates in  P
+    /// returns  True  if  part  of  projection with  number  Index is  a  single  point  and  writes
+    /// its  coordinates in  P
     /// </summary>
     bool IsSinglePnt(int Index, Macad::Occt::Pnt2d% P);
     /// <summary>
-    /// returns  True  if  part  of  projection with  number  Index is  an  u-isoparametric curve  of  input  surface
+    /// returns  True  if  part  of  projection with  number  Index is  an  u-isoparametric curve  of
+    /// input  surface
     /// </summary>
     bool IsUIso(int Index, double% U);
     /// <summary>
-    /// returns  True  if  part  of  projection with  number  Index is  an  v-isoparametric curve  of  input  surface
+    /// returns  True  if  part  of  projection with  number  Index is  an  v-isoparametric curve  of
+    /// input  surface
     /// </summary>
     bool IsVIso(int Index, double% V);
     /// <summary>
@@ -873,10 +852,10 @@ public:
 /// For approximation some parameters are used, including
 /// required tolerance of approximation.
 /// Tolerance is maximal possible value of 3d deviation of 3d projection of projected curve from
-/// "exact" 3d projection. Since algorithm searches 2d curve on surface, required 2d tolerance is computed
-/// from 3d tolerance with help of U,V resolutions of surface.
-/// 3d and 2d tolerances have sense only for curves on surface, it defines precision of projecting and approximation
-/// and have nothing to do with distance between the projected curve and the surface.
+/// "exact" 3d projection. Since algorithm searches 2d curve on surface, required 2d tolerance is
+/// computed from 3d tolerance with help of U,V resolutions of surface. 3d and 2d tolerances have
+/// sense only for curves on surface, it defines precision of projecting and approximation and have
+/// nothing to do with distance between the projected curve and the surface.
 /// </summary>
 public ref class ProjLib_ComputeApprox sealed
     : public Macad::Occt::BaseClass<::ProjLib_ComputeApprox>
@@ -915,7 +894,6 @@ public:
     /// Other parameters for approximation have default values.
     /// </summary>
     ProjLib_ComputeApprox(Macad::Occt::Adaptor3d_Curve^ C, Macad::Occt::Adaptor3d_Surface^ S, double Tol);
-    ProjLib_ComputeApprox(Macad::Occt::ProjLib_ComputeApprox^ parameter1);
     /// <summary>
     /// Performs projecting.
     /// In case of approximation current values of parameters are used:
@@ -960,10 +938,10 @@ public:
 /// For approximation some parameters are used, including
 /// required tolerance of approximation.
 /// Tolerance is maximal possible value of 3d deviation of 3d projection of projected curve from
-/// "exact" 3d projection. Since algorithm searches 2d curve on surface, required 2d tolerance is computed
-/// from 3d tolerance with help of U,V resolutions of surface.
-/// 3d and 2d tolerances have sense only for curves on surface, it defines precision of projecting and approximation
-/// and have nothing to do with distance between the projected curve and the surface.
+/// "exact" 3d projection. Since algorithm searches 2d curve on surface, required 2d tolerance is
+/// computed from 3d tolerance with help of U,V resolutions of surface. 3d and 2d tolerances have
+/// sense only for curves on surface, it defines precision of projecting and approximation and have
+/// nothing to do with distance between the projected curve and the surface.
 /// </summary>
 public ref class ProjLib_ComputeApproxOnPolarSurface sealed
     : public Macad::Occt::BaseClass<::ProjLib_ComputeApproxOnPolarSurface>
@@ -1005,17 +983,16 @@ public:
     /// </summary>
     ProjLib_ComputeApproxOnPolarSurface(Macad::Occt::Adaptor3d_Curve^ C, Macad::Occt::Adaptor3d_Surface^ S);
     /// <summary>
-    /// Constructor, which performs projecting, using initial curve 2d InitCurve2d, which is any rough approximation of result curve.
-    /// Parameter Tol is 3d tolerance of approximation.
+    /// Constructor, which performs projecting, using initial curve 2d InitCurve2d, which is any rough
+    /// approximation of result curve. Parameter Tol is 3d tolerance of approximation.
     /// </summary>
     ProjLib_ComputeApproxOnPolarSurface(Macad::Occt::Adaptor2d_Curve2d^ InitCurve2d, Macad::Occt::Adaptor3d_Curve^ C, Macad::Occt::Adaptor3d_Surface^ S, double Tol);
     /// <summary>
-    /// Constructor, which performs projecting, using two initial curves 2d: InitCurve2d and InitCurve2dBis that are any rough approximations of result curves.
-    /// This constructor is used to get two pcurves for seem edge.
-    /// Parameter Tol is 3d tolerance of approximation.
+    /// Constructor, which performs projecting, using two initial curves 2d: InitCurve2d and
+    /// InitCurve2dBis that are any rough approximations of result curves. This constructor is used to
+    /// get two pcurves for seem edge. Parameter Tol is 3d tolerance of approximation.
     /// </summary>
     ProjLib_ComputeApproxOnPolarSurface(Macad::Occt::Adaptor2d_Curve2d^ InitCurve2d, Macad::Occt::Adaptor2d_Curve2d^ InitCurve2dBis, Macad::Occt::Adaptor3d_Curve^ C, Macad::Occt::Adaptor3d_Surface^ S, double Tol);
-    ProjLib_ComputeApproxOnPolarSurface(Macad::Occt::ProjLib_ComputeApproxOnPolarSurface^ parameter1);
     /// <summary>
     /// Set min and max possible degree of result BSpline curve2d, which is got by approximation.
     /// If theDegMin/Max < 0, algorithm uses values min = 2, max = 8.
@@ -1029,10 +1006,10 @@ public:
     void SetMaxSegments(int theMaxSegments);
     /* Method skipped due to unknown mapping: void SetBndPnt(AppParCurves_Constraint theBndPnt, ) */
     /// <summary>
-    /// Set the parameter, which defines maximal possible distance between projected curve and surface.
-    /// It is used only for projecting on not analytical surfaces.
-    /// If theMaxDist < 0, algorithm uses default value 100.*Tolerance.
-    /// If real distance between curve and surface more then theMaxDist, algorithm stops working.
+    /// Set the parameter, which defines maximal possible distance between projected curve and
+    /// surface. It is used only for projecting on not analytical surfaces. If theMaxDist < 0,
+    /// algorithm uses default value 100.*Tolerance. If real distance between curve and surface more
+    /// then theMaxDist, algorithm stops working.
     /// </summary>
     void SetMaxDist(double theMaxDist);
     /// <summary>
@@ -1126,7 +1103,6 @@ public:
     /// Projection of the circle <C> on the cone <Co>.
     /// </summary>
     ProjLib_Cone(Macad::Occt::gp_Cone^ Co, Macad::Occt::gp_Circ^ C);
-    ProjLib_Cone(Macad::Occt::ProjLib_Cone^ parameter1);
     void Init(Macad::Occt::gp_Cone^ Co);
     void Project(Macad::Occt::gp_Lin^ L);
     void Project(Macad::Occt::gp_Circ^ C);
@@ -1188,7 +1164,6 @@ public:
     /// Projection of the ellipse <E> on the cylinder <Cyl>.
     /// </summary>
     ProjLib_Cylinder(Macad::Occt::gp_Cylinder^ Cyl, Macad::Occt::gp_Elips^ E);
-    ProjLib_Cylinder(Macad::Occt::ProjLib_Cylinder^ parameter1);
     void Init(Macad::Occt::gp_Cylinder^ Cyl);
     void Project(Macad::Occt::gp_Lin^ L);
     void Project(Macad::Occt::gp_Circ^ C);
@@ -1258,7 +1233,6 @@ public:
     /// Projection of the hyperbola <H> on the plane <Pl>.
     /// </summary>
     ProjLib_Plane(Macad::Occt::Pln Pl, Macad::Occt::gp_Hypr^ H);
-    ProjLib_Plane(Macad::Occt::ProjLib_Plane^ parameter1);
     void Init(Macad::Occt::Pln Pl);
     void Project(Macad::Occt::gp_Lin^ L);
     void Project(Macad::Occt::gp_Circ^ C);
@@ -1298,7 +1272,6 @@ public:
 
 public:
     ProjLib_PrjResolve(Macad::Occt::Adaptor3d_Curve^ C, Macad::Occt::Adaptor3d_Surface^ S, int Fix);
-    ProjLib_PrjResolve(Macad::Occt::ProjLib_PrjResolve^ parameter1);
     /// <summary>
     /// Calculates the ort from  C(t)  to  S  with a close point.
     /// The close point is defined by the parameter values U0 and V0.
@@ -1386,7 +1359,6 @@ public:
     /// plane <Pl>.
     /// </summary>
     ProjLib_ProjectOnPlane(Macad::Occt::Ax3 Pl, Macad::Occt::Dir D);
-    ProjLib_ProjectOnPlane(Macad::Occt::ProjLib_ProjectOnPlane^ parameter1);
     /// <summary>
     /// Shallow copy of adaptor
     /// </summary>
@@ -1557,7 +1529,6 @@ public:
     /// Create a projector normally to the surface <S>.
     /// </summary>
     ProjLib_ProjectOnSurface(Macad::Occt::Adaptor3d_Surface^ S);
-    ProjLib_ProjectOnSurface(Macad::Occt::ProjLib_ProjectOnSurface^ parameter1);
     /// <summary>
     /// Set the Surface to <S>.
     /// To compute the projection, you have to Load the Curve.
@@ -1616,7 +1587,6 @@ public:
     /// Projection of the circle <C> on the sphere <Sp>.
     /// </summary>
     ProjLib_Sphere(Macad::Occt::gp_Sphere^ Sp, Macad::Occt::gp_Circ^ C);
-    ProjLib_Sphere(Macad::Occt::ProjLib_Sphere^ parameter1);
     void Init(Macad::Occt::gp_Sphere^ Sp);
     void Project(Macad::Occt::gp_Lin^ L);
     void Project(Macad::Occt::gp_Circ^ C);
@@ -1675,7 +1645,6 @@ public:
     /// Projection of the circle <C> on the torus <To>.
     /// </summary>
     ProjLib_Torus(Macad::Occt::gp_Torus^ To, Macad::Occt::gp_Circ^ C);
-    ProjLib_Torus(Macad::Occt::ProjLib_Torus^ parameter1);
     void Init(Macad::Occt::gp_Torus^ To);
     void Project(Macad::Occt::gp_Lin^ L);
     void Project(Macad::Occt::gp_Circ^ C);

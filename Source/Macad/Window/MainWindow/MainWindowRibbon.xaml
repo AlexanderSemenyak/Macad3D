@@ -37,6 +37,9 @@
         <!--region Toolbar -->
         <Fluent:Ribbon.ToolBarItems>
             <Fluent:Button Size="Small"
+                           mmp:Command.Action="{x:Static mmw:AppCommands.ShowShortcutCheatSheet}"
+                           AutomationProperties.AutomationId="ToolbarShowShortcutCheatSheet"/>
+            <Fluent:Button Size="Small"
                            Command="{x:Static mmw:AppCommands.ShowHelpTopic}" 
                            Icon="{DynamicResource Fluent.Ribbon.Images.Help}"/>
         </Fluent:Ribbon.ToolBarItems>
@@ -359,8 +362,10 @@
                     </Fluent:RibbonToolBar.LayoutDefinitions>
 
                     <ComboBox x:Name="Layers_ActiveLayerSelect"
+                              Margin="0,10,0,0"
                               SelectedValue="{Binding Context.Layers.ActiveLayer}"
-                              ItemsSource="{Binding Context.Layers}">
+                              ItemsSource="{Binding Context.Layers}"
+                              AutomationProperties.AutomationId="ActiveLayerSelect">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -495,6 +500,10 @@
 
                 <Fluent:Button mmp:Command.Action="{x:Static mmi:ModelCommands.CreateOffset}"
                                AutomationProperties.AutomationId="CreateOffset"
+                               SizeDefinition="Large,Middle,Small" />
+
+                <Fluent:Button mmp:Command.Action="{x:Static mmi:ModelCommands.CreateScale}"
+                               AutomationProperties.AutomationId="CreateScale"
                                SizeDefinition="Large,Middle,Small" />
             </Fluent:RibbonGroupBox>
 
@@ -684,12 +693,12 @@
                               AutomationProperties.AutomationId="Sketch">
             <Fluent:RibbonGroupBox Name="Segment" Header="Create Segment">
 
+                <Fluent:ToggleButton CommandParameter="PolyLine"
+                                     mmp:Command.Action="{x:Static mmi:SketchCommands.CreatePolyLine}"
+                                     AutomationProperties.AutomationId="CreatePolyLineSegment"/>
                 <Fluent:ToggleButton CommandParameter="Line"
                                      mmp:Command.Action="{x:Static mmi:SketchCommands.CreateSegment}"
                                      AutomationProperties.AutomationId="CreateLineSegment"/>
-                <Fluent:ToggleButton CommandParameter="PolyLine"
-                                     mmp:Command.Action="{x:Static mmi:SketchCommands.CreateSegment}"
-                                     AutomationProperties.AutomationId="CreatePolyLineSegment"/>
                 <Fluent:ToggleButton CommandParameter="Bezier2"
                                      mmp:Command.Action="{x:Static mmi:SketchCommands.CreateSegment}" 
                                      AutomationProperties.AutomationId="CreateBezier2Segment"/>
@@ -791,6 +800,15 @@
                                      mmp:Command.Action="{x:Static mmi:SketchCommands.ConvertSegment}"
                                      AutomationProperties.AutomationId="ConvertSegmentToEllipticalArc" />
                 </Fluent:DropDownButton>
+
+                <Fluent:ToggleButton mmp:Command.Action="{x:Static mmi:SketchCommands.ScaleElement}"
+                                     AutomationProperties.AutomationId="ScaleElement"/>
+
+                <Fluent:ToggleButton mmp:Command.Action="{x:Static mmi:SketchCommands.MirrorElement}"
+                                     AutomationProperties.AutomationId="MirrorElement"/>
+
+                <Fluent:ToggleButton mmp:Command.Action="{x:Static mmi:SketchCommands.OffsetSegment}"
+                                     AutomationProperties.AutomationId="OffsetSegment"/>
 
                 <Fluent:DropDownButton Header="Exchange"
                                        Icon="{mmp:IconResource Sketch-Exchange}"

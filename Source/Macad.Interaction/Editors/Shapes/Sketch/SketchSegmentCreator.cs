@@ -1,10 +1,20 @@
-﻿namespace Macad.Interaction.Editors.Shapes
+﻿namespace Macad.Interaction.Editors.Shapes;
+
+public class SketchSegmentCreator : SketchTool
 {
-    public class SketchSegmentCreator : SketchTool
+    protected override bool OnStart()
     {
-        public virtual bool Continue(int continueWithPoint)
-        {
-            return false;
-        }
+        SketchEditorTool.Elements.ConstraintsVisible = false;
+        return false;
     }
+
+    //--------------------------------------------------------------------------------------------------
+
+    public virtual bool Continue(int continueWithPoint)
+    {
+        return false;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
 }

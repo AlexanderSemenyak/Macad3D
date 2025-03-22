@@ -1,16 +1,24 @@
 ﻿using System.Windows.Input;
+using Macad.Common;
 using Macad.Core;
+using Macad.Core.Topology;
 using Macad.Interaction.Visual;
 using Macad.Occt;
 using Macad.Presentation;
 
 namespace Macad.Interaction;
 
-public class TranslateAxisLiveAction : LiveAction
+/// <summary>
+/// Snapping will be executed for Edge, Vertex and Face. It will snap only in a primary axis direction (x, y or z)
+/// depending on which result point is more close to the origin. This seems to be unfamiliar, but since the axis
+/// will almost never touch the snap target, this seems to be the only variant which can be useful in most situations.
+/// To activate snapping, the target entity must be set in the constructor.
+/// </summary>
+public sealed class TranslateAxisLiveAction : LiveAction
 {
     #region Properties and Members
 
-    public Quantity_Color Color
+    public Color Color
     {
         get { return _Color; }
         set
@@ -62,6 +70,14 @@ public class TranslateAxisLiveAction : LiveAction
 
     //--------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Parameter of the axis which defines the point to snap to. Set this if the point to snap to is
+    /// not the axis origin.
+    /// </summary>
+    public double SnapOffset { get; set; }
+
+    //--------------------------------------------------------------------------------------------------
+
     public Cursor Cursor { get; init; }
 
     //--------------------------------------------------------------------------------------------------
@@ -80,11 +96,14 @@ public class TranslateAxisLiveAction : LiveAction
     Ax1 _StartAxis = Ax1.OZ;
     bool _IsMoving;
     double _StartValue;
+    double _StartSnapOffset;
     double _Distance;
     SelectionContext _SelectionContext;
     HintLine _HintLine;
-    Quantity_Color _Color = Colors.Auxillary;
+    Color _Color = Colors.Auxillary;
     DeltaHudElement _HudElement;
+    Snap3D _SnapHandler;
+    InteractiveEntity _TargetEntity;
 
     //--------------------------------------------------------------------------------------------------
 
@@ -108,6 +127,14 @@ public class TranslateAxisLiveAction : LiveAction
     #endregion
 
     #region Creation and Activation
+
+    /// <param name="targetEntity">The entity which is the target of the operation. It will be excluded from snapping.</param>
+    public TranslateAxisLiveAction(InteractiveEntity targetEntity = null)
+    {
+        _TargetEntity = targetEntity;
+    }
+
+    //--------------------------------------------------------------------------------------------------
 
     protected override void OnStart()
     {
@@ -154,16 +181,39 @@ public class TranslateAxisLiveAction : LiveAction
         }
         planeDir.Cross(_Axis.Direction);
         var plane = new Pln(new Ax3(_Axis.Location, planeDir, _Axis.Direction));
-        Pnt convertedPoint;
-        if (WorkspaceController.ActiveViewport.ScreenToPoint(plane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out convertedPoint))
+
+        if (_SnapHandler != null)
+        {
+            if (data.DetectedEntity == _TargetEntity)
+            {
+                data.Return.RemoveHighlighting = true;
+            }
+            else
+            {
+                var snapInfo = _SnapHandler.Snap(data);
+                if (snapInfo.Mode != SnapModes.None)
+                {
+                    // Point snapped
+                    var extrema = new Extrema_ExtPC(snapInfo.Point, new GeomAdaptor_Curve(new Geom_Line(_Axis)), 1.0e-10);
+                    if (extrema.IsDone() && extrema.NbExt() >= 1)
+                    {
+                        var param = extrema.Point(1).Parameter();
+                        return param - _StartSnapOffset + _StartValue;
+                    }
+                }
+            }
+        }
+
+        if (WorkspaceController.ActiveViewControlller.ScreenToPoint(plane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out var convertedPoint))
         {
             var extrema = new Extrema_ExtPC(convertedPoint, new GeomAdaptor_Curve(new Geom_Line(_Axis)), 1.0e-10);
             if (extrema.IsDone() && extrema.NbExt() >= 1)
             {
-                var value = extrema.Point(1).Parameter();
-                return value;
+                var param = extrema.Point(1).Parameter();
+                return param;
             }
         }
+
         return null;
     }
 
@@ -171,12 +221,13 @@ public class TranslateAxisLiveAction : LiveAction
 
     public override bool OnMouseDown(MouseEventData data)
     {
-        if (data.DetectedAisInteractives.Contains(_AxisGizmo?.AisObject))
+        if (Equals(data.DetectedAisObject, _AxisGizmo?.AisObject))
         {
             var value = _ProcessMouseInput(data);
             if (value != null)
             {
                 _StartValue = value.Value;
+                _StartSnapOffset = SnapOffset;
                 _StartAxis = _Axis;
                 _Distance = 0;
 
@@ -189,6 +240,12 @@ public class TranslateAxisLiveAction : LiveAction
                 _HintLine.Set(_Axis.Location, _Axis.Location);
                 _HintLine.Color = Color;
                 Add(_HintLine);
+
+                if (_TargetEntity != null)
+                {
+                    _SnapHandler = SetSnapHandler(new Snap3D());
+                    _SnapHandler.SupportedModes = SnapModes.Vertex | SnapModes.Edge | SnapModes.Face;
+                }
 
                 SetCursor(Cursor);
                 if (ShowHudElement && _HudElement == null)
@@ -254,6 +311,8 @@ public class TranslateAxisLiveAction : LiveAction
             _AxisGizmo.IsSelectable = true;
 
             CloseSelectionContext(_SelectionContext);
+            RemoveSnapHandler();
+            _SnapHandler = null;
 
             SetCursor(null);
             Remove(_HudElement);
@@ -266,7 +325,7 @@ public class TranslateAxisLiveAction : LiveAction
                 MouseEventData = data
             };
             Finished?.Invoke(this, eventArgs);
-            data.ForceReDetection = true;
+            data.Return.ForceReDetection = true;
             return true;
         }
         return base.OnMouseUp(data);

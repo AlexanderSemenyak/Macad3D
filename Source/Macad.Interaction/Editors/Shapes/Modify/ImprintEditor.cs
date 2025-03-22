@@ -8,7 +8,7 @@ using Macad.Presentation;
 
 namespace Macad.Interaction.Editors.Shapes;
 
-public class ImprintEditor : Editor<Imprint>
+public sealed class ImprintEditor : Editor<Imprint>
 {
     TranslateAxisLiveAction _TranslateAction;
     LabelHudElement _HudElement;
@@ -84,7 +84,7 @@ public class ImprintEditor : Editor<Imprint>
 
         if (_TranslateAction == null)
         {
-            _TranslateAction = new()
+            _TranslateAction = new(Entity.Body)
             {
                 Color = Colors.ActionBlue,
                 Cursor = Cursors.SetHeight,
@@ -124,7 +124,7 @@ public class ImprintEditor : Editor<Imprint>
     void _TranslateAction_Preview(TranslateAxisLiveAction sender, TranslateAxisLiveAction.EventArgs args)
     {
         _IsMoving = true;
-        SetHintMessage("Scale imprint depth using gizmo, press 'CTRL' to round to grid stepping.");
+        SetHintMessage("__Scale imprint depth__ using gizmo, press `k:Ctrl` to round to grid stepping.");
 
         double newDepth = _StartDepth + (Entity.Mode == Imprint.ImprintMode.Raise
                                              ? args.Distance

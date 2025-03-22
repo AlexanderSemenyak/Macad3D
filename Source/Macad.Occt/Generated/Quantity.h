@@ -613,24 +613,22 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::Quantity_Array1OfColor^ theArray, bool theToEnd);
-        Iterator(Macad::Occt::Quantity_Array1OfColor^ theArray);
-        Iterator(Macad::Occt::Quantity_Array1OfColor::Iterator^ parameter1);
-        void Init(Macad::Occt::Quantity_Array1OfColor^ theArray);
+        void Init(Macad::Occt::Quantity_Array1OfColor^ theList);
         bool More();
+        void Initialize(Macad::Occt::Quantity_Array1OfColor^ theList);
+        /* Method skipped due to unknown mapping: iterator ValueIter() */
+        /* Method skipped due to unknown mapping: iterator ChangeValueIter() */
+        /* Method skipped due to unknown mapping: iterator EndIter() */
+        /* Method skipped due to unknown mapping: iterator ChangeEndIter() */
         void Next();
-        void Previous();
-        void Offset(long long int theOffset);
-        long long int Differ(Macad::Occt::Quantity_Array1OfColor::Iterator^ theOther);
         Macad::Occt::Quantity_Color^ Value();
         Macad::Occt::Quantity_Color^ ChangeValue();
-        bool IsEqual(Macad::Occt::Quantity_Array1OfColor::Iterator^ theOther);
     }; // class Iterator
 
     Quantity_Array1OfColor();
     Quantity_Array1OfColor(int theLower, int theUpper);
-    Quantity_Array1OfColor(Macad::Occt::Quantity_Array1OfColor^ theOther);
+    /* Method skipped due to unknown mapping: void Quantity_Array1OfColor(allocator_type theAlloc, int theLower, int theUpper, ) */
+    Quantity_Array1OfColor(Macad::Occt::Quantity_Color^ theBegin, int theLower, int theUpper, bool theUseBuffer);
     Quantity_Array1OfColor(Macad::Occt::Quantity_Color^ theBegin, int theLower, int theUpper);
     void Init(Macad::Occt::Quantity_Color^ theValue);
     int Size();
@@ -638,8 +636,6 @@ public:
     bool IsEmpty();
     int Lower();
     int Upper();
-    bool IsDeletable();
-    bool IsAllocated();
     Macad::Occt::Quantity_Array1OfColor^ Assign(Macad::Occt::Quantity_Array1OfColor^ theOther);
     Macad::Occt::Quantity_Array1OfColor^ Move(Macad::Occt::Quantity_Array1OfColor^ theOther);
     Macad::Occt::Quantity_Color^ First();
@@ -649,129 +645,26 @@ public:
     virtual Macad::Occt::Quantity_Color^ Value(int theIndex);
     Macad::Occt::Quantity_Color^ ChangeValue(int theIndex);
     void SetValue(int theIndex, Macad::Occt::Quantity_Color^ theItem);
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
     void Resize(int theLower, int theUpper, bool theToCopyData);
+    bool IsDeletable();
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::Quantity_Color^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class Quantity_Array1OfColor
 
 //---------------------------------------------------------------------
-//  Class  Quantity_ColorHasher
-//---------------------------------------------------------------------
-/// <summary>
-/// Hasher of Quantity_Color.
-/// </summary>
-public ref class Quantity_ColorHasher sealed
-    : public Macad::Occt::BaseClass<::Quantity_ColorHasher>
-{
-
-#ifdef Include_Quantity_ColorHasher_h
-public:
-    Include_Quantity_ColorHasher_h
-#endif
-
-public:
-    Quantity_ColorHasher(::Quantity_ColorHasher* nativeInstance)
-        : Macad::Occt::BaseClass<::Quantity_ColorHasher>( nativeInstance, true )
-    {}
-
-    Quantity_ColorHasher(::Quantity_ColorHasher& nativeInstance)
-        : Macad::Occt::BaseClass<::Quantity_ColorHasher>( &nativeInstance, false )
-    {}
-
-    property ::Quantity_ColorHasher* NativeInstance
-    {
-        ::Quantity_ColorHasher* get()
-        {
-            return static_cast<::Quantity_ColorHasher*>(_NativeInstance);
-        }
-    }
-
-public:
-    Quantity_ColorHasher();
-    Quantity_ColorHasher(Macad::Occt::Quantity_ColorHasher^ parameter1);
-    /// <summary>
-    /// Returns hash code for the given RGB color, in the range [1, theUpperBound]
-    /// </summary>
-    /// <param name="theColor">
-    /// the RGB color object which hash code is to be computed
-    /// </param>
-    /// <param name="theUpperBound">
-    /// the upper bound of the range a computing range must be within
-    /// </param>
-    /// <returns>
-    /// a computed hash code, in the range [1, theUpperBound]
-    /// </returns>
-    static int HashCode(Macad::Occt::Quantity_Color^ theColor, int theUpperBound);
-    /// <summary>
-    /// Returns true if two colors are equal.
-    /// </summary>
-    static bool IsEqual(Macad::Occt::Quantity_Color^ theColor1, Macad::Occt::Quantity_Color^ theColor2);
-}; // class Quantity_ColorHasher
-
-//---------------------------------------------------------------------
-//  Class  Quantity_ColorRGBAHasher
-//---------------------------------------------------------------------
-/// <summary>
-/// Hasher of Quantity_ColorRGBA.
-/// </summary>
-public ref class Quantity_ColorRGBAHasher sealed
-    : public Macad::Occt::BaseClass<::Quantity_ColorRGBAHasher>
-{
-
-#ifdef Include_Quantity_ColorRGBAHasher_h
-public:
-    Include_Quantity_ColorRGBAHasher_h
-#endif
-
-public:
-    Quantity_ColorRGBAHasher(::Quantity_ColorRGBAHasher* nativeInstance)
-        : Macad::Occt::BaseClass<::Quantity_ColorRGBAHasher>( nativeInstance, true )
-    {}
-
-    Quantity_ColorRGBAHasher(::Quantity_ColorRGBAHasher& nativeInstance)
-        : Macad::Occt::BaseClass<::Quantity_ColorRGBAHasher>( &nativeInstance, false )
-    {}
-
-    property ::Quantity_ColorRGBAHasher* NativeInstance
-    {
-        ::Quantity_ColorRGBAHasher* get()
-        {
-            return static_cast<::Quantity_ColorRGBAHasher*>(_NativeInstance);
-        }
-    }
-
-public:
-    Quantity_ColorRGBAHasher();
-    Quantity_ColorRGBAHasher(Macad::Occt::Quantity_ColorRGBAHasher^ parameter1);
-    /// <summary>
-    /// Returns hash code for the given RGBA color, in the range [1, theUpperBound]
-    /// </summary>
-    /// <param name="theColor">
-    /// the RGBA color object which hash code is to be computed
-    /// </param>
-    /// <param name="theUpperBound">
-    /// the upper bound of the range a computing hash code must be within
-    /// </param>
-    /// <returns>
-    /// a computed hash code, in the range [1, theUpperBound]
-    /// </returns>
-    static int HashCode(Macad::Occt::Quantity_ColorRGBA^ theColor, int theUpperBound);
-    /// <summary>
-    /// Returns true if two colors are equal.
-    /// </summary>
-    static bool IsEqual(Macad::Occt::Quantity_ColorRGBA^ theColor1, Macad::Occt::Quantity_ColorRGBA^ theColor2);
-}; // class Quantity_ColorRGBAHasher
-
-//---------------------------------------------------------------------
 //  Class  Quantity_Color
 //---------------------------------------------------------------------
 /// <summary>
-/// This class allows the definition of an RGB color as triplet of 3 normalized floating point values (red, green, blue).
+/// This class allows the definition of an RGB color as triplet of 3 normalized floating point
+/// values (red, green, blue).
 /// 
-/// Although Quantity_Color can be technically used for pass-through storage of RGB triplet in any color space,
-/// other OCCT interfaces taking/returning Quantity_Color would expect them in linear space.
-/// Therefore, take a look into methods converting to and from non-linear sRGB color space, if needed;
-/// for instance, application usually providing color picking within 0..255 range in sRGB color space.
+/// Although Quantity_Color can be technically used for pass-through storage of RGB triplet in any
+/// color space, other OCCT interfaces taking/returning Quantity_Color would expect them in linear
+/// space. Therefore, take a look into methods converting to and from non-linear sRGB color space,
+/// if needed; for instance, application usually providing color picking within 0..255 range in sRGB
+/// color space.
 /// </summary>
 public ref class Quantity_Color sealed
     : public Macad::Occt::BaseClass<::Quantity_Color>
@@ -817,7 +710,6 @@ public:
     /// Define color from linear RGB values.
     /// </summary>
     Quantity_Color(Macad::Occt::gp_Vec3f^ theRgb);
-    Quantity_Color(Macad::Occt::Quantity_Color^ parameter1);
     /// <summary>
     /// Returns the name of the nearest color from the Quantity_NameOfColor enumeration.
     /// </summary>
@@ -869,7 +761,8 @@ public:
     /// </summary>
     void ChangeIntensity(double theDelta);
     /// <summary>
-    /// Returns the Saturation component (value of the saturation) of the color within range [0.0; 1.0].
+    /// Returns the Saturation component (value of the saturation) of the color within range
+    /// [0.0; 1.0].
     /// </summary>
     double Saturation();
     /// <summary>
@@ -887,7 +780,8 @@ public:
     /// </summary>
     bool IsEqual(Macad::Occt::Quantity_Color^ theOther);
     /// <summary>
-    /// Returns the distance between two colors. It's a value between 0 and the square root of 3 (the black/white distance).
+    /// Returns the distance between two colors. It's a value between 0 and the square root of 3 (the
+    /// black/white distance).
     /// </summary>
     double Distance(Macad::Occt::Quantity_Color^ theColor);
     /// <summary>
@@ -906,7 +800,7 @@ public:
     /// Returns the value of the perceptual difference between this color
     /// and @p theOther, computed using the CIEDE2000 formula.
     /// The difference is in range [0, 100.], with 1 approximately corresponding
-    /// to the minimal percievable difference (usually difference 5 or greater is
+    /// to the minimal perceivable difference (usually difference 5 or greater is
     /// needed for the difference to be recognizable in practice).
     /// </summary>
     double DeltaE2000(Macad::Occt::Quantity_Color^ theOther);
@@ -938,7 +832,8 @@ public:
     /// </returns>
     static bool ColorFromName(System::String^ theColorNameString, Macad::Occt::Quantity_Color^ theColor);
     /// <summary>
-    /// Parses the string as a hex color (like "#FF0" for short sRGB color, or "#FFFF00" for sRGB color)
+    /// Parses the string as a hex color (like "#FF0" for short sRGB color, or "#FFFF00" for sRGB
+    /// color)
     /// </summary>
     /// <param name="theHexColorString">
     /// the string to be parsed
@@ -997,11 +892,11 @@ public:
     /// Note that this unpacking does NOT involve non-linear sRGB -> linear RGB conversion,
     /// as would be usually expected for RGB color packed into 4 bytes.
     /// </summary>
-    /// <param name="theColor">
-    /// [in] color to convert
+    /// <param name="in]">
+    /// theColor  color to convert
     /// </param>
-    /// <param name="theARGB">
-    /// [out] result color encoded as integer
+    /// <param name="out]">
+    /// theARGB  result color encoded as integer
     /// </param>
     static void Color2argb(Macad::Occt::Quantity_Color^ theColor, int% theARGB);
     /// <summary>
@@ -1011,19 +906,23 @@ public:
     /// </summary>
     static void Argb2color(int theARGB, Macad::Occt::Quantity_Color^ theColor);
     /// <summary>
-    /// Convert linear RGB component into sRGB using OpenGL specs formula (double precision), also known as gamma correction.
+    /// Convert linear RGB component into sRGB using OpenGL specs formula (double precision), also
+    /// known as gamma correction.
     /// </summary>
     static double Convert_LinearRGB_To_sRGB(double theLinearValue);
     /// <summary>
-    /// Convert linear RGB component into sRGB using OpenGL specs formula (single precision), also known as gamma correction.
+    /// Convert linear RGB component into sRGB using OpenGL specs formula (single precision), also
+    /// known as gamma correction.
     /// </summary>
     static float Convert_LinearRGB_To_sRGB(float theLinearValue);
     /// <summary>
-    /// Convert sRGB component into linear RGB using OpenGL specs formula (double precision), also known as gamma correction.
+    /// Convert sRGB component into linear RGB using OpenGL specs formula (double precision), also
+    /// known as gamma correction.
     /// </summary>
     static double Convert_sRGB_To_LinearRGB(double thesRGBValue);
     /// <summary>
-    /// Convert sRGB component into linear RGB using OpenGL specs formula (single precision), also known as gamma correction.
+    /// Convert sRGB component into linear RGB using OpenGL specs formula (single precision), also
+    /// known as gamma correction.
     /// </summary>
     static float Convert_sRGB_To_LinearRGB(float thesRGBValue);
     static Macad::Occt::gp_Vec3f^ Convert_LinearRGB_To_sRGB(Macad::Occt::gp_Vec3f^ theRGB);
@@ -1069,6 +968,8 @@ public:
     /// </summary>
     void DumpJson(System::IO::TextWriter^ theOStream);
     /* Method skipped due to unknown mapping: bool InitFromJson(stringstream theSStream, int theStreamPos, ) */
+    bool Equals(System::Object^ obj) override;
+    int GetHashCode() override;
 }; // class Quantity_Color
 
 //---------------------------------------------------------------------
@@ -1124,7 +1025,6 @@ public:
     /// Creates the color from RGBA values.
     /// </summary>
     Quantity_ColorRGBA(float theRed, float theGreen, float theBlue, float theAlpha);
-    Quantity_ColorRGBA(Macad::Occt::Quantity_ColorRGBA^ parameter1);
     /// <summary>
     /// Assign new values to the color.
     /// </summary>
@@ -1173,7 +1073,8 @@ public:
     /// </returns>
     static bool ColorFromName(System::String^ theColorNameString, Macad::Occt::Quantity_ColorRGBA^ theColor);
     /// <summary>
-    /// Parses the string as a hex color (like "#FF0" for short sRGB color, "#FF0F" for short sRGBA color,
+    /// Parses the string as a hex color (like "#FF0" for short sRGB color, "#FF0F" for short sRGBA
+    /// color,
     /// "#FFFF00" for RGB color, or "#FFFF00FF" for RGBA color)
     /// </summary>
     /// <param name="theHexColorString">
@@ -1191,7 +1092,8 @@ public:
     /// </returns>
     static bool ColorFromHex(char theHexColorString, Macad::Occt::Quantity_ColorRGBA^ theColor, bool theAlphaComponentIsOff);
     /// <summary>
-    /// Parses the string as a hex color (like "#FF0" for short sRGB color, "#FF0F" for short sRGBA color,
+    /// Parses the string as a hex color (like "#FF0" for short sRGB color, "#FF0F" for short sRGBA
+    /// color,
     /// "#FFFF00" for RGB color, or "#FFFF00FF" for RGBA color)
     /// </summary>
     /// <param name="theHexColorString">
@@ -1233,6 +1135,8 @@ public:
     /// </summary>
     void DumpJson(System::IO::TextWriter^ theOStream);
     /* Method skipped due to unknown mapping: bool InitFromJson(stringstream theSStream, int theStreamPos, ) */
+    bool Equals(System::Object^ obj) override;
+    int GetHashCode() override;
 }; // class Quantity_ColorRGBA
 
 //---------------------------------------------------------------------
@@ -1328,7 +1232,6 @@ public:
     /// is less than 0.
     /// </summary>
     Quantity_Period(int ss);
-    Quantity_Period(Macad::Occt::Quantity_Period^ parameter1);
     /// <summary>
     /// Decomposes this period into a number of days,hours,
     /// minutes,seconds,milliseconds and microseconds
@@ -1456,6 +1359,7 @@ public:
     /// 0 <= mics
     /// </summary>
     static bool IsValid(int ss);
+    bool Equals(System::Object^ obj) override;
 }; // class Quantity_Period
 
 //---------------------------------------------------------------------
@@ -1559,7 +1463,6 @@ public:
     /// mn, ss, mis and mics are not the components of the valid date.
     /// </summary>
     Quantity_Date(int mm, int dd, int yyyy, int hh, int mn, int ss);
-    Quantity_Date(Macad::Occt::Quantity_Date^ parameter1);
     /// <summary>
     /// Gets a complete Date.
     /// -   in mm - the month,
@@ -1730,6 +1633,7 @@ public:
     /// the years divisible by 400.
     /// </summary>
     static bool IsLeap(int yy);
+    bool Equals(System::Object^ obj) override;
 }; // class Quantity_Date
 
 //---------------------------------------------------------------------
@@ -1765,7 +1669,6 @@ public:
     Quantity_DateDefinitionError();
     Quantity_DateDefinitionError(System::String^ theMessage);
     Quantity_DateDefinitionError(System::String^ theMessage, System::String^ theStackTrace);
-    Quantity_DateDefinitionError(Macad::Occt::Quantity_DateDefinitionError^ parameter1);
     static void Raise(System::String^ theMessage);
     static void Raise();
     /* Method skipped due to unknown mapping: void Raise(stringstream theMessage, ) */
@@ -1833,26 +1736,23 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::Quantity_HArray1OfColor^ theArray, bool theToEnd);
-        Iterator(Macad::Occt::Quantity_HArray1OfColor^ theArray);
-        Iterator(Macad::Occt::Quantity_HArray1OfColor::Iterator^ parameter1);
-        void Init(Macad::Occt::Quantity_HArray1OfColor^ theArray);
+        void Init(Macad::Occt::Quantity_HArray1OfColor^ theList);
         bool More();
+        void Initialize(Macad::Occt::Quantity_HArray1OfColor^ theList);
+        /* Method skipped due to unknown mapping: iterator ValueIter() */
+        /* Method skipped due to unknown mapping: iterator ChangeValueIter() */
+        /* Method skipped due to unknown mapping: iterator EndIter() */
+        /* Method skipped due to unknown mapping: iterator ChangeEndIter() */
         void Next();
-        void Previous();
-        void Offset(long long int theOffset);
-        long long int Differ(Macad::Occt::Quantity_HArray1OfColor::Iterator^ theOther);
         Macad::Occt::Quantity_Color^ Value();
         Macad::Occt::Quantity_Color^ ChangeValue();
-        bool IsEqual(Macad::Occt::Quantity_HArray1OfColor::Iterator^ theOther);
     }; // class Iterator
 
     Quantity_HArray1OfColor();
     Quantity_HArray1OfColor(int theLower, int theUpper);
     Quantity_HArray1OfColor(int theLower, int theUpper, Macad::Occt::Quantity_Color^ theValue);
+    Quantity_HArray1OfColor(Macad::Occt::Quantity_Color^ theBegin, int theLower, int theUpper, bool parameter1);
     Quantity_HArray1OfColor(Macad::Occt::Quantity_Array1OfColor^ theOther);
-    Quantity_HArray1OfColor(Macad::Occt::Quantity_HArray1OfColor^ parameter1);
     Macad::Occt::Quantity_Array1OfColor^ Array1();
     Macad::Occt::Quantity_Array1OfColor^ ChangeArray1();
     void Init(Macad::Occt::Quantity_Color^ theValue);
@@ -1861,8 +1761,6 @@ public:
     bool IsEmpty();
     int Lower();
     int Upper();
-    bool IsDeletable();
-    bool IsAllocated();
     Macad::Occt::Quantity_HArray1OfColor^ Assign(Macad::Occt::Quantity_HArray1OfColor^ theOther);
     Macad::Occt::Quantity_HArray1OfColor^ Move(Macad::Occt::Quantity_HArray1OfColor^ theOther);
     Macad::Occt::Quantity_Color^ First();
@@ -1872,7 +1770,10 @@ public:
     virtual Macad::Occt::Quantity_Color^ Value(int theIndex);
     Macad::Occt::Quantity_Color^ ChangeValue(int theIndex);
     void SetValue(int theIndex, Macad::Occt::Quantity_Color^ theItem);
+    void UpdateLowerBound(int theLower);
+    void UpdateUpperBound(int theUpper);
     void Resize(int theLower, int theUpper, bool theToCopyData);
+    bool IsDeletable();
     static Macad::Occt::Quantity_HArray1OfColor^ CreateDowncasted(::Quantity_HArray1OfColor* instance);
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::Quantity_Color^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
@@ -1911,7 +1812,6 @@ public:
     Quantity_PeriodDefinitionError();
     Quantity_PeriodDefinitionError(System::String^ theMessage);
     Quantity_PeriodDefinitionError(System::String^ theMessage, System::String^ theStackTrace);
-    Quantity_PeriodDefinitionError(Macad::Occt::Quantity_PeriodDefinitionError^ parameter1);
     static void Raise(System::String^ theMessage);
     static void Raise();
     /* Method skipped due to unknown mapping: void Raise(stringstream theMessage, ) */

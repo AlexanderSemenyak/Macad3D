@@ -1,125 +1,121 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Windows.Input;
 using Macad.Core;
 using Macad.Common.Serialization;
 using Macad.Interaction;
 using Macad.Common;
 using Macad.Exchange;
 
-namespace Macad.Window
+namespace Macad.Window;
+
+public class AppContext : InteractiveContext
 {
-    public class AppContext : InteractiveContext
+    #region Properties
+
+    public new static AppContext Current { get; private set; }
+
+    //--------------------------------------------------------------------------------------------------
+
+    public static bool IsInSandbox
     {
-        #region Properties
+        get { return CommandLine.EnableSandbox; }
+    }
 
-        public new static AppContext Current { get; private set; }
+    //--------------------------------------------------------------------------------------------------
 
-        //--------------------------------------------------------------------------------------------------
+    public static CommandLine CommandLine { get; private set; }
 
-        public static bool IsInSandbox
+    #endregion
+
+    #region Initialization
+
+    AppContext()
+    {
+        Clipboard = new WindowsClipboard();
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    internal static void Initialize(CommandLine cmdLine)
+    {
+        CommandLine = cmdLine;
+        if (IsInSandbox)
         {
-            get { return CommandLine.EnableSandbox; }
+            DebugPipeServer.Open();
         }
 
-        //--------------------------------------------------------------------------------------------------
+        Current = new AppContext();
+        ExchangeModule.Initialize();
 
-        public static CommandLine CommandLine { get; private set; }
+        ShortcutDefinition.RegisterShortcuts(Current.ShortcutHandler);
 
-        #endregion
-
-        #region Initialization
-
-        AppContext()
+        if (CommandLine.EnableGlDebugging)
         {
-            LoadShortcuts();
+            WorkspaceController.EnableGlDebugging = true;
         }
+    }
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        internal static void Initialize(CommandLine cmdLine)
+    #endregion
+
+    #region Local App Data
+
+    public readonly string LocalAppDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create), "Macad");
+
+    //--------------------------------------------------------------------------------------------------
+
+    public override void SaveLocalSettings(string name, object obj)
+    {
+        if (IsInSandbox)
+            return;
+
+        try
         {
-            CommandLine = cmdLine;
-            if (IsInSandbox)
-            {
-                DebugPipeServer.Open();
-            }
-
-            Current = new AppContext();
-
-            ExchangeModule.Initialize();
-        }
-
-        //--------------------------------------------------------------------------------------------------
-
-        void LoadShortcuts()
-        {
-            ShortcutHandler.AddShortcut(ShortcutScope.Application, new(Key.F1, ApplicationCommands.Help));
-            ShortcutHandler.AddShortcut(ShortcutScope.Application, new(Key.S, ModifierKeys.Control, DocumentCommands.SaveAll));
-        }
-
-        //--------------------------------------------------------------------------------------------------
-
-        #endregion
-
-        #region Local App Data
-
-        public readonly string LocalAppDataDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create), "Macad");
-
-        //--------------------------------------------------------------------------------------------------
-
-        public override void SaveLocalSettings(string name, object obj)
-        {
-            if (IsInSandbox)
+            var data = Serializer.Serialize(obj, new SerializationContext(SerializationScope.Storage));
+            if (data.IsNullOrEmpty())
                 return;
 
-            try
-            {
-                var data = Serializer.Serialize(obj, new SerializationContext(SerializationScope.Storage));
-                if (data.IsNullOrEmpty())
-                    return;
-
-                var dir = Path.Combine(LocalAppDataDirectory, "Settings");
-                Directory.CreateDirectory(dir);
-                var path = Path.Combine(dir, name);
-                File.WriteAllText(path, Serializer.Format(data), Encoding.UTF8);
-            }
-            catch (Exception e)
-            {
-                Messages.Exception("Exception while saving local settings for " + name, e);
-            }
+            var dir = Path.Combine(LocalAppDataDirectory, "Settings");
+            Directory.CreateDirectory(dir);
+            var path = Path.Combine(dir, name);
+            File.WriteAllText(path, Serializer.Format(data), Encoding.UTF8);
         }
-
-        //--------------------------------------------------------------------------------------------------
-
-        public override T LoadLocalSettings<T>(string name) 
+        catch (Exception e)
         {
-            if (IsInSandbox)
-                return null;
-
-            try
-            {
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create), "Macad", "Settings", name);
-                if (!File.Exists(path))
-                    return null;
-
-                var data = File.ReadAllText(path, Encoding.UTF8);
-                if (data.IsNullOrEmpty())
-                    return null;
-
-                return Serializer.Deserialize<T>(data, new SerializationContext(SerializationScope.Storage));
-            }
-            catch (Exception e)
-            {
-                Messages.Exception("Exception while saving local settings for " + name, e);
-                return null;
-            }
+            Messages.Exception("Exception while saving local settings for " + name, e);
         }
-
-        //--------------------------------------------------------------------------------------------------
-
-        #endregion
-
     }
+
+    //--------------------------------------------------------------------------------------------------
+
+    public override T LoadLocalSettings<T>(string name) 
+    {
+        if (IsInSandbox)
+            return null;
+
+        try
+        {
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create), "Macad", "Settings", name);
+            if (!File.Exists(path))
+                return null;
+
+            var data = File.ReadAllText(path, Encoding.UTF8);
+            if (data.IsNullOrEmpty())
+                return null;
+
+            return Serializer.Deserialize<T>(data, new SerializationContext(SerializationScope.Storage));
+        }
+        catch (Exception e)
+        {
+            Messages.Exception("Exception while saving local settings for " + name, e);
+            return null;
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
+
 }

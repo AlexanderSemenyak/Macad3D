@@ -55,11 +55,11 @@ public enum class SelectMgr_StateOfSelection
 //---------------------------------------------------------------------
 /// <summary>
 /// Keeps track for BVH update state for each SelectMgr_Selection entity in a following way:
-/// - Add        : 2nd level BVH does not contain any of the selection's sensitive entities and they must be
-/// added;
+/// - Add        : 2nd level BVH does not contain any of the selection's sensitive entities and they
+/// must be added;
 /// - Remove     : all sensitive entities of the selection must be removed from 2nd level BVH;
-/// - Renew      : 2nd level BVH already contains sensitives of the selection, but the its complete update
-/// and removal is required. Therefore, sensitives of the selection with this type of update
+/// - Renew      : 2nd level BVH already contains sensitives of the selection, but the its complete
+/// update and removal is required. Therefore, sensitives of the selection with this type of update
 /// must be removed from 2nd level BVH and added after recomputation.
 /// - Invalidate : the 2nd level BVH needs to be rebuilt;
 /// - None       : entities of the selection are up to date.
@@ -93,7 +93,8 @@ public enum class SelectMgr_TypeOfUpdate
 //  Enum  SelectMgr_PickingStrategy
 //---------------------------------------------------------------------
 /// <summary>
-/// Enumeration defines picking strategy - which entities detected by picking line will be accepted, considering selection filters.
+/// Enumeration defines picking strategy - which entities detected by picking line will be accepted,
+/// considering selection filters.
 /// </summary>
 public enum class SelectMgr_PickingStrategy
 {
@@ -105,7 +106,8 @@ public enum class SelectMgr_PickingStrategy
 //  Enum  SelectMgr_TypeOfDepthTolerance
 //---------------------------------------------------------------------
 /// <summary>
-/// Define the type of depth tolerance for considering picked entities to lie on the same depth (distance from eye to entity).
+/// Define the type of depth tolerance for considering picked entities to lie on the same depth
+/// (distance from eye to entity).
 /// </summary>
 /// @sa SelectMgr_SortCriterion, SelectMgr_ViewerSelector
 public enum class SelectMgr_TypeOfDepthTolerance
@@ -173,8 +175,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::NCollection_BaseList^ theList);
-        Iterator(Macad::Occt::SelectMgr_ListOfFilter::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::SelectMgr_Filter^ Value();
@@ -183,7 +183,6 @@ public:
 
     SelectMgr_ListOfFilter();
     SelectMgr_ListOfFilter(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    SelectMgr_ListOfFilter(Macad::Occt::SelectMgr_ListOfFilter^ theOther);
     int Size();
     Macad::Occt::SelectMgr_ListOfFilter^ Assign(Macad::Occt::SelectMgr_ListOfFilter^ theOther);
     void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
@@ -191,57 +190,13 @@ public:
     Macad::Occt::SelectMgr_Filter^ First();
     Macad::Occt::SelectMgr_Filter^ Last();
     Macad::Occt::SelectMgr_Filter^ Append(Macad::Occt::SelectMgr_Filter^ theItem);
-    void Append(Macad::Occt::SelectMgr_Filter^ theItem, Macad::Occt::SelectMgr_ListOfFilter::Iterator^ theIter);
-    void Append(Macad::Occt::SelectMgr_ListOfFilter^ theOther);
     Macad::Occt::SelectMgr_Filter^ Prepend(Macad::Occt::SelectMgr_Filter^ theItem);
-    void Prepend(Macad::Occt::SelectMgr_ListOfFilter^ theOther);
     void RemoveFirst();
     void Remove(Macad::Occt::SelectMgr_ListOfFilter::Iterator^ theIter);
     Macad::Occt::SelectMgr_Filter^ InsertBefore(Macad::Occt::SelectMgr_Filter^ theItem, Macad::Occt::SelectMgr_ListOfFilter::Iterator^ theIter);
-    void InsertBefore(Macad::Occt::SelectMgr_ListOfFilter^ theOther, Macad::Occt::SelectMgr_ListOfFilter::Iterator^ theIter);
     Macad::Occt::SelectMgr_Filter^ InsertAfter(Macad::Occt::SelectMgr_Filter^ theItem, Macad::Occt::SelectMgr_ListOfFilter::Iterator^ theIter);
-    void InsertAfter(Macad::Occt::SelectMgr_ListOfFilter^ theOther, Macad::Occt::SelectMgr_ListOfFilter::Iterator^ theIter);
     void Reverse();
 }; // class SelectMgr_ListOfFilter
-
-//---------------------------------------------------------------------
-//  Class  SelectMgr_ListIteratorOfListOfFilter
-//---------------------------------------------------------------------
-public ref class SelectMgr_ListIteratorOfListOfFilter sealed
-    : public Macad::Occt::BaseClass<::SelectMgr_ListIteratorOfListOfFilter>
-{
-
-#ifdef Include_SelectMgr_ListIteratorOfListOfFilter_h
-public:
-    Include_SelectMgr_ListIteratorOfListOfFilter_h
-#endif
-
-public:
-    SelectMgr_ListIteratorOfListOfFilter(::SelectMgr_ListIteratorOfListOfFilter* nativeInstance)
-        : Macad::Occt::BaseClass<::SelectMgr_ListIteratorOfListOfFilter>( nativeInstance, true )
-    {}
-
-    SelectMgr_ListIteratorOfListOfFilter(::SelectMgr_ListIteratorOfListOfFilter& nativeInstance)
-        : Macad::Occt::BaseClass<::SelectMgr_ListIteratorOfListOfFilter>( &nativeInstance, false )
-    {}
-
-    property ::SelectMgr_ListIteratorOfListOfFilter* NativeInstance
-    {
-        ::SelectMgr_ListIteratorOfListOfFilter* get()
-        {
-            return static_cast<::SelectMgr_ListIteratorOfListOfFilter*>(_NativeInstance);
-        }
-    }
-
-public:
-    SelectMgr_ListIteratorOfListOfFilter();
-    SelectMgr_ListIteratorOfListOfFilter(Macad::Occt::NCollection_BaseList^ theList);
-    SelectMgr_ListIteratorOfListOfFilter(Macad::Occt::SelectMgr_ListIteratorOfListOfFilter^ parameter1);
-    bool More();
-    void Next();
-    Macad::Occt::SelectMgr_Filter^ Value();
-    Macad::Occt::SelectMgr_Filter^ ChangeValue();
-}; // class SelectMgr_ListIteratorOfListOfFilter
 
 //---------------------------------------------------------------------
 //  Class  SelectMgr_Vec3
@@ -278,10 +233,8 @@ public:
     SelectMgr_Vec3(double theX, double theY, double theZ);
     SelectMgr_Vec3(Macad::Occt::Graphic3d_Vec2d^ theVec2, double theZ);
     SelectMgr_Vec3(Macad::Occt::Graphic3d_Vec2d^ theVec2);
-    SelectMgr_Vec3(Macad::Occt::SelectMgr_Vec3^ parameter1);
     static int Length();
     void SetValues(double theX, double theY, double theZ);
-    void SetValues(Macad::Occt::Graphic3d_Vec2d^ theVec2, double theZ);
     double x();
     double r();
     double y();
@@ -322,6 +275,7 @@ public:
     static Macad::Occt::SelectMgr_Vec3^ DZ();
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
+    bool Equals(System::Object^ obj) override;
 }; // class SelectMgr_Vec3
 
 //---------------------------------------------------------------------
@@ -360,10 +314,8 @@ public:
     SelectMgr_Vec4(Macad::Occt::Graphic3d_Vec2d^ theVec2);
     SelectMgr_Vec4(Macad::Occt::Graphic3d_Vec3d^ theVec3, double theW);
     SelectMgr_Vec4(Macad::Occt::Graphic3d_Vec3d^ theVec3);
-    SelectMgr_Vec4(Macad::Occt::SelectMgr_Vec4^ parameter1);
     static int Length();
     void SetValues(double theX, double theY, double theZ, double theW);
-    void SetValues(Macad::Occt::Graphic3d_Vec3d^ theVec3, double theW);
     double x();
     double r();
     double y();
@@ -427,6 +379,7 @@ public:
     double Dot(Macad::Occt::SelectMgr_Vec4^ theOther);
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
+    bool Equals(System::Object^ obj) override;
 }; // class SelectMgr_Vec4
 
 //---------------------------------------------------------------------
@@ -460,7 +413,6 @@ public:
 
 public:
     SelectMgr_Mat4();
-    SelectMgr_Mat4(Macad::Occt::SelectMgr_Mat4^ theOtherMat4);
     static long long unsigned int Rows();
     static long long unsigned int Cols();
     static Macad::Occt::SelectMgr_Mat4^ Identity();
@@ -470,13 +422,10 @@ public:
     void SetValue(long long unsigned int theRow, long long unsigned int theCol, double theValue);
     Macad::Occt::Graphic3d_Vec4d^ GetRow(long long unsigned int theRow);
     void SetRow(long long unsigned int theRow, Macad::Occt::Graphic3d_Vec3d^ theVec);
-    void SetRow(long long unsigned int theRow, Macad::Occt::Graphic3d_Vec4d^ theVec);
     Macad::Occt::Graphic3d_Vec4d^ GetColumn(long long unsigned int theCol);
     void SetColumn(long long unsigned int theCol, Macad::Occt::Graphic3d_Vec3d^ theVec);
-    void SetColumn(long long unsigned int theCol, Macad::Occt::Graphic3d_Vec4d^ theVec);
     Macad::Occt::Graphic3d_Vec4d^ GetDiagonal();
     void SetDiagonal(Macad::Occt::Graphic3d_Vec3d^ theVec);
-    void SetDiagonal(Macad::Occt::Graphic3d_Vec4d^ theVec);
     /* Method skipped due to unknown mapping: NCollection_Mat3<double> GetMat3() */
     void InitZero();
     bool IsZero();
@@ -486,10 +435,7 @@ public:
     double GetData();
     double ChangeData();
     static Macad::Occt::SelectMgr_Mat4^ Multiply(Macad::Occt::SelectMgr_Mat4^ theMatA, Macad::Occt::SelectMgr_Mat4^ theMatB);
-    void Multiply(Macad::Occt::SelectMgr_Mat4^ theMat);
     Macad::Occt::SelectMgr_Mat4^ Multiplied(Macad::Occt::SelectMgr_Mat4^ theMat);
-    void Multiply(double theFactor);
-    Macad::Occt::SelectMgr_Mat4^ Multiplied(double theFactor);
     void Divide(double theFactor);
     Macad::Occt::SelectMgr_Mat4^ Divided(double theScalar);
     void Add(Macad::Occt::SelectMgr_Mat4^ theMat);
@@ -501,12 +447,11 @@ public:
     Macad::Occt::SelectMgr_Mat4^ Transposed();
     void Transpose();
     bool Inverted(Macad::Occt::SelectMgr_Mat4^ theOutMx, double% theDet);
-    bool Inverted(Macad::Occt::SelectMgr_Mat4^ theOutMx);
-    Macad::Occt::SelectMgr_Mat4^ Inverted();
     double DeterminantMat3();
     Macad::Occt::SelectMgr_Mat4^ Adjoint();
     static Macad::Occt::SelectMgr_Mat4^ Map(double% theData);
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int parameter1, ) */
+    bool Equals(System::Object^ obj) override;
 }; // class SelectMgr_Mat4
 
 //---------------------------------------------------------------------
@@ -568,19 +513,16 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::SelectMgr_SequenceOfSelection^ theSeq, bool isStart);
-        Iterator(Macad::Occt::SelectMgr_SequenceOfSelection^ theSeq);
-        Iterator(Macad::Occt::SelectMgr_SequenceOfSelection::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::SelectMgr_Selection^ Value();
         Macad::Occt::SelectMgr_Selection^ ChangeValue();
         bool IsEqual(Macad::Occt::SelectMgr_SequenceOfSelection::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     SelectMgr_SequenceOfSelection();
     SelectMgr_SequenceOfSelection(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    SelectMgr_SequenceOfSelection(Macad::Occt::SelectMgr_SequenceOfSelection^ theOther);
     int Size();
     int Length();
     int Lower();
@@ -593,17 +535,10 @@ public:
     void Clear();
     Macad::Occt::SelectMgr_SequenceOfSelection^ Assign(Macad::Occt::SelectMgr_SequenceOfSelection^ theOther);
     void Remove(Macad::Occt::SelectMgr_SequenceOfSelection::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
     void Append(Macad::Occt::SelectMgr_Selection^ theItem);
-    void Append(Macad::Occt::SelectMgr_SequenceOfSelection^ theSeq);
     void Prepend(Macad::Occt::SelectMgr_Selection^ theItem);
-    void Prepend(Macad::Occt::SelectMgr_SequenceOfSelection^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::SelectMgr_Selection^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::SelectMgr_SequenceOfSelection^ theSeq);
     void InsertAfter(Macad::Occt::SelectMgr_SequenceOfSelection::Iterator^ thePosition, Macad::Occt::SelectMgr_Selection^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::SelectMgr_SequenceOfSelection^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::SelectMgr_Selection^ theItem);
     void Split(int theIndex, Macad::Occt::SelectMgr_SequenceOfSelection^ theSeq);
     Macad::Occt::SelectMgr_Selection^ First();
     Macad::Occt::SelectMgr_Selection^ ChangeFirst();
@@ -675,19 +610,16 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::SelectMgr_SequenceOfOwner^ theSeq, bool isStart);
-        Iterator(Macad::Occt::SelectMgr_SequenceOfOwner^ theSeq);
-        Iterator(Macad::Occt::SelectMgr_SequenceOfOwner::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::SelectMgr_EntityOwner^ Value();
         Macad::Occt::SelectMgr_EntityOwner^ ChangeValue();
         bool IsEqual(Macad::Occt::SelectMgr_SequenceOfOwner::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     SelectMgr_SequenceOfOwner();
     SelectMgr_SequenceOfOwner(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    SelectMgr_SequenceOfOwner(Macad::Occt::SelectMgr_SequenceOfOwner^ theOther);
     int Size();
     int Length();
     int Lower();
@@ -700,17 +632,10 @@ public:
     void Clear();
     Macad::Occt::SelectMgr_SequenceOfOwner^ Assign(Macad::Occt::SelectMgr_SequenceOfOwner^ theOther);
     void Remove(Macad::Occt::SelectMgr_SequenceOfOwner::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
     void Append(Macad::Occt::SelectMgr_EntityOwner^ theItem);
-    void Append(Macad::Occt::SelectMgr_SequenceOfOwner^ theSeq);
     void Prepend(Macad::Occt::SelectMgr_EntityOwner^ theItem);
-    void Prepend(Macad::Occt::SelectMgr_SequenceOfOwner^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::SelectMgr_EntityOwner^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::SelectMgr_SequenceOfOwner^ theSeq);
     void InsertAfter(Macad::Occt::SelectMgr_SequenceOfOwner::Iterator^ thePosition, Macad::Occt::SelectMgr_EntityOwner^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::SelectMgr_SequenceOfOwner^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::SelectMgr_EntityOwner^ theItem);
     void Split(int theIndex, Macad::Occt::SelectMgr_SequenceOfOwner^ theSeq);
     Macad::Occt::SelectMgr_EntityOwner^ First();
     Macad::Occt::SelectMgr_EntityOwner^ ChangeFirst();
@@ -780,21 +705,11 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::SelectMgr_IndexedDataMapOfOwnerCriterion^ theMap);
-        Iterator(Macad::Occt::SelectMgr_IndexedDataMapOfOwnerCriterion::Iterator^ parameter1);
-        bool More();
-        void Next();
-        Macad::Occt::SelectMgr_SortCriterion^ Value();
-        Macad::Occt::SelectMgr_SortCriterion^ ChangeValue();
-        Macad::Occt::SelectMgr_EntityOwner^ Key();
-        bool IsEqual(Macad::Occt::SelectMgr_IndexedDataMapOfOwnerCriterion::Iterator^ theOther);
     }; // class Iterator
 
     SelectMgr_IndexedDataMapOfOwnerCriterion();
     SelectMgr_IndexedDataMapOfOwnerCriterion(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     SelectMgr_IndexedDataMapOfOwnerCriterion(int theNbBuckets);
-    SelectMgr_IndexedDataMapOfOwnerCriterion(Macad::Occt::SelectMgr_IndexedDataMapOfOwnerCriterion^ theOther);
     void Exchange(Macad::Occt::SelectMgr_IndexedDataMapOfOwnerCriterion^ theOther);
     Macad::Occt::SelectMgr_IndexedDataMapOfOwnerCriterion^ Assign(Macad::Occt::SelectMgr_IndexedDataMapOfOwnerCriterion^ theOther);
     void ReSize(int N);
@@ -813,10 +728,8 @@ public:
     Macad::Occt::SelectMgr_SortCriterion^ ChangeFromKey(Macad::Occt::SelectMgr_EntityOwner^ theKey1);
     Macad::Occt::SelectMgr_SortCriterion^ Seek(Macad::Occt::SelectMgr_EntityOwner^ theKey1);
     Macad::Occt::SelectMgr_SortCriterion^ ChangeSeek(Macad::Occt::SelectMgr_EntityOwner^ theKey1);
-    bool FindFromKey(Macad::Occt::SelectMgr_EntityOwner^ theKey1, Macad::Occt::SelectMgr_SortCriterion^ theValue);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class SelectMgr_IndexedDataMapOfOwnerCriterion
 
@@ -878,8 +791,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::SelectMgr_MapOfObjectSensitives^ theMap);
-        Iterator(Macad::Occt::SelectMgr_MapOfObjectSensitives::Iterator^ parameter1);
         bool More();
         void Next();
         /* Method skipped due to unknown mapping: SelectMgr_SensitiveEntitySet Value() */
@@ -890,7 +801,6 @@ public:
     SelectMgr_MapOfObjectSensitives();
     SelectMgr_MapOfObjectSensitives(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     SelectMgr_MapOfObjectSensitives(int theNbBuckets);
-    SelectMgr_MapOfObjectSensitives(Macad::Occt::SelectMgr_MapOfObjectSensitives^ theOther);
     void Exchange(Macad::Occt::SelectMgr_MapOfObjectSensitives^ theOther);
     Macad::Occt::SelectMgr_MapOfObjectSensitives^ Assign(Macad::Occt::SelectMgr_MapOfObjectSensitives^ theOther);
     void ReSize(int N);
@@ -900,101 +810,12 @@ public:
     bool UnBind(Macad::Occt::SelectMgr_SelectableObject^ theKey);
     /* Method skipped due to unknown mapping: SelectMgr_SensitiveEntitySet Seek(SelectMgr_SelectableObject theKey, ) */
     /* Method skipped due to unknown mapping: SelectMgr_SensitiveEntitySet Find(SelectMgr_SelectableObject theKey, ) */
-    /* Method skipped due to unknown mapping: bool Find(SelectMgr_SelectableObject theKey, SelectMgr_SensitiveEntitySet theValue, ) */
     /* Method skipped due to unknown mapping: SelectMgr_SensitiveEntitySet ChangeSeek(SelectMgr_SelectableObject theKey, ) */
     /* Method skipped due to unknown mapping: SelectMgr_SensitiveEntitySet ChangeFind(SelectMgr_SelectableObject theKey, ) */
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class SelectMgr_MapOfObjectSensitives
-
-//---------------------------------------------------------------------
-//  Class  SelectMgr_FrustumCache
-//---------------------------------------------------------------------
-public ref class SelectMgr_FrustumCache sealed
-    : public Macad::Occt::BaseClass<::SelectMgr_FrustumCache>
-{
-
-#ifdef Include_SelectMgr_FrustumCache_h
-public:
-    Include_SelectMgr_FrustumCache_h
-#endif
-
-public:
-    SelectMgr_FrustumCache(::SelectMgr_FrustumCache* nativeInstance)
-        : Macad::Occt::BaseClass<::SelectMgr_FrustumCache>( nativeInstance, true )
-    {}
-
-    SelectMgr_FrustumCache(::SelectMgr_FrustumCache& nativeInstance)
-        : Macad::Occt::BaseClass<::SelectMgr_FrustumCache>( &nativeInstance, false )
-    {}
-
-    property ::SelectMgr_FrustumCache* NativeInstance
-    {
-        ::SelectMgr_FrustumCache* get()
-        {
-            return static_cast<::SelectMgr_FrustumCache*>(_NativeInstance);
-        }
-    }
-
-public:
-    ref class Iterator sealed
-        : public Macad::Occt::BaseClass<::SelectMgr_FrustumCache::Iterator>
-    {
-
-#ifdef Include_SelectMgr_FrustumCache_Iterator_h
-    public:
-        Include_SelectMgr_FrustumCache_Iterator_h
-#endif
-
-    public:
-        Iterator(::SelectMgr_FrustumCache::Iterator* nativeInstance)
-            : Macad::Occt::BaseClass<::SelectMgr_FrustumCache::Iterator>( nativeInstance, true )
-        {}
-
-        Iterator(::SelectMgr_FrustumCache::Iterator& nativeInstance)
-            : Macad::Occt::BaseClass<::SelectMgr_FrustumCache::Iterator>( &nativeInstance, false )
-        {}
-
-        property ::SelectMgr_FrustumCache::Iterator* NativeInstance
-        {
-            ::SelectMgr_FrustumCache::Iterator* get()
-            {
-                return static_cast<::SelectMgr_FrustumCache::Iterator*>(_NativeInstance);
-            }
-        }
-
-    public:
-        Iterator();
-        Iterator(Macad::Occt::SelectMgr_FrustumCache^ theMap);
-        Iterator(Macad::Occt::SelectMgr_FrustumCache::Iterator^ parameter1);
-        bool More();
-        void Next();
-        Macad::Occt::SelectMgr_SelectingVolumeManager^ Value();
-        Macad::Occt::SelectMgr_SelectingVolumeManager^ ChangeValue();
-        int Key();
-    }; // class Iterator
-
-    SelectMgr_FrustumCache();
-    SelectMgr_FrustumCache(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    SelectMgr_FrustumCache(int theNbBuckets);
-    SelectMgr_FrustumCache(Macad::Occt::SelectMgr_FrustumCache^ theOther);
-    void Exchange(Macad::Occt::SelectMgr_FrustumCache^ theOther);
-    Macad::Occt::SelectMgr_FrustumCache^ Assign(Macad::Occt::SelectMgr_FrustumCache^ theOther);
-    Macad::Occt::SelectMgr_SelectingVolumeManager^ Bound(int theKey, Macad::Occt::SelectMgr_SelectingVolumeManager^ theItem);
-    bool IsBound(int theKey);
-    bool UnBind(int theKey);
-    Macad::Occt::SelectMgr_SelectingVolumeManager^ Seek(int theKey);
-    Macad::Occt::SelectMgr_SelectingVolumeManager^ Find(int theKey);
-    bool Find(int theKey, Macad::Occt::SelectMgr_SelectingVolumeManager^ theValue);
-    Macad::Occt::SelectMgr_SelectingVolumeManager^ ChangeSeek(int theKey);
-    Macad::Occt::SelectMgr_SelectingVolumeManager^ ChangeFind(int theKey);
-    void Clear(bool doReleaseMemory);
-    void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    int Size();
-}; // class SelectMgr_FrustumCache
 
 //---------------------------------------------------------------------
 //  Class  SelectMgr_IndexedMapOfHSensitive
@@ -1053,19 +874,11 @@ public:
         }
 
     public:
-        Iterator();
-        Iterator(Macad::Occt::SelectMgr_IndexedMapOfHSensitive^ theMap);
-        Iterator(Macad::Occt::SelectMgr_IndexedMapOfHSensitive::Iterator^ parameter1);
-        bool More();
-        void Next();
-        Macad::Occt::SelectMgr_SensitiveEntity^ Value();
-        bool IsEqual(Macad::Occt::SelectMgr_IndexedMapOfHSensitive::Iterator^ theOther);
     }; // class Iterator
 
     SelectMgr_IndexedMapOfHSensitive();
     SelectMgr_IndexedMapOfHSensitive(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     SelectMgr_IndexedMapOfHSensitive(int theNbBuckets);
-    SelectMgr_IndexedMapOfHSensitive(Macad::Occt::SelectMgr_IndexedMapOfHSensitive^ theOther);
     void Exchange(Macad::Occt::SelectMgr_IndexedMapOfHSensitive^ theOther);
     Macad::Occt::SelectMgr_IndexedMapOfHSensitive^ Assign(Macad::Occt::SelectMgr_IndexedMapOfHSensitive^ theOther);
     void ReSize(int theExtent);
@@ -1080,7 +893,6 @@ public:
     int FindIndex(Macad::Occt::SelectMgr_SensitiveEntity^ theKey1);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class SelectMgr_IndexedMapOfHSensitive
 
@@ -1151,8 +963,6 @@ public:
         }
 
         Iterator();
-        Iterator(Macad::Occt::SelectMgr_MapOfOwners^ theMap);
-        Iterator(Macad::Occt::SelectMgr_MapOfOwners::Iterator^ parameter1);
         bool More();
         void Next();
         int Value();
@@ -1162,7 +972,6 @@ public:
     SelectMgr_MapOfOwners();
     SelectMgr_MapOfOwners(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     SelectMgr_MapOfOwners(int theNbBuckets);
-    SelectMgr_MapOfOwners(Macad::Occt::SelectMgr_MapOfOwners^ theOther);
     void Exchange(Macad::Occt::SelectMgr_MapOfOwners^ theOther);
     Macad::Occt::SelectMgr_MapOfOwners^ Assign(Macad::Occt::SelectMgr_MapOfOwners^ theOther);
     void ReSize(int N);
@@ -1172,12 +981,10 @@ public:
     bool UnBind(Macad::Occt::SelectMgr_EntityOwner^ theKey);
     int Seek(Macad::Occt::SelectMgr_EntityOwner^ theKey);
     int Find(Macad::Occt::SelectMgr_EntityOwner^ theKey);
-    bool Find(Macad::Occt::SelectMgr_EntityOwner^ theKey, int% theValue);
     int ChangeSeek(Macad::Occt::SelectMgr_EntityOwner^ theKey);
     int ChangeFind(Macad::Occt::SelectMgr_EntityOwner^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class SelectMgr_MapOfOwners
 
@@ -1239,8 +1046,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::NCollection_BaseList^ theList);
-        Iterator(Macad::Occt::SelectMgr_TriangFrustums::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::SelectMgr_TriangularFrustum^ Value();
@@ -1249,7 +1054,6 @@ public:
 
     SelectMgr_TriangFrustums();
     SelectMgr_TriangFrustums(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    SelectMgr_TriangFrustums(Macad::Occt::SelectMgr_TriangFrustums^ theOther);
     int Size();
     Macad::Occt::SelectMgr_TriangFrustums^ Assign(Macad::Occt::SelectMgr_TriangFrustums^ theOther);
     void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
@@ -1257,16 +1061,11 @@ public:
     Macad::Occt::SelectMgr_TriangularFrustum^ First();
     Macad::Occt::SelectMgr_TriangularFrustum^ Last();
     Macad::Occt::SelectMgr_TriangularFrustum^ Append(Macad::Occt::SelectMgr_TriangularFrustum^ theItem);
-    void Append(Macad::Occt::SelectMgr_TriangularFrustum^ theItem, Macad::Occt::SelectMgr_TriangFrustums::Iterator^ theIter);
-    void Append(Macad::Occt::SelectMgr_TriangFrustums^ theOther);
     Macad::Occt::SelectMgr_TriangularFrustum^ Prepend(Macad::Occt::SelectMgr_TriangularFrustum^ theItem);
-    void Prepend(Macad::Occt::SelectMgr_TriangFrustums^ theOther);
     void RemoveFirst();
     void Remove(Macad::Occt::SelectMgr_TriangFrustums::Iterator^ theIter);
     Macad::Occt::SelectMgr_TriangularFrustum^ InsertBefore(Macad::Occt::SelectMgr_TriangularFrustum^ theItem, Macad::Occt::SelectMgr_TriangFrustums::Iterator^ theIter);
-    void InsertBefore(Macad::Occt::SelectMgr_TriangFrustums^ theOther, Macad::Occt::SelectMgr_TriangFrustums::Iterator^ theIter);
     Macad::Occt::SelectMgr_TriangularFrustum^ InsertAfter(Macad::Occt::SelectMgr_TriangularFrustum^ theItem, Macad::Occt::SelectMgr_TriangFrustums::Iterator^ theIter);
-    void InsertAfter(Macad::Occt::SelectMgr_TriangFrustums^ theOther, Macad::Occt::SelectMgr_TriangFrustums::Iterator^ theIter);
     void Reverse();
 }; // class SelectMgr_TriangFrustums
 
@@ -1347,7 +1146,6 @@ public:
     /// The default setting 0 is the selection mode for a shape in its entirety.
     /// </summary>
     SelectMgr_Selection();
-    SelectMgr_Selection(Macad::Occt::SelectMgr_Selection^ parameter1);
     void Destroy();
     /* Method skipped due to unknown mapping: void Add(Select3D_SensitiveEntity theSensitive, ) */
     /// <summary>
@@ -1362,11 +1160,11 @@ public:
     /// returns the selection mode represented by this selection
     /// </summary>
     int Mode();
-    /* Method skipped due to unknown mapping: NCollection_Vector<opencascade::handle<SelectMgr_SensitiveEntity>> Entities() */
-    /* Method skipped due to unknown mapping: NCollection_Vector<opencascade::handle<SelectMgr_SensitiveEntity>> ChangeEntities() */
+    /* Method skipped due to unknown mapping: NCollection_DynamicArray<opencascade::handle<SelectMgr_SensitiveEntity>> Entities() */
+    /* Method skipped due to unknown mapping: NCollection_DynamicArray<opencascade::handle<SelectMgr_SensitiveEntity>> ChangeEntities() */
     /// <summary>
     /// Returns the flag UpdateFlag.
-    /// This flage gives the update status of this framework
+    /// This flag gives the update status of this framework
     /// in a ViewerSelector object:
     /// -   full
     /// -   partial, or
@@ -1439,7 +1237,6 @@ public:
 
 public:
     SelectMgr();
-    SelectMgr(Macad::Occt::SelectMgr^ parameter1);
     /// <summary>
     /// Compute debug presentation for sensitive objects.
     /// </summary>
@@ -1452,7 +1249,8 @@ public:
 /// <summary>
 /// A framework to define classes of owners of sensitive primitives.
 /// The owner is the link between application and selection data structures.
-/// For the application to make its own objects selectable, it must define owner classes inheriting this framework.
+/// For the application to make its own objects selectable, it must define owner classes inheriting
+/// this framework.
 /// </summary>
 public ref class SelectMgr_EntityOwner
     : public Macad::Occt::Standard_Transient
@@ -1509,12 +1307,12 @@ public:
     /// anSO being attributed the selection priority aPriority.
     /// </summary>
     SelectMgr_EntityOwner(Macad::Occt::SelectMgr_EntityOwner^ theOwner, int aPriority);
-    SelectMgr_EntityOwner(Macad::Occt::SelectMgr_EntityOwner^ parameter1);
     /// <summary>
     /// Return selection priority (within range [0-9]) for results with the same depth; 0 by default.
     /// Example - selection of shapes:
-    /// the owners are selectable objects (presentations) a user can give vertex priority [3], edges [2] faces [1] shape [0],
-    /// so that if during selection one vertex one edge and one face are simultaneously detected, the vertex will only be hilighted.
+    /// the owners are selectable objects (presentations) a user can give vertex priority [3], edges
+    /// [2] faces [1] shape [0], so that if during selection one vertex one edge and one face are
+    /// simultaneously detected, the vertex will only be hilighted.
     /// </summary>
     int Priority();
     /// <summary>
@@ -1554,28 +1352,32 @@ public:
     /// </returns>
     bool HandleMouseClick(Macad::Occt::Graphic3d_Vec2i^ thePoint, unsigned int theButton, unsigned int theModifiers, bool theIsDoubleClick);
     /// <summary>
-    /// Returns true if the presentation manager highlights selections corresponding to the selection mode.
+    /// Returns true if the presentation manager highlights selections corresponding to the selection
+    /// mode.
     /// </summary>
     bool IsHilighted(Macad::Occt::PrsMgr_PresentationManager^ thePrsMgr, int theMode);
     /// <summary>
-    /// Returns true if the presentation manager highlights selections corresponding to the selection mode.
+    /// Returns true if the presentation manager highlights selections corresponding to the selection
+    /// mode.
     /// </summary>
     bool IsHilighted(Macad::Occt::PrsMgr_PresentationManager^ thePrsMgr);
     /// <summary>
-    /// Highlights selectable object's presentation with display mode in presentation manager with given highlight style.
-    /// Also a check for auto-highlight is performed - if selectable object manages highlighting on its own,
-    /// execution will be passed to SelectMgr_SelectableObject::HilightOwnerWithColor method.
+    /// Highlights selectable object's presentation with display mode in presentation manager with
+    /// given highlight style. Also a check for auto-highlight is performed - if selectable object
+    /// manages highlighting on its own, execution will be passed to
+    /// SelectMgr_SelectableObject::HilightOwnerWithColor method.
     /// </summary>
     void HilightWithColor(Macad::Occt::PrsMgr_PresentationManager^ thePrsMgr, Macad::Occt::Prs3d_Drawer^ theStyle, int theMode);
     /// <summary>
-    /// Highlights selectable object's presentation with display mode in presentation manager with given highlight style.
-    /// Also a check for auto-highlight is performed - if selectable object manages highlighting on its own,
-    /// execution will be passed to SelectMgr_SelectableObject::HilightOwnerWithColor method.
+    /// Highlights selectable object's presentation with display mode in presentation manager with
+    /// given highlight style. Also a check for auto-highlight is performed - if selectable object
+    /// manages highlighting on its own, execution will be passed to
+    /// SelectMgr_SelectableObject::HilightOwnerWithColor method.
     /// </summary>
     void HilightWithColor(Macad::Occt::PrsMgr_PresentationManager^ thePrsMgr, Macad::Occt::Prs3d_Drawer^ theStyle);
     /// <summary>
-    /// Removes highlighting from the owner of a detected selectable object in the presentation manager.
-    /// This object could be the owner of a sensitive primitive.
+    /// Removes highlighting from the owner of a detected selectable object in the presentation
+    /// manager. This object could be the owner of a sensitive primitive.
     /// </summary>
     /// <param name="thePrsMgr">
     /// presentation manager
@@ -1585,8 +1387,8 @@ public:
     /// </param>
     void Unhilight(Macad::Occt::PrsMgr_PresentationManager^ thePrsMgr, int theMode);
     /// <summary>
-    /// Removes highlighting from the owner of a detected selectable object in the presentation manager.
-    /// This object could be the owner of a sensitive primitive.
+    /// Removes highlighting from the owner of a detected selectable object in the presentation
+    /// manager. This object could be the owner of a sensitive primitive.
     /// </summary>
     /// <param name="thePrsMgr">
     /// presentation manager
@@ -1626,10 +1428,20 @@ public:
     /// <summary>
     /// Set the state of the owner.
     /// </summary>
-    /// <param name="theIsSelected">
-    /// [in] shows if owner is selected.
+    /// <param name="in]">
+    /// theIsSelected  shows if owner is selected.
     /// </param>
     void SetSelected(bool theIsSelected);
+    /// <summary>
+    /// If the object needs to be selected, it returns true.
+    /// </summary>
+    /// <param name="in]">
+    /// theSelScheme  selection scheme
+    /// </param>
+    /// <param name="in]">
+    /// theIsDetected flag of object detection
+    /// </param>
+    bool Select(Macad::Occt::AIS_SelectionScheme theSelScheme, bool theIsDetected);
     /// <summary>
     /// Returns selection state.
     /// </summary>
@@ -1640,12 +1452,13 @@ public:
     /// </summary>
     void State(int theStatus);
     /// <summary>
-    /// if owner is not auto hilighted, for group contains many such owners will be called one method HilightSelected of SelectableObject
+    /// if owner is not auto hilighted, for group contains many such owners will be called one method
+    /// HilightSelected of SelectableObject
     /// </summary>
     bool IsAutoHilight();
     /// <summary>
-    /// if this method returns TRUE the owner will always call method Hilight for SelectableObject when the owner is detected.
-    /// By default it always return FALSE.
+    /// if this method returns TRUE the owner will always call method Hilight for SelectableObject
+    /// when the owner is detected. By default it always return FALSE.
     /// </summary>
     bool IsForcedHilight();
     /// <summary>
@@ -1653,7 +1466,8 @@ public:
     /// </summary>
     void SetZLayer(int theLayerId);
     /// <summary>
-    /// Implements immediate application of location transformation of parent object to dynamic highlight structure
+    /// Implements immediate application of location transformation of parent object to dynamic
+    /// highlight structure
     /// </summary>
     void UpdateHighlightTrsf(Macad::Occt::V3d_Viewer^ theViewer, Macad::Occt::PrsMgr_PresentationManager^ theManager, int theDispMode);
     /// <summary>
@@ -1733,7 +1547,6 @@ public:
     }
 
 public:
-    SelectMgr_Filter(Macad::Occt::SelectMgr_Filter^ parameter1);
     SelectMgr_Filter();
     /// <summary>
     /// Indicates that the selected Interactive Object
@@ -1801,7 +1614,6 @@ public:
     }
 
 public:
-    SelectMgr_CompositionFilter(Macad::Occt::SelectMgr_CompositionFilter^ parameter1);
     SelectMgr_CompositionFilter();
     /// <summary>
     /// Adds the filter afilter to a filter object created by a
@@ -1871,7 +1683,6 @@ public:
     /// more types of entity.
     /// </summary>
     SelectMgr_AndFilter();
-    SelectMgr_AndFilter(Macad::Occt::SelectMgr_AndFilter^ parameter1);
     bool IsOk(Macad::Occt::SelectMgr_EntityOwner^ anobj);
     static Macad::Occt::SelectMgr_AndFilter^ CreateDowncasted(::SelectMgr_AndFilter* instance);
 }; // class SelectMgr_AndFilter
@@ -1915,12 +1726,11 @@ public:
     /// Constructs an empty selection filter.
     /// </summary>
     SelectMgr_AndOrFilter(Macad::Occt::SelectMgr_FilterType theFilterType);
-    SelectMgr_AndOrFilter(Macad::Occt::SelectMgr_AndOrFilter^ parameter1);
     /// <summary>
     /// Indicates that the selected Interactive Object passes the filter.
     /// </summary>
     bool IsOk(Macad::Occt::SelectMgr_EntityOwner^ theObj);
-    /* Method skipped due to unknown mapping: void SetDisabledObjects(NCollection_Shared<NCollection_Map<const Standard_Transient *, NCollection_DefaultHasher<const Standard_Transient *>>, void theObjects, ) */
+    /* Method skipped due to unknown mapping: void SetDisabledObjects(NCollection_Shared<NCollection_Map<const Standard_Transient * theObjects, ) */
     /// <summary>
     /// </summary>
     /// <returns>
@@ -1977,7 +1787,6 @@ public:
     /// Creates new frustum builder with empty matrices
     /// </summary>
     SelectMgr_FrustumBuilder();
-    SelectMgr_FrustumBuilder(Macad::Occt::SelectMgr_FrustumBuilder^ parameter1);
     /// <summary>
     /// Returns current camera
     /// </summary>
@@ -2049,7 +1858,6 @@ public:
     /// Creates an empty clip range.
     /// </summary>
     SelectMgr_ViewClipRange();
-    SelectMgr_ViewClipRange(Macad::Occt::SelectMgr_ViewClipRange^ parameter1);
     /// <summary>
     /// Check if the given depth is not within clipping range(s),
     /// e.g. TRUE means depth is clipped.
@@ -2132,7 +1940,6 @@ public:
     /// Creates new empty selecting volume
     /// </summary>
     SelectMgr_BaseIntersector();
-    SelectMgr_BaseIntersector(Macad::Occt::SelectMgr_BaseIntersector^ parameter1);
     /// <summary>
     /// Builds intersector according to internal parameters
     /// </summary>
@@ -2154,21 +1961,35 @@ public:
     /// <summary>
     /// Note that this method does not perform any checks on type of the frustum.
     /// </summary>
-    /// <param name="theScaleFactor">
-    /// [in] scale factor for new intersector or negative value if undefined;
-    /// IMPORTANT: scaling makes sense only for scalable ::IsScalable() intersectors (built on a single point)!
+    /// <param name="in]">
+    /// theScaleFactor  scale factor for new intersector or negative value if undefined;
+    /// IMPORTANT: scaling makes sense only for scalable ::IsScalable()
+    /// intersectors (built on a single point)!
     /// </param>
-    /// <param name="theTrsf">
-    /// [in] transformation for new intersector or gp_Identity if undefined
+    /// <param name="in]">
+    /// theTrsf  transformation for new intersector or gp_Identity if undefined
     /// </param>
-    /// <param name="theBuilder">
-    /// [in] an optional argument that represents corresponding settings for re-constructing transformed frustum from scratch;
+    /// <param name="in]">
+    /// theBuilder  an optional argument that represents corresponding settings for
+    /// re-constructing transformed frustum from scratch;
     /// could be NULL if reconstruction is not expected furthermore
     /// </param>
     /// <returns>
-    /// a copy of the frustum resized according to the scale factor given and transforms it using the matrix given
+    /// a copy of the frustum resized according to the scale factor given and transforms it
+    /// using the matrix given
     /// </returns>
     Macad::Occt::SelectMgr_BaseIntersector^ ScaleAndTransform(int theScaleFactor, Macad::Occt::gp_GTrsf^ theTrsf, Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
+    /// <summary>
+    /// </summary>
+    /// <param name="in]">
+    /// theBuilder  argument that represents corresponding settings for re-constructing
+    /// transformed frustum from scratch;
+    /// should NOT be NULL.
+    /// </param>
+    /// <returns>
+    /// a copy of the frustum with the input builder assigned
+    /// </returns>
+    Macad::Occt::SelectMgr_BaseIntersector^ CopyWithBuilder(Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
     /// <summary>
     /// Return camera definition.
     /// </summary>
@@ -2212,7 +2033,7 @@ public:
     /// This method returns infinite point for the base class.
     /// </summary>
     Macad::Occt::Pnt2d GetMousePosition();
-    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_Vector<NCollection_Vec4<double>> thePlaneEquations, ) */
+    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_DynamicArray<NCollection_Vec4<double>> thePlaneEquations, ) */
     /// <summary>
     /// SAT intersection test between defined volume and given axis-aligned box
     /// </summary>
@@ -2233,8 +2054,9 @@ public:
     bool OverlapsPoint(Macad::Occt::Pnt thePnt, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
     /// Intersection test between defined volume and given point
-    /// Does not perform depth calculation, so this method is defined as helper function for inclusion test.
-    /// Therefore, its implementation makes sense only for rectangular frustum with box selection mode activated.
+    /// Does not perform depth calculation, so this method is defined as helper function for inclusion
+    /// test. Therefore, its implementation makes sense only for rectangular frustum with box
+    /// selection mode activated.
     /// </summary>
     bool OverlapsPoint(Macad::Occt::Pnt thePnt);
     /* Method skipped due to unknown mapping: bool OverlapsPolygon(TColgp_Array1OfPnt theArrayOfPnts, Select3D_TypeOfSensitivity theSensType, SelectMgr_ViewClipRange theClipRange, SelectBasics_PickResult thePickResult, ) */
@@ -2259,18 +2081,18 @@ public:
     /// </summary>
     bool OverlapsSphere(Macad::Occt::Pnt theCenter, double theRadius, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, bool% theInside);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow);
     /// <summary>
@@ -2302,9 +2124,9 @@ public:
     /// </summary>
     double DistToGeometryCenter(Macad::Occt::Pnt theCOG);
     /// <summary>
-    /// Calculates the point on a view ray that was detected during the run of selection algo by given depth.
-    /// It makes sense only for intersectors built on a single point.
-    /// This method returns infinite point for the base class.
+    /// Calculates the point on a view ray that was detected during the run of selection algo by given
+    /// depth. It makes sense only for intersectors built on a single point. This method returns
+    /// infinite point for the base class.
     /// </summary>
     Macad::Occt::Pnt DetectedPoint(double theDepth);
     /// <summary>
@@ -2316,13 +2138,13 @@ public:
     /// </summary>
     void DumpJson(System::IO::TextWriter^ theOStream);
     /// <summary>
-    /// Checks whether the ray that starts at the point theLoc and directs with the direction theRayDir intersects
-    /// with the sphere with center at theCenter and radius TheRadius
+    /// Checks whether the ray that starts at the point theLoc and directs with the direction
+    /// theRayDir intersects with the sphere with center at theCenter and radius TheRadius
     /// </summary>
     bool RaySphereIntersection(Macad::Occt::Pnt theCenter, double theRadius, Macad::Occt::Pnt theLoc, Macad::Occt::Dir theRayDir, double% theTimeEnter, double% theTimeLeave);
     /// <summary>
-    /// Checks whether the ray that starts at the point theLoc and directs with the direction theRayDir intersects
-    /// with the hollow cylinder (or cone)
+    /// Checks whether the ray that starts at the point theLoc and directs with the direction
+    /// theRayDir intersects with the hollow cylinder (or cone)
     /// </summary>
     /// <param name="in]">
     ///  theBottomRadius the bottom cylinder radius
@@ -2350,8 +2172,8 @@ public:
     /// </param>
     bool RayCylinderIntersection(double theBottomRadius, double theTopRadius, double theHeight, Macad::Occt::Pnt theLoc, Macad::Occt::Dir theRayDir, bool theIsHollow, double% theTimeEnter, double% theTimeLeave);
     /// <summary>
-    /// Checks whether the ray that starts at the point theLoc and directs with the direction theRayDir intersects
-    /// with the circle
+    /// Checks whether the ray that starts at the point theLoc and directs with the direction
+    /// theRayDir intersects with the circle
     /// </summary>
     /// <param name="in]">
     ///  theRadius   the circle radius
@@ -2410,7 +2232,6 @@ public:
     /// Empty constructor
     /// </summary>
     SelectMgr_AxisIntersector();
-    SelectMgr_AxisIntersector(Macad::Occt::SelectMgr_AxisIntersector^ parameter1);
     /// <summary>
     /// Initializes selecting axis according to the input one
     /// </summary>
@@ -2432,10 +2253,16 @@ public:
     /// <summary>
     /// IMPORTANT: Scaling doesn't make sense for this intersector.
     /// Returns a copy of the intersector transformed using the matrix given.
-    /// Builder is an optional argument that represents corresponding settings for re-constructing transformed frustum from scratch.
-    /// Can be null if reconstruction is not expected furthermore.
+    /// Builder is an optional argument that represents corresponding settings for re-constructing
+    /// transformed frustum from scratch. Can be null if reconstruction is not expected furthermore.
     /// </summary>
     Macad::Occt::SelectMgr_BaseIntersector^ ScaleAndTransform(int theScaleFactor, Macad::Occt::gp_GTrsf^ theTrsf, Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
+    /// <summary>
+    /// Returns a copy of the intersector transformed using the builder configuration given.
+    /// Builder is an argument that represents corresponding settings for re-constructing transformed
+    /// frustum from scratch. In this class, builder is not used and theBuilder parameter is ignored.
+    /// </summary>
+    Macad::Occt::SelectMgr_BaseIntersector^ CopyWithBuilder(Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
     /// <summary>
     /// Intersection test between defined axis and given axis-aligned box
     /// </summary>
@@ -2475,18 +2302,18 @@ public:
     /// </summary>
     bool OverlapsSphere(Macad::Occt::Pnt theCenter, double theRadius, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, bool% theInside);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow);
     /// <summary>
@@ -2515,7 +2342,8 @@ public:
     /// </summary>
     double DistToGeometryCenter(Macad::Occt::Pnt theCOG);
     /// <summary>
-    /// Calculates the point on a axis ray that was detected during the run of selection algo by given depth
+    /// Calculates the point on a axis ray that was detected during the run of selection algo by given
+    /// depth
     /// </summary>
     Macad::Occt::Pnt DetectedPoint(double theDepth);
     /// <summary>
@@ -2588,7 +2416,6 @@ public:
     /// orthographic camera and empty frustum builder
     /// </summary>
     SelectMgr_BaseFrustum();
-    SelectMgr_BaseFrustum(Macad::Occt::SelectMgr_BaseFrustum^ parameter1);
     /// <summary>
     /// Nullifies the builder created in the constructor and copies the pointer given
     /// </summary>
@@ -2605,7 +2432,8 @@ public:
     /// </summary>
     void SetViewport(double theX, double theY, double theWidth, double theHeight);
     /// <summary>
-    /// Checks whether the boundary of the current volume selection intersects with a sphere or are there it's boundaries lying inside the sphere
+    /// Checks whether the boundary of the current volume selection intersects with a sphere or are
+    /// there it's boundaries lying inside the sphere
     /// </summary>
     bool IsBoundaryIntersectSphere(Macad::Occt::Pnt theCenter, double theRadius, Macad::Occt::Dir thePlaneNormal, Macad::Occt::TColgp_Array1OfPnt^ theBoundaries, bool% theBoundaryInside);
     /// <summary>
@@ -2665,7 +2493,6 @@ public:
     /// Creates instances of all available selecting volume types
     /// </summary>
     SelectMgr_SelectingVolumeManager();
-    SelectMgr_SelectingVolumeManager(Macad::Occt::SelectMgr_SelectingVolumeManager^ parameter1);
     /// <summary>
     /// Creates, initializes and activates rectangular selecting frustum for point selection
     /// </summary>
@@ -2705,10 +2532,16 @@ public:
     /// There are no default parameters, but in case if:
     /// - transformation only is needed: @theScaleFactor must be initialized as any negative value;
     /// - scale only is needed: @theTrsf must be set to gp_Identity.
-    /// Builder is an optional argument that represents corresponding settings for re-constructing transformed
-    /// frustum from scratch. Can be null if reconstruction is not expected furthermore.
+    /// Builder is an optional argument that represents corresponding settings for re-constructing
+    /// transformed frustum from scratch. Can be null if reconstruction is not expected furthermore.
     /// </summary>
     Macad::Occt::SelectMgr_SelectingVolumeManager^ ScaleAndTransform(int theScaleFactor, Macad::Occt::gp_GTrsf^ theTrsf, Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
+    /// <summary>
+    /// Returns a copy of the selecting volume manager and its active frustum re-constructed using the
+    /// passed builder. Builder is an argument that represents corresponding settings for
+    /// re-constructing transformed frustum from scratch.
+    /// </summary>
+    Macad::Occt::SelectMgr_SelectingVolumeManager^ CopyWithBuilder(Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
     /// <summary>
     /// Returns current camera definition.
     /// </summary>
@@ -2792,18 +2625,18 @@ public:
     /// </summary>
     bool OverlapsSphere(Macad::Occt::Pnt theCenter, double theRadius);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, bool% theInside);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow);
     /// <summary>
@@ -2833,13 +2666,13 @@ public:
     /// </summary>
     double DistToGeometryCenter(Macad::Occt::Pnt theCOG);
     /// <summary>
-    /// Calculates the point on a view ray that was detected during the run of selection algo by given depth.
-    /// Throws exception if active selection type is not Point.
+    /// Calculates the point on a view ray that was detected during the run of selection algo by given
+    /// depth. Throws exception if active selection type is not Point.
     /// </summary>
     Macad::Occt::Pnt DetectedPoint(double theDepth);
     /// <summary>
-    /// If theIsToAllow is false, only fully included sensitives will be detected, otherwise the algorithm will
-    /// mark both included and overlapped entities as matched
+    /// If theIsToAllow is false, only fully included sensitives will be detected, otherwise the
+    /// algorithm will mark both included and overlapped entities as matched
     /// </summary>
     void AllowOverlapDetection(bool theIsToAllow);
     bool IsOverlapAllowed();
@@ -2855,14 +2688,14 @@ public:
     /// Valid for point selection only!
     /// Computes depth range for clipping planes.
     /// </summary>
-    /// <param name="theViewPlanes">
-    ///  [in] global view planes
+    /// <param name="in]">
+    /// theViewPlanes   global view planes
     /// </param>
-    /// <param name="theObjPlanes">
-    ///   [in] object planes
+    /// <param name="in]">
+    /// theObjPlanes    object planes
     /// </param>
-    /// <param name="theWorldSelMgr">
-    /// [in] selection volume in world space for computing clipping plane ranges
+    /// <param name="in]">
+    /// theWorldSelMgr  selection volume in world space for computing clipping plane ranges
     /// </param>
     void SetViewClipping(Macad::Occt::Graphic3d_SequenceOfHClipPlane^ theViewPlanes, Macad::Occt::Graphic3d_SequenceOfHClipPlane^ theObjPlanes, Macad::Occt::SelectMgr_SelectingVolumeManager^ theWorldSelMgr);
     /// <summary>
@@ -2908,10 +2741,11 @@ public:
     /// Returns mouse coordinates for Point selection mode.
     /// </summary>
     /// <returns>
-    /// infinite point in case of unsupport of mouse position for this active selection volume.
+    /// infinite point in case of unsupport of mouse position for this active selection
+    /// volume.
     /// </returns>
     Macad::Occt::Pnt2d GetMousePosition();
-    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_Vector<NCollection_Vec4<double>> thePlaneEquations, ) */
+    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_DynamicArray<NCollection_Vec4<double>> thePlaneEquations, ) */
     /// <summary>
     /// Dumps the content of me into the stream
     /// </summary>
@@ -2929,7 +2763,8 @@ public:
 //  Class  SelectMgr_BVHThreadPool
 //---------------------------------------------------------------------
 /// <summary>
-/// Class defining a thread pool for building BVH for the list of Select3D_SensitiveEntity within background thread(s).
+/// Class defining a thread pool for building BVH for the list of Select3D_SensitiveEntity within
+/// background thread(s).
 /// </summary>
 public ref class SelectMgr_BVHThreadPool sealed
     : public Macad::Occt::Standard_Transient
@@ -3010,7 +2845,6 @@ public:
 
 public:
     /* Method skipped due to unknown mapping: void SelectMgr_SensitiveEntity(Select3D_SensitiveEntity theEntity, ) */
-    SelectMgr_SensitiveEntity(Macad::Occt::SelectMgr_SensitiveEntity^ parameter1);
     /// <summary>
     /// Clears up all resources and memory
     /// </summary>
@@ -3045,18 +2879,21 @@ public:
 //---------------------------------------------------------------------
 /// <summary>
 /// A framework to supply the structure of the object to be selected.
-/// At the first pick, this structure is created by calling the appropriate algorithm and retaining this framework for further picking.
-/// This abstract framework is inherited in Application Interactive Services (AIS), notably in AIS_InteractiveObject.
-/// Consequently, 3D selection should be handled by the relevant daughter classes and their member functions in AIS.
-/// This is particularly true in the creation of new interactive objects.
+/// At the first pick, this structure is created by calling the appropriate algorithm and retaining
+/// this framework for further picking. This abstract framework is inherited in Application
+/// Interactive Services (AIS), notably in AIS_InteractiveObject. Consequently, 3D selection should
+/// be handled by the relevant daughter classes and their member functions in AIS. This is
+/// particularly true in the creation of new interactive objects.
 /// 
 /// Key interface methods to be implemented by every Selectable Object:
 /// * Presentable Object (PrsMgr_PresentableObject)
-/// Consider defining an enumeration of supported Display Mode indexes for particular Interactive Object or class of Interactive Objects.
+/// Consider defining an enumeration of supported Display Mode indexes for particular Interactive
+/// Object or class of Interactive Objects.
 /// - AcceptDisplayMode() accepting display modes implemented by this object;
 /// - Compute() computing presentation for the given display mode index;
 /// * Selectable Object (SelectMgr_SelectableObject)
-/// Consider defining an enumeration of supported Selection Mode indexes for particular Interactive Object or class of Interactive Objects.
+/// Consider defining an enumeration of supported Selection Mode indexes for particular
+/// Interactive Object or class of Interactive Objects.
 /// - ComputeSelection() computing selectable entities for the given selection mode index.
 /// </summary>
 public ref class SelectMgr_SelectableObject
@@ -3091,9 +2928,9 @@ public:
     }
 
 public:
-    SelectMgr_SelectableObject(Macad::Occt::SelectMgr_SelectableObject^ parameter1);
     /// <summary>
-    /// Computes sensitive primitives for the given selection mode - key interface method of Selectable Object.
+    /// Computes sensitive primitives for the given selection mode - key interface method of
+    /// Selectable Object.
     /// </summary>
     /// <param name="theSelection">
     /// selection to fill
@@ -3103,8 +2940,8 @@ public:
     /// </param>
     void ComputeSelection(Macad::Occt::SelectMgr_Selection^ theSelection, int theMode);
     /// <summary>
-    /// Informs the graphic context that the interactive Object may be decomposed into sub-shapes for dynamic selection.
-    /// The most used Interactive Object is AIS_Shape.
+    /// Informs the graphic context that the interactive Object may be decomposed into sub-shapes for
+    /// dynamic selection. The most used Interactive Object is AIS_Shape.
     /// </summary>
     bool AcceptShapeDecomposition();
     /// <summary>
@@ -3116,9 +2953,10 @@ public:
     void RecomputePrimitives();
     /// <summary>
     /// Re-computes the sensitive primitives which correspond to the <theMode>th selection mode.
-    /// IMPORTANT: Do not use this method to update selection primitives except implementing custom selection manager!
-    /// selection manager! This method does not take into account necessary BVH updates, but may invalidate
-    /// the pointers it refers to. TO UPDATE SELECTION properly from outside classes, use method UpdateSelection.
+    /// IMPORTANT: Do not use this method to update selection primitives except implementing custom
+    /// selection manager! selection manager! This method does not take into account necessary BVH
+    /// updates, but may invalidate the pointers it refers to. TO UPDATE SELECTION properly from
+    /// outside classes, use method UpdateSelection.
     /// </summary>
     void RecomputePrimitives(int theMode);
     /// <summary>
@@ -3149,7 +2987,8 @@ public:
     /// </summary>
     Macad::Occt::SelectMgr_Selection^ Selection(int theMode);
     /// <summary>
-    /// Returns true if a selection corresponding to the selection mode theMode was computed for this object.
+    /// Returns true if a selection corresponding to the selection mode theMode was computed for this
+    /// object.
     /// </summary>
     bool HasSelection(int theMode);
     /// <summary>
@@ -3189,8 +3028,9 @@ public:
     /// </summary>
     void HilightOwnerWithColor(Macad::Occt::PrsMgr_PresentationManager^ thePM, Macad::Occt::Prs3d_Drawer^ theStyle, Macad::Occt::SelectMgr_EntityOwner^ theOwner);
     /// <summary>
-    /// If returns True, the old mechanism for highlighting selected objects is used (HilightSelected Method may be empty).
-    /// If returns False, the HilightSelected method will be fully responsible for highlighting selected entity owners belonging to this selectable object.
+    /// If returns True, the old mechanism for highlighting selected objects is used (HilightSelected
+    /// Method may be empty). If returns False, the HilightSelected method will be fully responsible
+    /// for highlighting selected entity owners belonging to this selectable object.
     /// </summary>
     bool IsAutoHilight();
     /// <summary>
@@ -3223,17 +3063,18 @@ public:
     void ErasePresentations(bool theToRemove);
     /// <summary>
     /// Set Z layer ID and update all presentations of the selectable object.
-    /// The layers mechanism allows drawing objects in higher layers in overlay of objects in lower layers.
+    /// The layers mechanism allows drawing objects in higher layers in overlay of objects in lower
+    /// layers.
     /// </summary>
     void SetZLayer(int theLayerId);
     /// <summary>
-    /// Sets update status FULL to selections of the object. Must be used as the only method of UpdateSelection
-    /// from outer classes to prevent BVH structures from being outdated.
+    /// Sets update status FULL to selections of the object. Must be used as the only method of
+    /// UpdateSelection from outer classes to prevent BVH structures from being outdated.
     /// </summary>
     void UpdateSelection(int theMode);
     /// <summary>
-    /// Sets update status FULL to selections of the object. Must be used as the only method of UpdateSelection
-    /// from outer classes to prevent BVH structures from being outdated.
+    /// Sets update status FULL to selections of the object. Must be used as the only method of
+    /// UpdateSelection from outer classes to prevent BVH structures from being outdated.
     /// </summary>
     void UpdateSelection();
     /// <summary>
@@ -3244,7 +3085,7 @@ public:
     /// Sets common entity owner for assembly sensitive object entities
     /// </summary>
     void SetAssemblyOwner(Macad::Occt::SelectMgr_EntityOwner^ theOwner);
-    /* Method skipped due to unknown mapping: Bnd_Box BndBoxOfSelected(NCollection_Shared<NCollection_IndexedMap<opencascade::SelectMgr_EntityOwner>, NCollection_DefaultHasher<opencascade::SelectMgr_EntityOwner>>>, void theOwners, ) */
+    /* Method skipped due to unknown mapping: Bnd_Box BndBoxOfSelected(NCollection_Shared<NCollection_IndexedMap<opencascade::SelectMgr_EntityOwner theOwners, ) */
     /// <summary>
     /// Returns the mode for selection of object as a whole; 0 by default.
     /// </summary>
@@ -3341,12 +3182,24 @@ public:
     /// <summary>
     /// < selection priority
     /// </summary>
-    property int Priority {
+    property int SelectionPriority {
         int get() {
-            return ((::SelectMgr_SortCriterion*)_NativeInstance)->Priority;
+            return ((::SelectMgr_SortCriterion*)_NativeInstance)->SelectionPriority;
         }
         void set(int value) {
-            ((::SelectMgr_SortCriterion*)_NativeInstance)->Priority = value;
+            ((::SelectMgr_SortCriterion*)_NativeInstance)->SelectionPriority = value;
+        }
+    }
+
+    /// <summary>
+    /// < display priority
+    /// </summary>
+    property int DisplayPriority {
+        int get() {
+            return ((::SelectMgr_SortCriterion*)_NativeInstance)->DisplayPriority;
+        }
+        void set(int value) {
+            ((::SelectMgr_SortCriterion*)_NativeInstance)->DisplayPriority = value;
         }
     }
 
@@ -3375,16 +3228,28 @@ public:
     }
 
     /// <summary>
+    /// < flag to signal comparison to be done over priority
+    /// </summary>
+    property bool IsPreferPriority {
+        bool get() {
+            return ((::SelectMgr_SortCriterion*)_NativeInstance)->IsPreferPriority;
+        }
+        void set(bool value) {
+            ((::SelectMgr_SortCriterion*)_NativeInstance)->IsPreferPriority = value;
+        }
+    }
+
+    /// <summary>
     /// Empty constructor.
     /// </summary>
     SelectMgr_SortCriterion();
-    SelectMgr_SortCriterion(Macad::Occt::SelectMgr_SortCriterion^ parameter1);
     /// <summary>
     /// Compare with another item by depth, priority and minDist.
     /// </summary>
     bool IsCloserDepth(Macad::Occt::SelectMgr_SortCriterion^ theOther);
     /// <summary>
-    /// Compare with another item using old logic (OCCT version <= 6.3.1) with priority considered preceding depth.
+    /// Compare with another item using old logic (OCCT version <= 6.3.1) with priority considered
+    /// preceding depth.
     /// </summary>
     bool IsHigherPriority(Macad::Occt::SelectMgr_SortCriterion^ theOther);
 }; // class SelectMgr_SortCriterion
@@ -3427,7 +3292,6 @@ public:
     /// Constructs an empty or selection filter.
     /// </summary>
     SelectMgr_OrFilter();
-    SelectMgr_OrFilter(Macad::Occt::SelectMgr_OrFilter^ parameter1);
     bool IsOk(Macad::Occt::SelectMgr_EntityOwner^ anobj);
     static Macad::Occt::SelectMgr_OrFilter^ CreateDowncasted(::SelectMgr_OrFilter* instance);
 }; // class SelectMgr_OrFilter
@@ -3479,7 +3343,6 @@ public:
     /// Creates rectangular selecting frustum.
     /// </summary>
     SelectMgr_RectangularFrustum();
-    SelectMgr_RectangularFrustum(Macad::Occt::SelectMgr_RectangularFrustum^ parameter1);
     /// <summary>
     /// Initializes volume according to the point and given pixel tolerance
     /// </summary>
@@ -3488,6 +3351,14 @@ public:
     /// Initializes volume according to the selected rectangle
     /// </summary>
     void Init(Macad::Occt::Pnt2d theMinPnt, Macad::Occt::Pnt2d theMaxPnt);
+    /// <summary>
+    /// Returns True if Frustum (theVertices) intersects the circle.
+    /// </summary>
+    bool isIntersectCircle(double theRadius, Macad::Occt::Pnt theCenter, Macad::Occt::Trsf theTrsf, Macad::Occt::TColgp_Array1OfPnt^ theVertices);
+    /// <summary>
+    /// Returns True if Seg1 (thePnt1Seg1, thePnt2Seg1) and Seg2 (thePnt1Seg2, thePnt2Seg2) intersect.
+    /// </summary>
+    bool isSegmentsIntersect(Macad::Occt::Pnt thePnt1Seg1, Macad::Occt::Pnt thePnt2Seg1, Macad::Occt::Pnt thePnt1Seg2, Macad::Occt::Pnt thePnt2Seg2);
     /// <summary>
     /// Builds volume according to internal parameters.
     /// NOTE: it should be called after Init() method
@@ -3506,10 +3377,23 @@ public:
     /// There are no default parameters, but in case if:
     /// - transformation only is needed: @theScaleFactor must be initialized as any negative value;
     /// - scale only is needed: @theTrsf must be set to gp_Identity.
-    /// Builder is an optional argument that represents corresponding settings for re-constructing transformed
-    /// frustum from scratch. Can be null if reconstruction is not expected furthermore.
+    /// Builder is an optional argument that represents corresponding settings for re-constructing
+    /// transformed frustum from scratch. Can be null if reconstruction is not expected furthermore.
     /// </summary>
     Macad::Occt::SelectMgr_BaseIntersector^ ScaleAndTransform(int theScaleFactor, Macad::Occt::gp_GTrsf^ theTrsf, Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
+    /// <summary>
+    /// Returns a copy of the frustum using the given frustum builder configuration.
+    /// Returned frustum should be re-constructed before being used.
+    /// </summary>
+    /// <param name="in]">
+    /// theBuilder  argument that represents corresponding settings for re-constructing
+    /// transformed frustum from scratch;
+    /// should NOT be NULL.
+    /// </param>
+    /// <returns>
+    /// a copy of the frustum with the input builder assigned
+    /// </returns>
+    Macad::Occt::SelectMgr_BaseIntersector^ CopyWithBuilder(Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
     /// <summary>
     /// SAT intersection test between defined volume and given axis-aligned box
     /// </summary>
@@ -3542,18 +3426,18 @@ public:
     /// </summary>
     bool OverlapsSphere(Macad::Occt::Pnt theCenter, double theRadius, bool% theInside);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, bool% theInside);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow);
     /// <summary>
@@ -3584,7 +3468,8 @@ public:
     /// </summary>
     double DistToGeometryCenter(Macad::Occt::Pnt theCOG);
     /// <summary>
-    /// Calculates the point on a view ray that was detected during the run of selection algo by given depth
+    /// Calculates the point on a view ray that was detected during the run of selection algo by given
+    /// depth
     /// </summary>
     Macad::Occt::Pnt DetectedPoint(double theDepth);
     /// <summary>
@@ -3611,9 +3496,15 @@ public:
     /// Returns current mouse coordinates.
     /// </summary>
     Macad::Occt::Pnt2d GetMousePosition();
-    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_Vector<NCollection_Vec4<double>> thePlaneEquations, ) */
-    /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
-    /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
+    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_DynamicArray<NCollection_Vec4<double>> thePlaneEquations, ) */
+    /// <summary>
+    /// Dumps the content of me into the stream
+    /// </summary>
+    void DumpJson(System::IO::TextWriter^ theOStream, int theDepth);
+    /// <summary>
+    /// Dumps the content of me into the stream
+    /// </summary>
+    void DumpJson(System::IO::TextWriter^ theOStream);
     static Macad::Occt::SelectMgr_RectangularFrustum^ CreateDowncasted(::SelectMgr_RectangularFrustum* instance);
 }; // class SelectMgr_RectangularFrustum
 
@@ -3621,11 +3512,12 @@ public:
 //  Class  SelectMgr_SelectableObjectSet
 //---------------------------------------------------------------------
 /// <summary>
-/// The purpose of this class is to organize all selectable objects into data structure, allowing to build
-/// set of BVH trees for each transformation persistence subclass of selectable objects. This allow to minify
-/// number of updates for BVH trees - for example 2D persistent object subclass depends only on camera's projection
-/// and the corresponding BVH tree needs to be updated when camera's projection parameters change, while another
-/// tree for non-persistent objects can be left unchanged in this case.
+/// The purpose of this class is to organize all selectable objects into data structure, allowing to
+/// build set of BVH trees for each transformation persistence subclass of selectable objects. This
+/// allow to minify number of updates for BVH trees - for example 2D persistent object subclass
+/// depends only on camera's projection and the corresponding BVH tree needs to be updated when
+/// camera's projection parameters change, while another tree for non-persistent objects can be left
+/// unchanged in this case.
 /// </summary>
 public ref class SelectMgr_SelectableObjectSet sealed
     : public Macad::Occt::BaseClass<::SelectMgr_SelectableObjectSet>
@@ -3658,26 +3550,39 @@ public:
     //  Enum  BVHSubset
     //---------------------------------------------------------------------
     /// <summary>
-    /// This enumeration declares names for subsets of selectable objects. Each subset has independent BVH tree.
-    /// The class maintains subsets of selectable objects by their persistence flag. This allows to restric
-    /// rebuilding of the trees for particular subset when the camera change does not implicitly require it:
-    /// - BVHSubset_3d refers to the subset of normal world-space 3D objects. Associated BVH tree does not depend
-    /// on the camera's state at all.
-    /// This subset uses binned BVH builder with 32 bins and 1 element per leaf.
-    /// - BVHSubset_3dPersistent refers to the subset of 3D persistent selectable objects (rotate, pan, zoom persistence).
-    /// Associated BVH tree needs to be updated when either the camera's projection and position change.
-    /// This subset uses linear BVH builder with 32 levels of depth and 1 element per leaf.
-    /// - BVHSubset_2dPersistent refers to the subset of 2D persistent selectable objects. Associated BVH tree
-    /// needs to be updated only when camera's projection changes. Bounding volumes for this object subclass
-    /// is represented directly in eye space coordinates.
-    /// This subset uses linear BVH builder with 32 levels of depth and 1 element per leaf.
+    /// This enumeration declares names for subsets of selectable objects. Each subset has independent
+    /// BVH tree. The class maintains subsets of selectable objects by their persistence flag. This
+    /// allows to restric rebuilding of the trees for particular subset when the camera change does
+    /// not implicitly require it:
+    /// - BVHSubset_3d refers to the subset of normal world-space 3D objects. Associated BVH tree does
+    /// not depend on the camera's state at all. This subset uses binned BVH builder with 32 bins and
+    /// 1 element per leaf.
+    /// - BVHSubset_3dPersistent refers to the subset of 3D persistent selectable objects (rotate,
+    /// pan, zoom persistence). Associated BVH tree needs to be updated when either the camera's
+    /// projection and position change. This subset uses linear BVH builder with 32 levels of depth
+    /// and 1 element per leaf.
+    /// - BVHSubset_2dPersistent refers to the subset of 2D persistent selectable objects. Associated
+    /// BVH tree needs to be updated only when camera's projection changes. Bounding volumes for this
+    /// object subclass is represented directly in eye space coordinates. This subset uses linear BVH
+    /// builder with 32 levels of depth and 1 element per leaf.
+    /// - BVHSubset_ortho3dPersistent refers to the subset of 3D persistent selectable objects
+    /// (rotate, pan, zoom persistence) that contains `Graphic3d_TMF_OrthoPers` persistence mode.
+    /// Associated BVH tree needs to be updated when either the camera's projection and position
+    /// change. This subset uses linear BVH builder with 32 levels of depth and 1 element per leaf.
+    /// - BVHSubset_ortho2dPersistent refers to the subset of 2D persistent selectable objects
+    /// that contains `Graphic3d_TMF_OrthoPers` persistence mode. Associated BVH tree
+    /// needs to be updated only when camera's projection changes. Bounding volumes for this object
+    /// subclass is represented directly in eye space coordinates. This subset uses linear BVH builder
+    /// with 32 levels of depth and 1 element per leaf.
     /// </summary>
     enum class BVHSubset
     {
         BVHSubset_3d = 0,
         BVHSubset_3dPersistent = 1,
         BVHSubset_2dPersistent = 2,
-        BVHSubsetNb = 3
+        ortho3dPersistent = 3,
+        ortho2dPersistent = 4,
+        BVHSubsetNb = 5
     }; // enum  class BVHSubset
 
     /// <summary>
@@ -3718,7 +3623,6 @@ public:
         /// Constructs and initializes the iterator.
         /// </summary>
         Iterator(Macad::Occt::SelectMgr_SelectableObjectSet^ theSet);
-        Iterator(Macad::Occt::SelectMgr_SelectableObjectSet::Iterator^ parameter1);
         /// <summary>
         /// Initializes the iterator.
         /// </summary>
@@ -3741,14 +3645,14 @@ public:
     /// Creates new empty objects set and initializes BVH tree builders for each subset.
     /// </summary>
     SelectMgr_SelectableObjectSet();
-    SelectMgr_SelectableObjectSet(Macad::Occt::SelectMgr_SelectableObjectSet^ parameter1);
     /// <summary>
     /// Adds the new selectable object to the set. The selectable object is placed into one of the
     /// predefined subsets depending on its persistence type. After adding an object, this method
     /// marks the corresponding BVH tree for rebuild.
     /// </summary>
     /// <returns>
-    /// true if selectable object is added, otherwise returns false (selectable object is already in the set).
+    /// true if selectable object is added, otherwise returns false (selectable object is
+    /// already in the set).
     /// </returns>
     bool Append(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
@@ -3757,7 +3661,8 @@ public:
     /// BVH tree for rebuild.
     /// </summary>
     /// <returns>
-    /// true if selectable object is removed, otherwise returns false (selectable object is not in the set).
+    /// true if selectable object is removed, otherwise returns false (selectable object is
+    /// not in the set).
     /// </returns>
     bool Remove(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
@@ -3788,11 +3693,11 @@ public:
     /// </summary>
     bool IsEmpty(Macad::Occt::SelectMgr_SelectableObjectSet::BVHSubset theSubset);
     /// <summary>
-    /// Returns object from subset theSubset by theIndex given. The method allows to get selectable object
-    /// referred by the index of an element of the subset's BVH tree.
+    /// Returns object from subset theSubset by theIndex given. The method allows to get selectable
+    /// object referred by the index of an element of the subset's BVH tree.
     /// </summary>
     Macad::Occt::SelectMgr_SelectableObject^ GetObjectById(Macad::Occt::SelectMgr_SelectableObjectSet::BVHSubset theSubset, int theIndex);
-    /* Method skipped due to unknown mapping: BVH_Tree<double, 3, BVH_BinaryTree BVH(BVHSubset theSubset, ) */
+    /* Method skipped due to unknown mapping: BVH_Tree<double, 3 BVH(BVHSubset theSubset, ) */
     /// <summary>
     /// Dumps the content of me into the stream
     /// </summary>
@@ -3869,7 +3774,6 @@ public:
     /// Constructs an empty selector object.
     /// </summary>
     SelectMgr_ViewerSelector();
-    SelectMgr_ViewerSelector(Macad::Occt::SelectMgr_ViewerSelector^ parameter1);
     /// <summary>
     /// Returns custom pixel tolerance value.
     /// </summary>
@@ -3896,9 +3800,10 @@ public:
     /// </summary>
     Macad::Occt::SelectMgr_EntityOwner^ OnePicked();
     /// <summary>
-    /// Return the flag determining precedence of picked depth (distance from eye to entity) over entity priority in sorted results; TRUE by default.
-    /// When flag is TRUE, priority will be considered only if entities have the same depth  within the tolerance.
-    /// When flag is FALSE, entities with higher priority will be in front regardless of their depth (like x-ray).
+    /// Return the flag determining precedence of picked depth (distance from eye to entity) over
+    /// entity priority in sorted results; TRUE by default. When flag is TRUE, priority will be
+    /// considered only if entities have the same depth  within the tolerance. When flag is FALSE,
+    /// entities with higher priority will be in front regardless of their depth (like x-ray).
     /// </summary>
     bool ToPickClosest();
     /// <summary>
@@ -3906,24 +3811,27 @@ public:
     /// </summary>
     void SetPickClosest(bool theToPreferClosest);
     /// <summary>
-    /// Return the type of tolerance for considering two entities having a similar depth (distance from eye to entity);
-    /// SelectMgr_TypeOfDepthTolerance_SensitivityFactor by default.
+    /// Return the type of tolerance for considering two entities having a similar depth (distance
+    /// from eye to entity); SelectMgr_TypeOfDepthTolerance_SensitivityFactor by default.
     /// </summary>
     Macad::Occt::SelectMgr_TypeOfDepthTolerance DepthToleranceType();
     /// <summary>
-    /// Return the tolerance for considering two entities having a similar depth (distance from eye to entity).
+    /// Return the tolerance for considering two entities having a similar depth (distance from eye to
+    /// entity).
     /// </summary>
     double DepthTolerance();
     /// <summary>
-    /// Set the tolerance for considering two entities having a similar depth (distance from eye to entity).
+    /// Set the tolerance for considering two entities having a similar depth (distance from eye to
+    /// entity).
     /// </summary>
-    /// <param name="theType">
-    /// [in] type of tolerance value
+    /// <param name="in]">
+    /// theType  type of tolerance value
     /// </param>
-    /// <param name="theTolerance">
-    /// [in] tolerance value in 3D scale (SelectMgr_TypeOfDepthTolerance_Uniform)
+    /// <param name="in]">
+    /// theTolerance  tolerance value in 3D scale (SelectMgr_TypeOfDepthTolerance_Uniform)
     /// or in pixels (SelectMgr_TypeOfDepthTolerance_UniformPixels);
-    /// value is ignored in case of SelectMgr_TypeOfDepthTolerance_SensitivityFactor
+    /// value is ignored in case of
+    /// SelectMgr_TypeOfDepthTolerance_SensitivityFactor
     /// </param>
     void SetDepthTolerance(Macad::Occt::SelectMgr_TypeOfDepthTolerance theType, double theTolerance);
     /// <summary>
@@ -4062,8 +3970,8 @@ public:
     void ResetSelectionActivationStatus();
     /// <summary>
     /// Is used for rectangular selection only
-    /// If theIsToAllow is false, only fully included sensitives will be detected, otherwise the algorithm will
-    /// mark both included and overlapped entities as matched
+    /// If theIsToAllow is false, only fully included sensitives will be detected, otherwise the
+    /// algorithm will mark both included and overlapped entities as matched
     /// </summary>
     void AllowOverlapDetection(bool theIsToAllow);
     /// <summary>
@@ -4084,7 +3992,7 @@ public:
     /// <summary>
     /// Picks the sensitive entity according to the input axis.
     /// This is geometric intersection 3D objects by axis
-    /// (camera parameters are ignored and objects with transform persistance are skipped).
+    /// (camera parameters are ignored and objects with transform persistence are skipped).
     /// </summary>
     void Pick(Macad::Occt::Ax1 theAxis, Macad::Occt::V3d_View^ theView);
     /// <summary>
@@ -4162,9 +4070,11 @@ public:
 //  Class  SelectMgr_ToleranceMap
 //---------------------------------------------------------------------
 /// <summary>
-/// An internal class for calculation of current largest tolerance value which will be applied for creation of selecting frustum by default.
-/// Each time the selection set is deactivated, maximum tolerance value will be recalculated.
-/// If a user enables custom precision using StdSelect_ViewerSelector3d::SetPixelTolerance, it will be applied to all sensitive entities without any checks.
+/// An internal class for calculation of current largest tolerance value which will be applied for
+/// creation of selecting frustum by default. Each time the selection set is deactivated, maximum
+/// tolerance value will be recalculated. If a user enables custom precision using
+/// StdSelect_ViewerSelector3d::SetPixelTolerance, it will be applied to all sensitive entities
+/// without any checks.
 /// </summary>
 public ref class SelectMgr_ToleranceMap sealed
     : public Macad::Occt::BaseClass<::SelectMgr_ToleranceMap>
@@ -4197,7 +4107,6 @@ public:
     /// Sets tolerance values to -1.0
     /// </summary>
     SelectMgr_ToleranceMap();
-    SelectMgr_ToleranceMap(Macad::Occt::SelectMgr_ToleranceMap^ parameter1);
     /// <summary>
     /// Adds the value given to map, checks if the current tolerance value
     /// should be replaced by theTolerance
@@ -4269,7 +4178,6 @@ public:
     /// Constructs an empty selection manager object.
     /// </summary>
     SelectMgr_SelectionManager(Macad::Occt::SelectMgr_ViewerSelector^ theSelector);
-    SelectMgr_SelectionManager(Macad::Occt::SelectMgr_SelectionManager^ parameter1);
     /// <summary>
     /// Return the Selector.
     /// </summary>
@@ -4279,56 +4187,56 @@ public:
     /// </summary>
     bool Contains(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
-    /// Loads and computes selection mode theMode (if it is not equal to -1) in global context and adds selectable
-    /// object to BVH tree. If the object theObject has an already calculated selection with mode theMode and it was removed,
-    /// the selection will be recalculated.
+    /// Loads and computes selection mode theMode (if it is not equal to -1) in global context and
+    /// adds selectable object to BVH tree. If the object theObject has an already calculated
+    /// selection with mode theMode and it was removed, the selection will be recalculated.
     /// </summary>
     void Load(Macad::Occt::SelectMgr_SelectableObject^ theObject, int theMode);
     /// <summary>
-    /// Loads and computes selection mode theMode (if it is not equal to -1) in global context and adds selectable
-    /// object to BVH tree. If the object theObject has an already calculated selection with mode theMode and it was removed,
-    /// the selection will be recalculated.
+    /// Loads and computes selection mode theMode (if it is not equal to -1) in global context and
+    /// adds selectable object to BVH tree. If the object theObject has an already calculated
+    /// selection with mode theMode and it was removed, the selection will be recalculated.
     /// </summary>
     void Load(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
-    /// Removes selectable object theObject from all viewer selectors it was added to previously, removes it from all contexts
-    /// and clears all computed selections of theObject.
+    /// Removes selectable object theObject from all viewer selectors it was added to previously,
+    /// removes it from all contexts and clears all computed selections of theObject.
     /// </summary>
     void Remove(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
-    /// Activates the selection mode theMode in the selector theSelector for the selectable object anObject.
-    /// By default, theMode is equal to 0. If theSelector is set to default (NULL), the selection with the mode theMode
-    /// will be activated in all the viewers available.
+    /// Activates the selection mode theMode in the selector theSelector for the selectable object
+    /// anObject. By default, theMode is equal to 0. If theSelector is set to default (NULL), the
+    /// selection with the mode theMode will be activated in all the viewers available.
     /// </summary>
     void Activate(Macad::Occt::SelectMgr_SelectableObject^ theObject, int theMode);
     /// <summary>
-    /// Activates the selection mode theMode in the selector theSelector for the selectable object anObject.
-    /// By default, theMode is equal to 0. If theSelector is set to default (NULL), the selection with the mode theMode
-    /// will be activated in all the viewers available.
+    /// Activates the selection mode theMode in the selector theSelector for the selectable object
+    /// anObject. By default, theMode is equal to 0. If theSelector is set to default (NULL), the
+    /// selection with the mode theMode will be activated in all the viewers available.
     /// </summary>
     void Activate(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
-    /// Deactivates mode theMode of theObject in theSelector. If theMode value is set to default (-1), all
-    /// active selection modes will be deactivated. Likewise, if theSelector value is set to default (NULL), theMode
-    /// will be deactivated in all viewer selectors.
+    /// Deactivates mode theMode of theObject in theSelector. If theMode value is set to default (-1),
+    /// all active selection modes will be deactivated. Likewise, if theSelector value is set to
+    /// default (NULL), theMode will be deactivated in all viewer selectors.
     /// </summary>
     void Deactivate(Macad::Occt::SelectMgr_SelectableObject^ theObject, int theMode);
     /// <summary>
-    /// Deactivates mode theMode of theObject in theSelector. If theMode value is set to default (-1), all
-    /// active selection modes will be deactivated. Likewise, if theSelector value is set to default (NULL), theMode
-    /// will be deactivated in all viewer selectors.
+    /// Deactivates mode theMode of theObject in theSelector. If theMode value is set to default (-1),
+    /// all active selection modes will be deactivated. Likewise, if theSelector value is set to
+    /// default (NULL), theMode will be deactivated in all viewer selectors.
     /// </summary>
     void Deactivate(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
-    /// Returns true if the selection with theMode is active for the selectable object theObject and selector theSelector.
-    /// If all parameters are set to default values, it returns it there is any active selection in any known viewer selector for
-    /// object theObject.
+    /// Returns true if the selection with theMode is active for the selectable object theObject and
+    /// selector theSelector. If all parameters are set to default values, it returns it there is any
+    /// active selection in any known viewer selector for object theObject.
     /// </summary>
     bool IsActivated(Macad::Occt::SelectMgr_SelectableObject^ theObject, int theMode);
     /// <summary>
-    /// Returns true if the selection with theMode is active for the selectable object theObject and selector theSelector.
-    /// If all parameters are set to default values, it returns it there is any active selection in any known viewer selector for
-    /// object theObject.
+    /// Returns true if the selection with theMode is active for the selectable object theObject and
+    /// selector theSelector. If all parameters are set to default values, it returns it there is any
+    /// active selection in any known viewer selector for object theObject.
     /// </summary>
     bool IsActivated(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
@@ -4354,31 +4262,34 @@ public:
     /// </summary>
     void RestoreSelectionStructures(Macad::Occt::SelectMgr_SelectableObject^ theObj);
     /// <summary>
-    /// Recomputes activated selections of theObject for all known viewer selectors according to theMode specified.
-    /// If theMode is set to default (-1), then all activated selections will be recomputed. If theIsForce is set to true,
-    /// then selection mode theMode for object theObject will be recomputed regardless of its activation status.
+    /// Recomputes activated selections of theObject for all known viewer selectors according to
+    /// theMode specified. If theMode is set to default (-1), then all activated selections will be
+    /// recomputed. If theIsForce is set to true, then selection mode theMode for object theObject
+    /// will be recomputed regardless of its activation status.
     /// </summary>
     void RecomputeSelection(Macad::Occt::SelectMgr_SelectableObject^ theObject, bool theIsForce, int theMode);
     /// <summary>
-    /// Recomputes activated selections of theObject for all known viewer selectors according to theMode specified.
-    /// If theMode is set to default (-1), then all activated selections will be recomputed. If theIsForce is set to true,
-    /// then selection mode theMode for object theObject will be recomputed regardless of its activation status.
+    /// Recomputes activated selections of theObject for all known viewer selectors according to
+    /// theMode specified. If theMode is set to default (-1), then all activated selections will be
+    /// recomputed. If theIsForce is set to true, then selection mode theMode for object theObject
+    /// will be recomputed regardless of its activation status.
     /// </summary>
     void RecomputeSelection(Macad::Occt::SelectMgr_SelectableObject^ theObject, bool theIsForce);
     /// <summary>
-    /// Recomputes activated selections of theObject for all known viewer selectors according to theMode specified.
-    /// If theMode is set to default (-1), then all activated selections will be recomputed. If theIsForce is set to true,
-    /// then selection mode theMode for object theObject will be recomputed regardless of its activation status.
+    /// Recomputes activated selections of theObject for all known viewer selectors according to
+    /// theMode specified. If theMode is set to default (-1), then all activated selections will be
+    /// recomputed. If theIsForce is set to true, then selection mode theMode for object theObject
+    /// will be recomputed regardless of its activation status.
     /// </summary>
     void RecomputeSelection(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
-    /// Updates all selections of theObject in all viewer selectors according to its current update status.
-    /// If theIsForce is set to true, the call is equal to recomputation.
+    /// Updates all selections of theObject in all viewer selectors according to its current update
+    /// status. If theIsForce is set to true, the call is equal to recomputation.
     /// </summary>
     void Update(Macad::Occt::SelectMgr_SelectableObject^ theObject, bool theIsForce);
     /// <summary>
-    /// Updates all selections of theObject in all viewer selectors according to its current update status.
-    /// If theIsForce is set to true, the call is equal to recomputation.
+    /// Updates all selections of theObject in all viewer selectors according to its current update
+    /// status. If theIsForce is set to true, the call is equal to recomputation.
     /// </summary>
     void Update(Macad::Occt::SelectMgr_SelectableObject^ theObject);
     /// <summary>
@@ -4407,9 +4318,10 @@ public:
 //---------------------------------------------------------------------
 /// <summary>
 /// This class contains representation of triangular selecting frustum, created in case
-/// of polyline selection, and algorithms for overlap detection between selecting frustum and sensitive entities.
-/// Overlap detection tests are implemented according to the terms of separating axis theorem (SAT).
-/// NOTE: the object of this class can be created only as part of SelectMgr_TriangularFrustumSet.
+/// of polyline selection, and algorithms for overlap detection between selecting frustum and
+/// sensitive entities. Overlap detection tests are implemented according to the terms of separating
+/// axis theorem (SAT). NOTE: the object of this class can be created only as part of
+/// SelectMgr_TriangularFrustumSet.
 /// </summary>
 public ref class SelectMgr_TriangularFrustum sealed
     : public Macad::Occt::SelectMgr_BaseFrustum
@@ -4438,7 +4350,6 @@ public:
     }
 
 public:
-    SelectMgr_TriangularFrustum(Macad::Occt::SelectMgr_TriangularFrustum^ parameter1);
     /// <summary>
     /// Initializes selection triangle by input points
     /// </summary>
@@ -4458,8 +4369,22 @@ public:
     /// </summary>
     Macad::Occt::SelectMgr_BaseIntersector^ ScaleAndTransform(int theScale, Macad::Occt::gp_GTrsf^ theTrsf, Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
     /// <summary>
-    /// SAT intersection test between defined volume and given axis-aligned box
+    /// Returns a copy of the frustum using the given frustum builder configuration.
+    /// Returned frustum should be re-constructed before being used.
     /// </summary>
+    /// <param name="in]">
+    /// theBuilder  argument that represents corresponding settings for re-constructing
+    /// transformed frustum from scratch;
+    /// should NOT be NULL.
+    /// </param>
+    /// <returns>
+    /// a copy of the frustum with the input builder assigned
+    /// </returns>
+    Macad::Occt::SelectMgr_BaseIntersector^ CopyWithBuilder(Macad::Occt::SelectMgr_FrustumBuilder^ theBuilder);
+    /// <summary>
+    /// </summary>
+    /// @name SAT Tests for different objects
+    /// SAT intersection test between defined volume and given axis-aligned box
     bool OverlapsBox(Macad::Occt::SelectMgr_Vec3^ theMinPnt, Macad::Occt::SelectMgr_Vec3^ theMaxPnt, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
     /// Returns true if selecting volume is overlapped by axis-aligned bounding box
@@ -4496,18 +4421,18 @@ public:
     /// </summary>
     bool OverlapsSphere(Macad::Occt::Pnt theCenter, double theRadius, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, Macad::Occt::SelectMgr_ViewClipRange^ theClipRange, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, bool% theInside);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight and transformation to apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow);
     /// <summary>
@@ -4535,9 +4460,15 @@ public:
     /// Nullifies the handle to corresponding builder instance to prevent memory leaks
     /// </summary>
     void Clear();
-    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_Vector<NCollection_Vec4<double>> thePlaneEquations, ) */
-    /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
-    /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
+    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_DynamicArray<NCollection_Vec4<double>> thePlaneEquations, ) */
+    /// <summary>
+    /// Dumps the content of me into the stream
+    /// </summary>
+    void DumpJson(System::IO::TextWriter^ theOStream, int theDepth);
+    /// <summary>
+    /// Dumps the content of me into the stream
+    /// </summary>
+    void DumpJson(System::IO::TextWriter^ theOStream);
     static Macad::Occt::SelectMgr_TriangularFrustum^ CreateDowncasted(::SelectMgr_TriangularFrustum* instance);
 }; // class SelectMgr_TriangularFrustum
 

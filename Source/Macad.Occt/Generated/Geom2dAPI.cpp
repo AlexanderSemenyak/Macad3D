@@ -7,6 +7,7 @@ using namespace System::Runtime::InteropServices; // for class Marshal
 
 #include "Geom2d.h"
 #include "gp.h"
+#include "Extrema.h"
 #include "TColgp.h"
 #include "TColStd.h"
 #include "GeomAbs.h"
@@ -20,12 +21,6 @@ Macad::Occt::Geom2dAPI_ExtremaCurveCurve::Geom2dAPI_ExtremaCurveCurve(Macad::Occ
     : Macad::Occt::BaseClass<::Geom2dAPI_ExtremaCurveCurve>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::Geom2dAPI_ExtremaCurveCurve(Handle(::Geom2d_Curve)(C1->NativeInstance), Handle(::Geom2d_Curve)(C2->NativeInstance), U1min, U1max, U2min, U2max);
-}
-
-Macad::Occt::Geom2dAPI_ExtremaCurveCurve::Geom2dAPI_ExtremaCurveCurve(Macad::Occt::Geom2dAPI_ExtremaCurveCurve^ parameter1)
-    : Macad::Occt::BaseClass<::Geom2dAPI_ExtremaCurveCurve>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::Geom2dAPI_ExtremaCurveCurve(*(::Geom2dAPI_ExtremaCurveCurve*)parameter1->NativeInstance);
 }
 
 int Macad::Occt::Geom2dAPI_ExtremaCurveCurve::NbExtrema()
@@ -74,6 +69,13 @@ double Macad::Occt::Geom2dAPI_ExtremaCurveCurve::LowerDistance()
     return _result;
 }
 
+Macad::Occt::Extrema_ExtCC2d^ Macad::Occt::Geom2dAPI_ExtremaCurveCurve::Extrema()
+{
+    ::Extrema_ExtCC2d* _result = new ::Extrema_ExtCC2d();
+    *_result = (::Extrema_ExtCC2d)((::Geom2dAPI_ExtremaCurveCurve*)_NativeInstance)->Extrema();
+    return _result==nullptr ? nullptr : gcnew Macad::Occt::Extrema_ExtCC2d(_result);
+}
+
 
 
 //---------------------------------------------------------------------
@@ -108,12 +110,6 @@ Macad::Occt::Geom2dAPI_InterCurveCurve::Geom2dAPI_InterCurveCurve(Macad::Occt::G
     : Macad::Occt::BaseClass<::Geom2dAPI_InterCurveCurve>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::Geom2dAPI_InterCurveCurve(Handle(::Geom2d_Curve)(C1->NativeInstance), 9.9999999999999995E-7);
-}
-
-Macad::Occt::Geom2dAPI_InterCurveCurve::Geom2dAPI_InterCurveCurve(Macad::Occt::Geom2dAPI_InterCurveCurve^ parameter1)
-    : Macad::Occt::BaseClass<::Geom2dAPI_InterCurveCurve>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::Geom2dAPI_InterCurveCurve(*(::Geom2dAPI_InterCurveCurve*)parameter1->NativeInstance);
 }
 
 void Macad::Occt::Geom2dAPI_InterCurveCurve::Init(Macad::Occt::Geom2d_Curve^ C1, Macad::Occt::Geom2d_Curve^ C2, double Tol)
@@ -179,12 +175,6 @@ Macad::Occt::Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(Macad::Occt::TColgp_HA
     : Macad::Occt::BaseClass<::Geom2dAPI_Interpolate>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::Geom2dAPI_Interpolate(Handle(::TColgp_HArray1OfPnt2d)(Points->NativeInstance), Handle(::TColStd_HArray1OfReal)(Parameters->NativeInstance), PeriodicFlag, Tolerance);
-}
-
-Macad::Occt::Geom2dAPI_Interpolate::Geom2dAPI_Interpolate(Macad::Occt::Geom2dAPI_Interpolate^ parameter1)
-    : Macad::Occt::BaseClass<::Geom2dAPI_Interpolate>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::Geom2dAPI_Interpolate(*(::Geom2dAPI_Interpolate*)parameter1->NativeInstance);
 }
 
 void Macad::Occt::Geom2dAPI_Interpolate::Load(Macad::Occt::Vec2d InitialTangent, Macad::Occt::Vec2d FinalTangent, bool Scale)
@@ -354,12 +344,6 @@ Macad::Occt::Geom2dAPI_PointsToBSpline::Geom2dAPI_PointsToBSpline(Macad::Occt::T
     _NativeInstance = new ::Geom2dAPI_PointsToBSpline(*(::TColgp_Array1OfPnt2d*)Points->NativeInstance, Weight1, Weight2, Weight3, 8, GeomAbs_C2, 0.001);
 }
 
-Macad::Occt::Geom2dAPI_PointsToBSpline::Geom2dAPI_PointsToBSpline(Macad::Occt::Geom2dAPI_PointsToBSpline^ parameter1)
-    : Macad::Occt::BaseClass<::Geom2dAPI_PointsToBSpline>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::Geom2dAPI_PointsToBSpline(*(::Geom2dAPI_PointsToBSpline*)parameter1->NativeInstance);
-}
-
 void Macad::Occt::Geom2dAPI_PointsToBSpline::Init(Macad::Occt::TColgp_Array1OfPnt2d^ Points, int DegMin, int DegMax, Macad::Occt::GeomAbs_Shape Continuity, double Tol2D)
 {
     ((::Geom2dAPI_PointsToBSpline*)_NativeInstance)->Init(*(::TColgp_Array1OfPnt2d*)Points->NativeInstance, DegMin, DegMax, (::GeomAbs_Shape)Continuity, Tol2D);
@@ -493,12 +477,6 @@ Macad::Occt::Geom2dAPI_ProjectPointOnCurve::Geom2dAPI_ProjectPointOnCurve(Macad:
     _NativeInstance = new ::Geom2dAPI_ProjectPointOnCurve(*(gp_Pnt2d*)pp_P, Handle(::Geom2d_Curve)(Curve->NativeInstance), Umin, Usup);
 }
 
-Macad::Occt::Geom2dAPI_ProjectPointOnCurve::Geom2dAPI_ProjectPointOnCurve(Macad::Occt::Geom2dAPI_ProjectPointOnCurve^ parameter1)
-    : Macad::Occt::BaseClass<::Geom2dAPI_ProjectPointOnCurve>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::Geom2dAPI_ProjectPointOnCurve(*(::Geom2dAPI_ProjectPointOnCurve*)parameter1->NativeInstance);
-}
-
 void Macad::Occt::Geom2dAPI_ProjectPointOnCurve::Init(Macad::Occt::Pnt2d P, Macad::Occt::Geom2d_Curve^ Curve)
 {
     pin_ptr<Macad::Occt::Pnt2d> pp_P = &P;
@@ -557,6 +535,13 @@ double Macad::Occt::Geom2dAPI_ProjectPointOnCurve::LowerDistance()
 {
     double _result = ((::Geom2dAPI_ProjectPointOnCurve*)_NativeInstance)->LowerDistance();
     return _result;
+}
+
+Macad::Occt::Extrema_ExtPC2d^ Macad::Occt::Geom2dAPI_ProjectPointOnCurve::Extrema()
+{
+    ::Extrema_ExtPC2d* _result = new ::Extrema_ExtPC2d();
+    *_result = (::Extrema_ExtPC2d)((::Geom2dAPI_ProjectPointOnCurve*)_NativeInstance)->Extrema();
+    return _result==nullptr ? nullptr : gcnew Macad::Occt::Extrema_ExtPC2d(_result);
 }
 
 

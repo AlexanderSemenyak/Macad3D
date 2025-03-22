@@ -11,7 +11,7 @@ using System.Linq;
 
 if (Args.Count() < 1)
 {
-    Printer.Line("Usage: build <all, debug, release, publish, webdoc> [/clean] [/log]");
+    Printer.Line("Usage: build <all, debug, release, publish> [/clean] [/log]");
     return -1;
 }
 
@@ -41,10 +41,6 @@ if (buildRelease)
 
 if (config == "all" || config == "publish")
     if (!_BuildPublish())
-        return -1;
-
-if (config == "webdoc")
-    if (!_BuildDocumentation("WebDoc"))
         return -1;
 
 return 0;
@@ -120,52 +116,6 @@ bool _BuildPublish()
     }
 
     Printer.Success("\nPublish succeeded.");
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-
-bool _BuildDocumentation(string configuration)
-{
-    if(!_EnsureVS())
-        return false;
-
-    // Ensure SHFB
-    var shfbPath = Packages.FindPackageFile($"EWSoftware.SHFB\\*", "tools\\SandcastleHelpFileBuilder.targets");
-	if(string.IsNullOrEmpty(shfbPath))
-		return false;
-
-    // Ensure .Net Reflection Package
-    var shfbNetReflectionPath = Packages.FindPackageFile($"EWSoftware.SHFB.NET\\*", "build\\EWSoftware.SHFB.NET.props");
-	if(string.IsNullOrEmpty(shfbNetReflectionPath))
-		return false;
-
-    if(!Version.ReadCurrentVersion(out var major, out var minor, out var revision, out var flags))
-    {
-        Printer.Error("Cannot read version information.");
-        return false;
-    }
-    var flagsStr = flags==0 ? "" : " " + Version.GetFlagsString(flags);
-
-    var pathToProject = Path.Combine(Common.GetRootFolder(), @"Source\Macad.UserGuide\Macad.UserGuide.shfbproj");
-
-    var commandLine = $"\"{pathToProject}\" /p:Configuration={configuration} /p:HelpFileVersion=\"{major}.{minor}{flagsStr}\" /m /nologo /ds /verbosity:minimal /clp:Summary;EnableMPLogging";
-    if (_OptionClean)
-    {
-        if (Common.Run(_VS.PathToMSBuild, commandLine + " /t:clean") != 0)
-        {
-            Printer.Error("Clean failed.");
-            return false;
-        }
-    }
-
-    if (Common.Run(_VS.PathToMSBuild, commandLine) != 0)
-    {
-        Printer.Error("Build failed.");
-        return false;
-    }
-
-    Printer.Success("\nBuild succeeded.");
     return true;
 }
 

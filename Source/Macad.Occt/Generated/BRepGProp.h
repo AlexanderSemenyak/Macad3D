@@ -53,7 +53,6 @@ public:
 
 public:
     BRepGProp();
-    BRepGProp(Macad::Occt::BRepGProp^ parameter1);
     /// <summary>
     /// Computes the linear global properties of the shape S,
     /// i.e. the global properties induced by each edge of the
@@ -745,7 +744,6 @@ public:
 public:
     BRepGProp_Cinert();
     BRepGProp_Cinert(Macad::Occt::BRepAdaptor_Curve^ C, Macad::Occt::Pnt CLocation);
-    BRepGProp_Cinert(Macad::Occt::BRepGProp_Cinert^ parameter1);
     void SetLocation(Macad::Occt::Pnt CLocation);
     void Perform(Macad::Occt::BRepAdaptor_Curve^ C);
 }; // class BRepGProp_Cinert
@@ -792,7 +790,6 @@ public:
     /// Constructor. Initializes the domain with the face.
     /// </summary>
     BRepGProp_Domain(Macad::Occt::TopoDS_Face^ F);
-    BRepGProp_Domain(Macad::Occt::BRepGProp_Domain^ parameter1);
     /// <summary>
     /// Initializes the domain with the face.
     /// </summary>
@@ -851,7 +848,6 @@ public:
 
 public:
     BRepGProp_EdgeTool();
-    BRepGProp_EdgeTool(Macad::Occt::BRepGProp_EdgeTool^ parameter1);
     /// <summary>
     /// Returns the parametric value of the start point of
     /// the curve.  The curve is oriented from the start point
@@ -956,7 +952,6 @@ public:
     /// and GetTKnots.
     /// </summary>
     BRepGProp_Face(Macad::Occt::TopoDS_Face^ F);
-    BRepGProp_Face(Macad::Occt::BRepGProp_Face^ parameter1);
     void Load(Macad::Occt::TopoDS_Face^ F);
     int VIntegrationOrder();
     /// <summary>
@@ -1093,13 +1088,14 @@ public:
     //  Enum  BRepGProp_GaussType
     //---------------------------------------------------------------------
     /// <summary>
+    /// </summary>
+    /// @name public API
     /// Describes types of geometric objects.
     /// - Vinert is 3D closed region of space delimited with:
     /// -- Surface;
     /// -- Point and Surface;
     /// -- Plane and Surface.
     /// - Sinert is face in 3D space.
-    /// </summary>
     enum class BRepGProp_GaussType
     {
         Vinert = 0,
@@ -1130,14 +1126,14 @@ public:
     /// <param name="theIsByPoint">
     /// - flag of restricition (point/plane);
     /// </param>
-    /// <param name="theOutMass[out]">
-    /// - mass (volume) of region;
+    /// <param name="out]">
+    /// theOutMass - mass (volume) of region;
     /// </param>
-    /// <param name="theOutGravityCenter[out]">
-    /// - garvity center of region;
+    /// <param name="out]">
+    /// theOutGravityCenter - garvity center of region;
     /// </param>
-    /// <param name="theOutInertia[out]">
-    /// - matrix of inertia;
+    /// <param name="out]">
+    /// theOutInertia - matrix of inertia;
     /// </param>
     void Compute(Macad::Occt::BRepGProp_Face^ theSurface, Macad::Occt::Pnt theLocation, double theCoeff, bool theIsByPoint, double% theOutMass, Macad::Occt::Pnt% theOutGravityCenter, Macad::Occt::Mat% theOutInertia);
     /// <summary>
@@ -1153,14 +1149,14 @@ public:
     /// <param name="theLocation">
     /// - surface location;
     /// </param>
-    /// <param name="theOutMass[out]">
-    /// - mass (volume) of region;
+    /// <param name="out]">
+    /// theOutMass - mass (volume) of region;
     /// </param>
-    /// <param name="theOutGravityCenter[out]">
-    /// - garvity center of region;
+    /// <param name="out]">
+    /// theOutGravityCenter - garvity center of region;
     /// </param>
-    /// <param name="theOutInertia[out]">
-    /// - matrix of inertia;
+    /// <param name="out]">
+    /// theOutInertia - matrix of inertia;
     /// </param>
     void Compute(Macad::Occt::BRepGProp_Face^ theSurface, Macad::Occt::Pnt theLocation, double% theOutMass, Macad::Occt::Pnt% theOutGravityCenter, Macad::Occt::Mat% theOutInertia);
     /// <summary>
@@ -1186,14 +1182,14 @@ public:
     /// <param name="theIsByPoint">
     /// - flag of restricition (point/plane);
     /// </param>
-    /// <param name="theOutMass[out]">
-    /// - mass (volume) of region;
+    /// <param name="out]">
+    /// theOutMass - mass (volume) of region;
     /// </param>
-    /// <param name="theOutGravityCenter[out]">
-    /// - garvity center of region;
+    /// <param name="out]">
+    /// theOutGravityCenter - garvity center of region;
     /// </param>
-    /// <param name="theOutInertia[out]">
-    /// - matrix of inertia;
+    /// <param name="out]">
+    /// theOutInertia - matrix of inertia;
     /// </param>
     void Compute(Macad::Occt::BRepGProp_Face^ theSurface, Macad::Occt::BRepGProp_Domain^ theDomain, Macad::Occt::Pnt theLocation, double theCoeff, bool theIsByPoint, double% theOutMass, Macad::Occt::Pnt% theOutGravityCenter, Macad::Occt::Mat% theOutInertia);
     /// <summary>
@@ -1212,14 +1208,14 @@ public:
     /// <param name="theLocation">
     /// - surface location;
     /// </param>
-    /// <param name="theOutMass[out]">
-    /// - mass (volume) of region;
+    /// <param name="out]">
+    /// theOutMass - mass (volume) of region;
     /// </param>
-    /// <param name="theOutGravityCenter[out]">
-    /// - garvity center of region;
+    /// <param name="out]">
+    /// theOutGravityCenter - garvity center of region;
     /// </param>
-    /// <param name="theOutInertia[out]">
-    /// - matrix of inertia;
+    /// <param name="out]">
+    /// theOutInertia - matrix of inertia;
     /// </param>
     void Compute(Macad::Occt::BRepGProp_Face^ theSurface, Macad::Occt::BRepGProp_Domain^ theDomain, Macad::Occt::Pnt theLocation, double% theOutMass, Macad::Occt::Pnt% theOutGravityCenter, Macad::Occt::Mat% theOutInertia);
     /// <summary>
@@ -1246,14 +1242,14 @@ public:
     /// <param name="theIsByPoint">
     /// - flag of restricition (point/plane);
     /// </param>
-    /// <param name="theOutMass[out]">
-    /// - mass (volume) of region;
+    /// <param name="out]">
+    /// theOutMass - mass (volume) of region;
     /// </param>
-    /// <param name="theOutGravityCenter[out]">
-    /// - garvity center of region;
+    /// <param name="out]">
+    /// theOutGravityCenter - garvity center of region;
     /// </param>
-    /// <param name="theOutInertia[out]">
-    /// - matrix of inertia;
+    /// <param name="out]">
+    /// theOutInertia - matrix of inertia;
     /// </param>
     /// <returns>
     /// value of error which is calculated as
@@ -1277,14 +1273,14 @@ public:
     /// <param name="theEps">
     /// - maximal relative error of computed mass (square) for face;
     /// </param>
-    /// <param name="theOutMass[out]">
-    /// - mass (volume) of region;
+    /// <param name="out]">
+    /// theOutMass - mass (volume) of region;
     /// </param>
-    /// <param name="theOutGravityCenter[out]">
-    /// - garvity center of region;
+    /// <param name="out]">
+    /// theOutGravityCenter - garvity center of region;
     /// </param>
-    /// <param name="theOutInertia[out]">
-    /// - matrix of inertia;
+    /// <param name="out]">
+    /// theOutInertia - matrix of inertia;
     /// </param>
     /// <returns>
     /// value of error which is calculated as
@@ -1334,7 +1330,6 @@ public:
 
 public:
     BRepGProp_MeshCinert();
-    BRepGProp_MeshCinert(Macad::Occt::BRepGProp_MeshCinert^ parameter1);
     void SetLocation(Macad::Occt::Pnt CLocation);
     /// <summary>
     /// Computes the  global properties of
@@ -1402,7 +1397,6 @@ public:
     /// Constructor takes the type of object.
     /// </summary>
     BRepGProp_MeshProps(Macad::Occt::BRepGProp_MeshProps::BRepGProp_MeshObjType theType);
-    BRepGProp_MeshProps(Macad::Occt::BRepGProp_MeshProps^ parameter1);
     /// <summary>
     /// Sets the point relative which the calculation is to be done
     /// </summary>
@@ -1468,7 +1462,6 @@ public:
     BRepGProp_Sinert(Macad::Occt::BRepGProp_Face^ S, Macad::Occt::BRepGProp_Domain^ D, Macad::Occt::Pnt SLocation);
     BRepGProp_Sinert(Macad::Occt::BRepGProp_Face^ S, Macad::Occt::Pnt SLocation, double Eps);
     BRepGProp_Sinert(Macad::Occt::BRepGProp_Face^ S, Macad::Occt::BRepGProp_Domain^ D, Macad::Occt::Pnt SLocation, double Eps);
-    BRepGProp_Sinert(Macad::Occt::BRepGProp_Sinert^ parameter1);
     void SetLocation(Macad::Occt::Pnt SLocation);
     void Perform(Macad::Occt::BRepGProp_Face^ S);
     void Perform(Macad::Occt::BRepGProp_Face^ S, Macad::Occt::BRepGProp_Domain^ D);
@@ -1644,7 +1637,6 @@ public:
     /// WARNING: if Eps > 0.001 algorithm performs non-adaptive integration.
     /// </summary>
     BRepGProp_Vinert(Macad::Occt::BRepGProp_Face^ S, Macad::Occt::BRepGProp_Domain^ D, Macad::Occt::Pln Pl, Macad::Occt::Pnt VLocation, double Eps);
-    BRepGProp_Vinert(Macad::Occt::BRepGProp_Vinert^ parameter1);
     void SetLocation(Macad::Occt::Pnt VLocation);
     void Perform(Macad::Occt::BRepGProp_Face^ S);
     double Perform(Macad::Occt::BRepGProp_Face^ S, double Eps);
@@ -1878,7 +1870,6 @@ public:
     /// and the plane.
     /// </summary>
     BRepGProp_VinertGK(Macad::Occt::BRepGProp_Face^ theSurface, Macad::Occt::BRepGProp_Domain^ theDomain, Macad::Occt::Pln thePlane, Macad::Occt::Pnt theLocation);
-    BRepGProp_VinertGK(Macad::Occt::BRepGProp_VinertGK^ parameter1);
     /// <summary>
     /// Sets the vertex that delimit 3D closed region of space.
     /// </summary>

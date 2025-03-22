@@ -25,7 +25,7 @@ public class Circle: VisualObject
 
     //--------------------------------------------------------------------------------------------------
 
-    public Quantity_Color Color
+    public Color Color
     {
         get { return _Color; }
         set
@@ -121,7 +121,7 @@ public class Circle: VisualObject
     double _Width = 3.0;
     (double start, double end) _Limits;
     (double start, double end) _Sector;
-    Quantity_Color _Color = Colors.Auxillary;
+    Color _Color = Colors.Auxillary;
     double _KnobPosition = Double.MinValue;
 
     //--------------------------------------------------------------------------------------------------
@@ -212,7 +212,7 @@ public class Circle: VisualObject
             _AisObject.SetTransformPersistence(transformPers);
 
             _AisObject.SetLocalTransformation(new Trsf(new Ax3(Pnt.Origin, _Position.Direction, _Position.XDirection), Ax3.XOY));
-            double size = _Radius * 50.0 * WorkspaceController.ActiveViewport.DpiScale;
+            double size = _Radius * 50.0 * WorkspaceController.ActiveViewControlller.DpiScale;
             _AisObject.SetCircle(new gp_Circ(Ax2.XOY, size));
         }
         else
@@ -221,7 +221,7 @@ public class Circle: VisualObject
             _AisObject.SetCircle(new gp_Circ(Ax2.XOY, _Radius));
         }
 
-        _AisObject.SetColor(_Color);
+        _AisObject.SetColor(_Color.ToQuantityColor());
         _AisObject.SetWidth(_Width);
         _AisObject.SetLimits(_Limits.start, _Limits.end);
         _AisObject.SetKnobPosition(_KnobPosition);

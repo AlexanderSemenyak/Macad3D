@@ -1,10 +1,17 @@
 ﻿using Macad.Common;
 using Macad.Core;
+using Macad.Core.Topology;
 using Macad.Interaction.Visual;
 using Macad.Occt;
 
 namespace Macad.Interaction;
 
+/// <summary>
+/// Snapping will be executed for Edge, Vertex and Face. It will snap only in a primary axis direction (x, y or z)
+/// depending on which result point is more close to the origin. This seems to be unfamiliar, but since the move axis
+/// will almost never touch the snap target, this seems to be the only variant which can be useful in most situations.
+/// To activate snapping, the target entity must be set in the constructor.
+/// </summary>
 public sealed class BoxScaleLiveAction : LiveAction
 {
     #region Properties and Members
@@ -75,11 +82,12 @@ public sealed class BoxScaleLiveAction : LiveAction
     Ax1 _Axis;
     HintLine _AxisHintLine;
     double _StartValue;
-    bool _ResetStartValue;
     SelectionContext _SelectionContext;
     Trsf _Transformation;
+    Snap3D _SnapHandler;
+    InteractiveEntity _TargetEntity;
 
-    bool _IsXY;
+    readonly bool _IsXY;
     int _MoveMode = -1;
     double _LastDelta;
     double _DeltaSum;
@@ -91,9 +99,10 @@ public sealed class BoxScaleLiveAction : LiveAction
 
     #region Creation and Activation
 
-    public BoxScaleLiveAction(bool isXY = false)
+    public BoxScaleLiveAction(bool isXY, InteractiveEntity targetEntity=null)
     {
         _IsXY = isXY;
+        _TargetEntity = targetEntity;
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -172,6 +181,12 @@ public sealed class BoxScaleLiveAction : LiveAction
             _AxisHintLine.Set(_Axis);
             Add(_AxisHintLine);
 
+            if (_TargetEntity != null)
+            {
+                _SnapHandler = SetSnapHandler(new Snap3D());
+                _SnapHandler.SupportedModes = SnapModes.Vertex | SnapModes.Edge | SnapModes.Face;
+            }
+
             SetCursor(Cursors.Move);
             WorkspaceController.Invalidate();
 
@@ -185,21 +200,15 @@ public sealed class BoxScaleLiveAction : LiveAction
 
     public override bool OnMouseMove(MouseEventData data)
     {
-        if (_ResetStartValue)
-        {
-            _ResetStartValue = false;
-            _StartValue += _LastDelta;
-            _LastDelta = 0;
-        }
-
         if (_MoveMode >= 0)
         {
             var axisDelta = _ProcessMouseInput(data);
             if (!axisDelta.HasValue)
                 return false;
 
-            _LastDelta = axisDelta.Value - _StartValue;
-            _DeltaSum += _LastDelta;
+            var value = axisDelta.Value - _StartValue;
+            _LastDelta = value - _DeltaSum;
+            _DeltaSum = value;
 
             EventArgs eventArgs = new()
             {
@@ -223,6 +232,8 @@ public sealed class BoxScaleLiveAction : LiveAction
         if (_MoveMode >= 0)
         {
             CloseSelectionContext(_SelectionContext);
+            RemoveSnapHandler();
+            _SnapHandler = null;
 
             _Handles[_MoveMode].IsSelected = false;
             _Handles[_MoveMode].IsSelectable = true;
@@ -242,7 +253,7 @@ public sealed class BoxScaleLiveAction : LiveAction
             Finished?.Invoke(this, eventArgs);
 
             _Update();
-            data.ForceReDetection = true;
+            data.Return.ForceReDetection = true;
 
             return true;
         }
@@ -255,7 +266,7 @@ public sealed class BoxScaleLiveAction : LiveAction
     {
         for (int i = 0; i < _Handles.Length; i++)
         {
-            if (data.DetectedAisInteractives.Contains(_Handles[i]?.AisObject))
+            if (Equals(data.DetectedAisObject, _Handles[i]?.AisObject))
             {
                 Pnt min = _Box.CornerMin();
                 XYZ extent = new Vec(min, _Box.CornerMax()).ToXYZ();
@@ -280,16 +291,62 @@ public sealed class BoxScaleLiveAction : LiveAction
         }
         planeDir.Cross(_Axis.Direction);
         var plane = new Pln(new Ax3(_Axis.Location, planeDir, _Axis.Direction));
-        Pnt convertedPoint;
-        if (WorkspaceController.ActiveViewport.ScreenToPoint(plane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out convertedPoint))
+
+        if (_SnapHandler != null)
         {
-            var extrema = new Extrema_ExtPC(convertedPoint, new GeomAdaptor_Curve(new Geom_Line(_Axis)), 1.0e-10);
-            if (extrema.IsDone() && extrema.NbExt() >= 1)
+            if (data.DetectedEntity == _TargetEntity)
             {
-                var value = extrema.Point(1).Parameter();
-                return value;
+                data.Return.RemoveHighlighting = true;
+            }
+            else
+            {
+                var snapInfo = _SnapHandler.Snap(data);
+                if (snapInfo.Mode != SnapModes.None)
+                {
+                    // Point snapped
+                    double param = double.MaxValue;
+                    Vec vec = new(_Axis.Location, snapInfo.Point);
+                    vec.Transform(_Transformation.Inverted());
+
+                    if (_Direction.X != 0.0)
+                    {
+                        double compParam = vec.X / _Direction.X;
+                        param = compParam.Abs() < param.Abs() ? compParam : param;
+                    }
+
+                    if (_Direction.Y != 0.0)
+                    {
+                        double compParam = vec.Y / _Direction.Y;
+                        param = compParam.Abs() < param.Abs() ? compParam : param;
+                    }
+
+                    if (!_IsXY && _Direction.Z != 0.0)
+                    {
+                        double compParam = vec.Z / _Direction.Z;
+                        param = compParam.Abs() < param.Abs() ? compParam : param;
+                    }
+
+                    if (param < double.MaxValue)
+                    {
+                        return param + _StartValue;
+                    }
+                }
             }
         }
+
+        if(WorkspaceController.ActiveViewControlller.ScreenToPoint(plane, (int)data.ScreenPoint.X, (int)data.ScreenPoint.Y, out var selectedPoint))
+        {
+            
+            {
+                var extrema = new Extrema_ExtPC(selectedPoint, new GeomAdaptor_Curve(new Geom_Line(_Axis)), 1.0e-10);
+                if (extrema.IsDone() && extrema.NbExt() >= 1)
+                {
+                    var param = extrema.Point(1).Parameter();
+                    return param;
+                }
+            }
+        }
+
         return null;
     }
 
@@ -342,9 +399,6 @@ public sealed class BoxScaleLiveAction : LiveAction
             if (_MoveMode >= 0)
                 break;
         }
-
-        // Reset reference value
-        _ResetStartValue = true;
 
         WorkspaceController.Invalidate();
     }

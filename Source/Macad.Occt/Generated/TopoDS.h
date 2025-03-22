@@ -68,8 +68,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::NCollection_BaseList^ theList);
-        Iterator(Macad::Occt::TopoDS_ListOfShape::Iterator^ parameter1);
         bool More() override;
         void Next() override;
         Macad::Occt::TopoDS_Shape^ Value() override;
@@ -78,7 +76,6 @@ public:
 
     TopoDS_ListOfShape();
     TopoDS_ListOfShape(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    TopoDS_ListOfShape(Macad::Occt::TopoDS_ListOfShape^ theOther);
     int Size();
     Macad::Occt::TopoDS_ListOfShape^ Assign(Macad::Occt::TopoDS_ListOfShape^ theOther);
     void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
@@ -86,59 +83,15 @@ public:
     Macad::Occt::TopoDS_Shape^ First();
     Macad::Occt::TopoDS_Shape^ Last();
     Macad::Occt::TopoDS_Shape^ Append(Macad::Occt::TopoDS_Shape^ theItem);
-    void Append(Macad::Occt::TopoDS_Shape^ theItem, Macad::Occt::TopoDS_ListOfShape::Iterator^ theIter);
-    void Append(Macad::Occt::TopoDS_ListOfShape^ theOther);
     Macad::Occt::TopoDS_Shape^ Prepend(Macad::Occt::TopoDS_Shape^ theItem);
-    void Prepend(Macad::Occt::TopoDS_ListOfShape^ theOther);
     void RemoveFirst();
     void Remove(Macad::Occt::TopoDS_ListOfShape::Iterator^ theIter);
     Macad::Occt::TopoDS_Shape^ InsertBefore(Macad::Occt::TopoDS_Shape^ theItem, Macad::Occt::TopoDS_ListOfShape::Iterator^ theIter);
-    void InsertBefore(Macad::Occt::TopoDS_ListOfShape^ theOther, Macad::Occt::TopoDS_ListOfShape::Iterator^ theIter);
     Macad::Occt::TopoDS_Shape^ InsertAfter(Macad::Occt::TopoDS_Shape^ theItem, Macad::Occt::TopoDS_ListOfShape::Iterator^ theIter);
-    void InsertAfter(Macad::Occt::TopoDS_ListOfShape^ theOther, Macad::Occt::TopoDS_ListOfShape::Iterator^ theIter);
     void Reverse();
     virtual System::Collections::Generic::IEnumerator<Macad::Occt::TopoDS_Shape^>^ GetEnumerator();
     virtual System::Collections::IEnumerator^ GetEnumerator2() = System::Collections::IEnumerable::GetEnumerator;
 }; // class TopoDS_ListOfShape
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_ListIteratorOfListOfShape
-//---------------------------------------------------------------------
-public ref class TopoDS_ListIteratorOfListOfShape sealed
-    : public Macad::Occt::BaseClass<::TopoDS_ListIteratorOfListOfShape>
-{
-
-#ifdef Include_TopoDS_ListIteratorOfListOfShape_h
-public:
-    Include_TopoDS_ListIteratorOfListOfShape_h
-#endif
-
-public:
-    TopoDS_ListIteratorOfListOfShape(::TopoDS_ListIteratorOfListOfShape* nativeInstance)
-        : Macad::Occt::BaseClass<::TopoDS_ListIteratorOfListOfShape>( nativeInstance, true )
-    {}
-
-    TopoDS_ListIteratorOfListOfShape(::TopoDS_ListIteratorOfListOfShape& nativeInstance)
-        : Macad::Occt::BaseClass<::TopoDS_ListIteratorOfListOfShape>( &nativeInstance, false )
-    {}
-
-    property ::TopoDS_ListIteratorOfListOfShape* NativeInstance
-    {
-        ::TopoDS_ListIteratorOfListOfShape* get()
-        {
-            return static_cast<::TopoDS_ListIteratorOfListOfShape*>(_NativeInstance);
-        }
-    }
-
-public:
-    TopoDS_ListIteratorOfListOfShape();
-    TopoDS_ListIteratorOfListOfShape(Macad::Occt::NCollection_BaseList^ theList);
-    TopoDS_ListIteratorOfListOfShape(Macad::Occt::TopoDS_ListIteratorOfListOfShape^ parameter1);
-    bool More();
-    void Next();
-    Macad::Occt::TopoDS_Shape^ Value();
-    Macad::Occt::TopoDS_Shape^ ChangeValue();
-}; // class TopoDS_ListIteratorOfListOfShape
 
 //---------------------------------------------------------------------
 //  Class  TopoDS_Shape
@@ -191,7 +144,6 @@ public:
     /// Creates a NULL Shape referring to nothing.
     /// </summary>
     TopoDS_Shape();
-    TopoDS_Shape(Macad::Occt::TopoDS_Shape^ parameter1);
     /// <summary>
     /// Returns true if this shape is null. In other words, it
     /// references no underlying shape with the potential to
@@ -210,20 +162,50 @@ public:
     /// <summary>
     /// Sets the shape local coordinate system.
     /// </summary>
+    /// <param name="theLoc">
+    /// the new local coordinate system.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
     void Location(Macad::Occt::TopLoc_Location^ theLoc, bool theRaiseExc);
     /// <summary>
     /// Sets the shape local coordinate system.
     /// </summary>
+    /// <param name="theLoc">
+    /// the new local coordinate system.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
     void Location(Macad::Occt::TopLoc_Location^ theLoc);
     /// <summary>
-    /// Returns a  shape  similar to <me> with   the local
+    /// Returns a  shape  similar to <me> with the local
     /// coordinate system set to <Loc>.
     /// </summary>
+    /// <param name="theLoc">
+    /// the new local coordinate system.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
+    /// <returns>
+    /// the located shape.
+    /// </returns>
     Macad::Occt::TopoDS_Shape^ Located(Macad::Occt::TopLoc_Location^ theLoc, bool theRaiseExc);
     /// <summary>
-    /// Returns a  shape  similar to <me> with   the local
+    /// Returns a  shape  similar to <me> with the local
     /// coordinate system set to <Loc>.
     /// </summary>
+    /// <param name="theLoc">
+    /// the new local coordinate system.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
+    /// <returns>
+    /// the located shape.
+    /// </returns>
     Macad::Occt::TopoDS_Shape^ Located(Macad::Occt::TopLoc_Location^ theLoc);
     /// <summary>
     /// Returns the shape orientation.
@@ -317,18 +299,48 @@ public:
     /// <summary>
     /// Multiplies the Shape location by thePosition.
     /// </summary>
+    /// <param name="thePosition">
+    /// the transformation to apply.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
     void Move(Macad::Occt::TopLoc_Location^ thePosition, bool theRaiseExc);
     /// <summary>
     /// Multiplies the Shape location by thePosition.
     /// </summary>
+    /// <param name="thePosition">
+    /// the transformation to apply.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
     void Move(Macad::Occt::TopLoc_Location^ thePosition);
     /// <summary>
     /// Returns a shape similar to <me> with a location multiplied by thePosition.
     /// </summary>
+    /// <param name="thePosition">
+    /// the transformation to apply.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
+    /// <returns>
+    /// the moved shape.
+    /// </returns>
     Macad::Occt::TopoDS_Shape^ Moved(Macad::Occt::TopLoc_Location^ thePosition, bool theRaiseExc);
     /// <summary>
     /// Returns a shape similar to <me> with a location multiplied by thePosition.
     /// </summary>
+    /// <param name="thePosition">
+    /// the transformation to apply.
+    /// </param>
+    /// <param name="theRaiseExc">
+    /// flag to raise exception in case of transformation with scale or negative.
+    /// </param>
+    /// <returns>
+    /// the moved shape.
+    /// </returns>
     Macad::Occt::TopoDS_Shape^ Moved(Macad::Occt::TopLoc_Location^ thePosition);
     /// <summary>
     /// Reverses the orientation, using the Reverse method
@@ -391,17 +403,6 @@ public:
     /// </summary>
     bool IsNotEqual(Macad::Occt::TopoDS_Shape^ theOther);
     /// <summary>
-    /// Returns a hashed value denoting <me>. This value is in the range [1, theUpperBound]. It is computed from the
-    /// TShape and the Location. The Orientation is not used.
-    /// </summary>
-    /// <param name="theUpperBound">
-    /// the upper bound of the range a computing hash code must be within
-    /// </param>
-    /// <returns>
-    /// a computed hash code, in the range [1, theUpperBound]
-    /// </returns>
-    int HashCode(int theUpperBound);
-    /// <summary>
     /// Replace   <me> by  a  new   Shape with the    same
     /// Orientation and Location and a new TShape with the
     /// same geometry and no sub-shapes.
@@ -425,443 +426,6 @@ public:
     bool Equals(System::Object^ obj) override;
     int GetHashCode() override;
 }; // class TopoDS_Shape
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_Vertex
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes a vertex which
-/// - references an underlying vertex with the potential
-/// to be given a location and an orientation
-/// - has a location for the underlying vertex, giving its
-/// placement in the local coordinate system
-/// - has an orientation for the underlying vertex, in
-/// terms of its geometry (as opposed to orientation in
-/// relation to other shapes).
-/// </summary>
-public ref class TopoDS_Vertex sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_Vertex_h
-public:
-    Include_TopoDS_Vertex_h
-#endif
-
-public:
-    TopoDS_Vertex(::TopoDS_Vertex* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_Vertex(::TopoDS_Vertex& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_Vertex* NativeInstance
-    {
-        ::TopoDS_Vertex* get()
-        {
-            return static_cast<::TopoDS_Vertex*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Undefined Vertex.
-    /// </summary>
-    TopoDS_Vertex();
-    TopoDS_Vertex(Macad::Occt::TopoDS_Vertex^ parameter1);
-}; // class TopoDS_Vertex
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_Edge
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes an edge which
-/// - references an underlying edge with the potential to
-/// be given a location and an orientation
-/// - has a location for the underlying edge, giving its
-/// placement in the local coordinate system
-/// - has an orientation for the underlying edge, in terms
-/// of its geometry (as opposed to orientation in
-/// relation to other shapes).
-/// </summary>
-public ref class TopoDS_Edge sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_Edge_h
-public:
-    Include_TopoDS_Edge_h
-#endif
-
-public:
-    TopoDS_Edge(::TopoDS_Edge* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_Edge(::TopoDS_Edge& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_Edge* NativeInstance
-    {
-        ::TopoDS_Edge* get()
-        {
-            return static_cast<::TopoDS_Edge*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Undefined Edge.
-    /// </summary>
-    TopoDS_Edge();
-    TopoDS_Edge(Macad::Occt::TopoDS_Edge^ parameter1);
-}; // class TopoDS_Edge
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_Wire
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes a wire which
-/// - references an underlying wire with the potential to
-/// be given a location and an orientation
-/// - has a location for the underlying wire, giving its
-/// placement in the local coordinate system
-/// - has an orientation for the underlying wire, in terms
-/// of its geometry (as opposed to orientation in relation to other shapes).
-/// </summary>
-public ref class TopoDS_Wire sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_Wire_h
-public:
-    Include_TopoDS_Wire_h
-#endif
-
-public:
-    TopoDS_Wire(::TopoDS_Wire* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_Wire(::TopoDS_Wire& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_Wire* NativeInstance
-    {
-        ::TopoDS_Wire* get()
-        {
-            return static_cast<::TopoDS_Wire*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Undefined Wire.
-    /// </summary>
-    TopoDS_Wire();
-    TopoDS_Wire(Macad::Occt::TopoDS_Wire^ parameter1);
-}; // class TopoDS_Wire
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_Face
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes a face which
-/// - references an underlying face with the potential to
-/// be given a location and an orientation
-/// - has a location for the underlying face, giving its
-/// placement in the local coordinate system
-/// - has an orientation for the underlying face, in terms
-/// of its geometry (as opposed to orientation in relation to other shapes).
-/// </summary>
-public ref class TopoDS_Face sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_Face_h
-public:
-    Include_TopoDS_Face_h
-#endif
-
-public:
-    TopoDS_Face(::TopoDS_Face* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_Face(::TopoDS_Face& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_Face* NativeInstance
-    {
-        ::TopoDS_Face* get()
-        {
-            return static_cast<::TopoDS_Face*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Undefined Face.
-    /// </summary>
-    TopoDS_Face();
-    TopoDS_Face(Macad::Occt::TopoDS_Face^ parameter1);
-}; // class TopoDS_Face
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_Shell
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes a shell which
-/// - references an underlying shell with the potential to
-/// be given a location and an orientation
-/// - has a location for the underlying shell, giving its
-/// placement in the local coordinate system
-/// - has an orientation for the underlying shell, in terms
-/// of its geometry (as opposed to orientation in relation to other shapes).
-/// </summary>
-public ref class TopoDS_Shell sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_Shell_h
-public:
-    Include_TopoDS_Shell_h
-#endif
-
-public:
-    TopoDS_Shell(::TopoDS_Shell* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_Shell(::TopoDS_Shell& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_Shell* NativeInstance
-    {
-        ::TopoDS_Shell* get()
-        {
-            return static_cast<::TopoDS_Shell*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Constructs an Undefined Shell.
-    /// </summary>
-    TopoDS_Shell();
-    TopoDS_Shell(Macad::Occt::TopoDS_Shell^ parameter1);
-}; // class TopoDS_Shell
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_Solid
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes a solid shape which
-/// - references an underlying solid shape with the
-/// potential to be given a location and an orientation
-/// - has a location for the underlying shape, giving its
-/// placement in the local coordinate system
-/// - has an orientation for the underlying shape, in
-/// terms of its geometry (as opposed to orientation in
-/// relation to other shapes).
-/// </summary>
-public ref class TopoDS_Solid sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_Solid_h
-public:
-    Include_TopoDS_Solid_h
-#endif
-
-public:
-    TopoDS_Solid(::TopoDS_Solid* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_Solid(::TopoDS_Solid& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_Solid* NativeInstance
-    {
-        ::TopoDS_Solid* get()
-        {
-            return static_cast<::TopoDS_Solid*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Constructs an Undefined Solid.
-    /// </summary>
-    TopoDS_Solid();
-    TopoDS_Solid(Macad::Occt::TopoDS_Solid^ parameter1);
-}; // class TopoDS_Solid
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_CompSolid
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes a composite solid which
-/// - references an underlying composite solid with the
-/// potential to be given a location and an orientation
-/// - has a location for the underlying composite solid,
-/// giving its placement in the local coordinate system
-/// - has an orientation for the underlying composite
-/// solid, in terms of its geometry (as opposed to
-/// orientation in relation to other shapes).
-/// Casts shape S to the more specialized return type, CompSolid.
-/// </summary>
-public ref class TopoDS_CompSolid sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_CompSolid_h
-public:
-    Include_TopoDS_CompSolid_h
-#endif
-
-public:
-    TopoDS_CompSolid(::TopoDS_CompSolid* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_CompSolid(::TopoDS_CompSolid& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_CompSolid* NativeInstance
-    {
-        ::TopoDS_CompSolid* get()
-        {
-            return static_cast<::TopoDS_CompSolid*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Constructs an Undefined CompSolid.
-    /// </summary>
-    TopoDS_CompSolid();
-    TopoDS_CompSolid(Macad::Occt::TopoDS_CompSolid^ parameter1);
-}; // class TopoDS_CompSolid
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_Compound
-//---------------------------------------------------------------------
-/// <summary>
-/// Describes a compound which
-/// - references an underlying compound with the
-/// potential to be given a location and an orientation
-/// - has a location for the underlying compound, giving
-/// its placement in the local coordinate system
-/// - has an orientation for the underlying compound, in
-/// terms of its geometry (as opposed to orientation in
-/// relation to other shapes).
-/// Casts shape S to the more specialized return type, Compound.
-/// </summary>
-public ref class TopoDS_Compound sealed
-    : public Macad::Occt::TopoDS_Shape
-{
-
-#ifdef Include_TopoDS_Compound_h
-public:
-    Include_TopoDS_Compound_h
-#endif
-
-public:
-    TopoDS_Compound(::TopoDS_Compound* nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    TopoDS_Compound(::TopoDS_Compound& nativeInstance)
-        : Macad::Occt::TopoDS_Shape( nativeInstance )
-    {}
-
-    property ::TopoDS_Compound* NativeInstance
-    {
-        ::TopoDS_Compound* get()
-        {
-            return static_cast<::TopoDS_Compound*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Constructs an Undefined Compound.
-    /// </summary>
-    TopoDS_Compound();
-    TopoDS_Compound(Macad::Occt::TopoDS_Compound^ parameter1);
-}; // class TopoDS_Compound
-
-//---------------------------------------------------------------------
-//  Class  TopoDS_HShape
-//---------------------------------------------------------------------
-/// <summary>
-/// Class to manipulate a Shape with  handle.
-/// </summary>
-public ref class TopoDS_HShape sealed
-    : public Macad::Occt::Standard_Transient
-{
-
-#ifdef Include_TopoDS_HShape_h
-public:
-    Include_TopoDS_HShape_h
-#endif
-
-public:
-    TopoDS_HShape(::TopoDS_HShape* nativeInstance)
-        : Macad::Occt::Standard_Transient( nativeInstance )
-    {}
-
-    TopoDS_HShape(::TopoDS_HShape& nativeInstance)
-        : Macad::Occt::Standard_Transient( nativeInstance )
-    {}
-
-    property ::TopoDS_HShape* NativeInstance
-    {
-        ::TopoDS_HShape* get()
-        {
-            return static_cast<::TopoDS_HShape*>(_NativeInstance);
-        }
-    }
-
-public:
-    /// <summary>
-    /// Constructs an empty shape object
-    /// </summary>
-    TopoDS_HShape();
-    /// <summary>
-    /// Constructs a shape object defined by the shape aShape.
-    /// </summary>
-    TopoDS_HShape(Macad::Occt::TopoDS_Shape^ aShape);
-    TopoDS_HShape(Macad::Occt::TopoDS_HShape^ parameter1);
-    /// <summary>
-    /// Loads this shape with the shape aShape
-    /// </summary>
-    void Shape(Macad::Occt::TopoDS_Shape^ aShape);
-    /// <summary>
-    /// Returns a reference to a constant TopoDS_Shape based on this shape.
-    /// </summary>
-    Macad::Occt::TopoDS_Shape^ Shape();
-    /// <summary>
-    /// Exchanges the TopoDS_Shape object defining this
-    /// shape for another one referencing the same underlying shape
-    /// Accesses the list of shapes within the underlying
-    /// shape referenced by the TopoDS_Shape object.
-    /// Returns a reference to a TopoDS_Shape based on
-    /// this shape. The TopoDS_Shape can be modified.
-    /// </summary>
-    Macad::Occt::TopoDS_Shape^ ChangeShape();
-    static Macad::Occt::TopoDS_HShape^ CreateDowncasted(::TopoDS_HShape* instance);
-}; // class TopoDS_HShape
 
 //---------------------------------------------------------------------
 //  Class  TopoDS_TShape
@@ -940,7 +504,6 @@ public:
         Locked = 128
     }; // enum  class TopoDS_TShape_Flags
 
-    TopoDS_TShape(Macad::Occt::TopoDS_TShape^ parameter1);
     /// <summary>
     /// Returns the free flag.
     /// </summary>
@@ -1031,6 +594,442 @@ public:
 }; // class TopoDS_TShape
 
 //---------------------------------------------------------------------
+//  Class  TopoDS_Vertex
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes a vertex which
+/// - references an underlying vertex with the potential
+/// to be given a location and an orientation
+/// - has a location for the underlying vertex, giving its
+/// placement in the local coordinate system
+/// - has an orientation for the underlying vertex, in
+/// terms of its geometry (as opposed to orientation in
+/// relation to other shapes).
+/// </summary>
+public ref class TopoDS_Vertex sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_Vertex_h
+public:
+    Include_TopoDS_Vertex_h
+#endif
+
+public:
+    TopoDS_Vertex(::TopoDS_Vertex* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_Vertex(::TopoDS_Vertex& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_Vertex* NativeInstance
+    {
+        ::TopoDS_Vertex* get()
+        {
+            return static_cast<::TopoDS_Vertex*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Undefined Vertex.
+    /// </summary>
+    TopoDS_Vertex();
+    int GetHashCode() override;
+}; // class TopoDS_Vertex
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_Edge
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes an edge which
+/// - references an underlying edge with the potential to
+/// be given a location and an orientation
+/// - has a location for the underlying edge, giving its
+/// placement in the local coordinate system
+/// - has an orientation for the underlying edge, in terms
+/// of its geometry (as opposed to orientation in
+/// relation to other shapes).
+/// </summary>
+public ref class TopoDS_Edge sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_Edge_h
+public:
+    Include_TopoDS_Edge_h
+#endif
+
+public:
+    TopoDS_Edge(::TopoDS_Edge* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_Edge(::TopoDS_Edge& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_Edge* NativeInstance
+    {
+        ::TopoDS_Edge* get()
+        {
+            return static_cast<::TopoDS_Edge*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Undefined Edge.
+    /// </summary>
+    TopoDS_Edge();
+    int GetHashCode() override;
+}; // class TopoDS_Edge
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_Wire
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes a wire which
+/// - references an underlying wire with the potential to
+/// be given a location and an orientation
+/// - has a location for the underlying wire, giving its
+/// placement in the local coordinate system
+/// - has an orientation for the underlying wire, in terms
+/// of its geometry (as opposed to orientation in relation to other shapes).
+/// </summary>
+public ref class TopoDS_Wire sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_Wire_h
+public:
+    Include_TopoDS_Wire_h
+#endif
+
+public:
+    TopoDS_Wire(::TopoDS_Wire* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_Wire(::TopoDS_Wire& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_Wire* NativeInstance
+    {
+        ::TopoDS_Wire* get()
+        {
+            return static_cast<::TopoDS_Wire*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Undefined Wire.
+    /// </summary>
+    TopoDS_Wire();
+    int GetHashCode() override;
+}; // class TopoDS_Wire
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_Face
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes a face which
+/// - references an underlying face with the potential to
+/// be given a location and an orientation
+/// - has a location for the underlying face, giving its
+/// placement in the local coordinate system
+/// - has an orientation for the underlying face, in terms
+/// of its geometry (as opposed to orientation in relation to other shapes).
+/// </summary>
+public ref class TopoDS_Face sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_Face_h
+public:
+    Include_TopoDS_Face_h
+#endif
+
+public:
+    TopoDS_Face(::TopoDS_Face* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_Face(::TopoDS_Face& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_Face* NativeInstance
+    {
+        ::TopoDS_Face* get()
+        {
+            return static_cast<::TopoDS_Face*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Undefined Face.
+    /// </summary>
+    TopoDS_Face();
+    int GetHashCode() override;
+}; // class TopoDS_Face
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_Shell
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes a shell which
+/// - references an underlying shell with the potential to
+/// be given a location and an orientation
+/// - has a location for the underlying shell, giving its
+/// placement in the local coordinate system
+/// - has an orientation for the underlying shell, in terms
+/// of its geometry (as opposed to orientation in relation to other shapes).
+/// </summary>
+public ref class TopoDS_Shell sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_Shell_h
+public:
+    Include_TopoDS_Shell_h
+#endif
+
+public:
+    TopoDS_Shell(::TopoDS_Shell* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_Shell(::TopoDS_Shell& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_Shell* NativeInstance
+    {
+        ::TopoDS_Shell* get()
+        {
+            return static_cast<::TopoDS_Shell*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Constructs an Undefined Shell.
+    /// </summary>
+    TopoDS_Shell();
+    int GetHashCode() override;
+}; // class TopoDS_Shell
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_Solid
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes a solid shape which
+/// - references an underlying solid shape with the
+/// potential to be given a location and an orientation
+/// - has a location for the underlying shape, giving its
+/// placement in the local coordinate system
+/// - has an orientation for the underlying shape, in
+/// terms of its geometry (as opposed to orientation in
+/// relation to other shapes).
+/// </summary>
+public ref class TopoDS_Solid sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_Solid_h
+public:
+    Include_TopoDS_Solid_h
+#endif
+
+public:
+    TopoDS_Solid(::TopoDS_Solid* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_Solid(::TopoDS_Solid& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_Solid* NativeInstance
+    {
+        ::TopoDS_Solid* get()
+        {
+            return static_cast<::TopoDS_Solid*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Constructs an Undefined Solid.
+    /// </summary>
+    TopoDS_Solid();
+    int GetHashCode() override;
+}; // class TopoDS_Solid
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_CompSolid
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes a composite solid which
+/// - references an underlying composite solid with the
+/// potential to be given a location and an orientation
+/// - has a location for the underlying composite solid,
+/// giving its placement in the local coordinate system
+/// - has an orientation for the underlying composite
+/// solid, in terms of its geometry (as opposed to
+/// orientation in relation to other shapes).
+/// Casts shape S to the more specialized return type, CompSolid.
+/// </summary>
+public ref class TopoDS_CompSolid sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_CompSolid_h
+public:
+    Include_TopoDS_CompSolid_h
+#endif
+
+public:
+    TopoDS_CompSolid(::TopoDS_CompSolid* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_CompSolid(::TopoDS_CompSolid& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_CompSolid* NativeInstance
+    {
+        ::TopoDS_CompSolid* get()
+        {
+            return static_cast<::TopoDS_CompSolid*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Constructs an Undefined CompSolid.
+    /// </summary>
+    TopoDS_CompSolid();
+    int GetHashCode() override;
+}; // class TopoDS_CompSolid
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_Compound
+//---------------------------------------------------------------------
+/// <summary>
+/// Describes a compound which
+/// - references an underlying compound with the
+/// potential to be given a location and an orientation
+/// - has a location for the underlying compound, giving
+/// its placement in the local coordinate system
+/// - has an orientation for the underlying compound, in
+/// terms of its geometry (as opposed to orientation in
+/// relation to other shapes).
+/// Casts shape S to the more specialized return type, Compound.
+/// </summary>
+public ref class TopoDS_Compound sealed
+    : public Macad::Occt::TopoDS_Shape
+{
+
+#ifdef Include_TopoDS_Compound_h
+public:
+    Include_TopoDS_Compound_h
+#endif
+
+public:
+    TopoDS_Compound(::TopoDS_Compound* nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    TopoDS_Compound(::TopoDS_Compound& nativeInstance)
+        : Macad::Occt::TopoDS_Shape( nativeInstance )
+    {}
+
+    property ::TopoDS_Compound* NativeInstance
+    {
+        ::TopoDS_Compound* get()
+        {
+            return static_cast<::TopoDS_Compound*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Constructs an Undefined Compound.
+    /// </summary>
+    TopoDS_Compound();
+    int GetHashCode() override;
+}; // class TopoDS_Compound
+
+//---------------------------------------------------------------------
+//  Class  TopoDS_HShape
+//---------------------------------------------------------------------
+/// <summary>
+/// Class to manipulate a Shape with  handle.
+/// </summary>
+public ref class TopoDS_HShape sealed
+    : public Macad::Occt::Standard_Transient
+{
+
+#ifdef Include_TopoDS_HShape_h
+public:
+    Include_TopoDS_HShape_h
+#endif
+
+public:
+    TopoDS_HShape(::TopoDS_HShape* nativeInstance)
+        : Macad::Occt::Standard_Transient( nativeInstance )
+    {}
+
+    TopoDS_HShape(::TopoDS_HShape& nativeInstance)
+        : Macad::Occt::Standard_Transient( nativeInstance )
+    {}
+
+    property ::TopoDS_HShape* NativeInstance
+    {
+        ::TopoDS_HShape* get()
+        {
+            return static_cast<::TopoDS_HShape*>(_NativeInstance);
+        }
+    }
+
+public:
+    /// <summary>
+    /// Constructs an empty shape object
+    /// </summary>
+    TopoDS_HShape();
+    /// <summary>
+    /// Constructs a shape object defined by the shape aShape.
+    /// </summary>
+    TopoDS_HShape(Macad::Occt::TopoDS_Shape^ aShape);
+    /// <summary>
+    /// Loads this shape with the shape aShape
+    /// </summary>
+    void Shape(Macad::Occt::TopoDS_Shape^ aShape);
+    /// <summary>
+    /// Returns a reference to a constant TopoDS_Shape based on this shape.
+    /// </summary>
+    Macad::Occt::TopoDS_Shape^ Shape();
+    /// <summary>
+    /// Exchanges the TopoDS_Shape object defining this
+    /// shape for another one referencing the same underlying shape
+    /// Accesses the list of shapes within the underlying
+    /// shape referenced by the TopoDS_Shape object.
+    /// Returns a reference to a TopoDS_Shape based on
+    /// this shape. The TopoDS_Shape can be modified.
+    /// </summary>
+    Macad::Occt::TopoDS_Shape^ ChangeShape();
+    static Macad::Occt::TopoDS_HShape^ CreateDowncasted(::TopoDS_HShape* instance);
+}; // class TopoDS_HShape
+
+//---------------------------------------------------------------------
 //  Class  TopoDS_TVertex
 //---------------------------------------------------------------------
 /// <summary>
@@ -1069,7 +1068,6 @@ public:
     }
 
 public:
-    TopoDS_TVertex(Macad::Occt::TopoDS_TVertex^ parameter1);
     /// <summary>
     /// Returns VERTEX.
     /// </summary>
@@ -1116,7 +1114,6 @@ public:
     }
 
 public:
-    TopoDS_TEdge(Macad::Occt::TopoDS_TEdge^ parameter1);
     /// <summary>
     /// Returns  EDGE.
     /// </summary>
@@ -1161,7 +1158,6 @@ public:
     /// Creates an empty TWire.
     /// </summary>
     TopoDS_TWire();
-    TopoDS_TWire(Macad::Occt::TopoDS_TWire^ parameter1);
     /// <summary>
     /// Returns WIRE.
     /// </summary>
@@ -1217,7 +1213,6 @@ public:
     /// Creates an empty TFace.
     /// </summary>
     TopoDS_TFace();
-    TopoDS_TFace(Macad::Occt::TopoDS_TFace^ parameter1);
     /// <summary>
     /// returns FACE.
     /// </summary>
@@ -1266,7 +1261,6 @@ public:
     /// Creates an empty TShell.
     /// </summary>
     TopoDS_TShell();
-    TopoDS_TShell(Macad::Occt::TopoDS_TShell^ parameter1);
     /// <summary>
     /// Returns SHELL.
     /// </summary>
@@ -1316,7 +1310,6 @@ public:
     /// Creates an empty TSolid.
     /// </summary>
     TopoDS_TSolid();
-    TopoDS_TSolid(Macad::Occt::TopoDS_TSolid^ parameter1);
     /// <summary>
     /// returns SOLID.
     /// </summary>
@@ -1365,7 +1358,6 @@ public:
     /// Creates an empty TCompSolid.
     /// </summary>
     TopoDS_TCompSolid();
-    TopoDS_TCompSolid(Macad::Occt::TopoDS_TCompSolid^ parameter1);
     /// <summary>
     /// returns COMPSOLID
     /// </summary>
@@ -1414,7 +1406,6 @@ public:
     /// Creates an empty TCompound.
     /// </summary>
     TopoDS_TCompound();
-    TopoDS_TCompound(Macad::Occt::TopoDS_TCompound^ parameter1);
     /// <summary>
     /// Returns COMPOUND.
     /// </summary>
@@ -1503,7 +1494,6 @@ public:
 
 public:
     TopoDS_Builder();
-    TopoDS_Builder(Macad::Occt::TopoDS_Builder^ parameter1);
     /// <summary>
     /// Make an empty Wire.
     /// </summary>
@@ -1610,7 +1600,6 @@ public:
     /// each sub-shape the transformation that is associated with S.
     /// </summary>
     TopoDS_Iterator(Macad::Occt::TopoDS_Shape^ S);
-    TopoDS_Iterator(Macad::Occt::TopoDS_Iterator^ parameter1);
     /// <summary>
     /// Initializes this iterator with shape S.
     /// Note:
@@ -1663,96 +1652,6 @@ public:
 }; // class TopoDS_Iterator
 
 //---------------------------------------------------------------------
-//  Class  TopoDS
-//---------------------------------------------------------------------
-/// <summary>
-/// Provides methods to cast objects of class
-/// TopoDS_Shape to be objects of more specialized
-/// sub-classes. Types are verified, thus in the example
-/// below, the first two blocks are correct but the third is
-/// rejected by the compiler.
-/// </summary>
-public ref class TopoDS sealed
-    : public Macad::Occt::BaseClass<::TopoDS>
-{
-
-#ifdef Include_TopoDS_h
-public:
-    Include_TopoDS_h
-#endif
-
-public:
-    TopoDS(::TopoDS* nativeInstance)
-        : Macad::Occt::BaseClass<::TopoDS>( nativeInstance, true )
-    {}
-
-    TopoDS(::TopoDS& nativeInstance)
-        : Macad::Occt::BaseClass<::TopoDS>( &nativeInstance, false )
-    {}
-
-    property ::TopoDS* NativeInstance
-    {
-        ::TopoDS* get()
-        {
-            return static_cast<::TopoDS*>(_NativeInstance);
-        }
-    }
-
-public:
-    TopoDS();
-    TopoDS(Macad::Occt::TopoDS^ parameter1);
-    /// <summary>
-    /// Basic tool to access the data structure.
-    /// Casts shape S to the more specialized return type, Vertex.
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_Vertex^ Vertex(Macad::Occt::TopoDS_Shape^ S);
-    /// <summary>
-    /// Casts shape S to the more specialized return type, Edge
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_Edge^ Edge(Macad::Occt::TopoDS_Shape^ S);
-    /// <summary>
-    /// Casts shape S to the more specialized return type, Wire.
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_Wire^ Wire(Macad::Occt::TopoDS_Shape^ S);
-    /// <summary>
-    /// Casts shape S to the more specialized return type, Face.
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_Face^ Face(Macad::Occt::TopoDS_Shape^ S);
-    /// <summary>
-    /// Casts shape S to the more specialized return type, Shell.
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_Shell^ Shell(Macad::Occt::TopoDS_Shape^ S);
-    /// <summary>
-    /// Casts shape S to the more specialized return type, Solid.
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_Solid^ Solid(Macad::Occt::TopoDS_Shape^ S);
-    /// <summary>
-    /// Casts shape S to the more specialized return type, CompSolid.
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_CompSolid^ CompSolid(Macad::Occt::TopoDS_Shape^ S);
-    /// <summary>
-    /// Casts shape S to the more specialized return type, Compound.
-    /// Exceptions
-    /// Standard_TypeMismatch if S cannot be cast to this return type.
-    /// </summary>
-    static Macad::Occt::TopoDS_Compound^ Compound(Macad::Occt::TopoDS_Shape^ S);
-}; // class TopoDS
-
-//---------------------------------------------------------------------
 //  Class  TopoDS_FrozenShape
 //---------------------------------------------------------------------
 public ref class TopoDS_FrozenShape sealed
@@ -1785,7 +1684,6 @@ public:
     TopoDS_FrozenShape();
     TopoDS_FrozenShape(System::String^ theMessage);
     TopoDS_FrozenShape(System::String^ theMessage, System::String^ theStackTrace);
-    TopoDS_FrozenShape(Macad::Occt::TopoDS_FrozenShape^ parameter1);
     static void Raise(System::String^ theMessage);
     static void Raise();
     /* Method skipped due to unknown mapping: void Raise(stringstream theMessage, ) */
@@ -1828,7 +1726,6 @@ public:
     TopoDS_LockedShape();
     TopoDS_LockedShape(System::String^ theMessage);
     TopoDS_LockedShape(System::String^ theMessage, System::String^ theStackTrace);
-    TopoDS_LockedShape(Macad::Occt::TopoDS_LockedShape^ parameter1);
     static void Raise(System::String^ theMessage);
     static void Raise();
     /* Method skipped due to unknown mapping: void Raise(stringstream theMessage, ) */
@@ -1871,7 +1768,6 @@ public:
     TopoDS_UnCompatibleShapes();
     TopoDS_UnCompatibleShapes(System::String^ theMessage);
     TopoDS_UnCompatibleShapes(System::String^ theMessage, System::String^ theStackTrace);
-    TopoDS_UnCompatibleShapes(Macad::Occt::TopoDS_UnCompatibleShapes^ parameter1);
     static void Raise(System::String^ theMessage);
     static void Raise();
     /* Method skipped due to unknown mapping: void Raise(stringstream theMessage, ) */

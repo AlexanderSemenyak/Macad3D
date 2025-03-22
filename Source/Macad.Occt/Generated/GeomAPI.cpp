@@ -8,10 +8,10 @@ using namespace System::Runtime::InteropServices; // for class Marshal
 #include "Geom2d.h"
 #include "Geom.h"
 #include "gp.h"
+#include "Extrema.h"
 #include "TColgp.h"
 #include "TColStd.h"
 #include "GeomAbs.h"
-#include "Extrema.h"
 
 
 //---------------------------------------------------------------------
@@ -22,12 +22,6 @@ Macad::Occt::GeomAPI::GeomAPI()
     : Macad::Occt::BaseClass<::GeomAPI>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::GeomAPI();
-}
-
-Macad::Occt::GeomAPI::GeomAPI(Macad::Occt::GeomAPI^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI(*(::GeomAPI*)parameter1->NativeInstance);
 }
 
 Macad::Occt::Geom2d_Curve^ Macad::Occt::GeomAPI::To2d(Macad::Occt::Geom_Curve^ C, Macad::Occt::Pln P)
@@ -264,12 +258,6 @@ Macad::Occt::GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface(Macad:
     _NativeInstance = new ::GeomAPI_ExtremaSurfaceSurface(Handle(::Geom_Surface)(S1->NativeInstance), Handle(::Geom_Surface)(S2->NativeInstance), U1min, U1max, V1min, V1max, U2min, U2max, V2min, V2max);
 }
 
-Macad::Occt::GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface(Macad::Occt::GeomAPI_ExtremaSurfaceSurface^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI_ExtremaSurfaceSurface>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI_ExtremaSurfaceSurface(*(::GeomAPI_ExtremaSurfaceSurface*)parameter1->NativeInstance);
-}
-
 void Macad::Occt::GeomAPI_ExtremaSurfaceSurface::Init(Macad::Occt::Geom_Surface^ S1, Macad::Occt::Geom_Surface^ S2)
 {
     ((::GeomAPI_ExtremaSurfaceSurface*)_NativeInstance)->Init(Handle(::Geom_Surface)(S1->NativeInstance), Handle(::Geom_Surface)(S2->NativeInstance));
@@ -336,6 +324,13 @@ double Macad::Occt::GeomAPI_ExtremaSurfaceSurface::LowerDistance()
     return _result;
 }
 
+Macad::Occt::Extrema_ExtSS^ Macad::Occt::GeomAPI_ExtremaSurfaceSurface::Extrema()
+{
+    ::Extrema_ExtSS* _result = new ::Extrema_ExtSS();
+    *_result = (::Extrema_ExtSS)((::GeomAPI_ExtremaSurfaceSurface*)_NativeInstance)->Extrema();
+    return _result==nullptr ? nullptr : gcnew Macad::Occt::Extrema_ExtSS(_result);
+}
+
 
 
 //---------------------------------------------------------------------
@@ -352,12 +347,6 @@ Macad::Occt::GeomAPI_IntCS::GeomAPI_IntCS(Macad::Occt::Geom_Curve^ C, Macad::Occ
     : Macad::Occt::BaseClass<::GeomAPI_IntCS>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::GeomAPI_IntCS(Handle(::Geom_Curve)(C->NativeInstance), Handle(::Geom_Surface)(S->NativeInstance));
-}
-
-Macad::Occt::GeomAPI_IntCS::GeomAPI_IntCS(Macad::Occt::GeomAPI_IntCS^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI_IntCS>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI_IntCS(*(::GeomAPI_IntCS*)parameter1->NativeInstance);
 }
 
 void Macad::Occt::GeomAPI_IntCS::Perform(Macad::Occt::Geom_Curve^ C, Macad::Occt::Geom_Surface^ S)
@@ -430,12 +419,6 @@ Macad::Occt::GeomAPI_Interpolate::GeomAPI_Interpolate(Macad::Occt::TColgp_HArray
     _NativeInstance = new ::GeomAPI_Interpolate(Handle(::TColgp_HArray1OfPnt)(Points->NativeInstance), Handle(::TColStd_HArray1OfReal)(Parameters->NativeInstance), PeriodicFlag, Tolerance);
 }
 
-Macad::Occt::GeomAPI_Interpolate::GeomAPI_Interpolate(Macad::Occt::GeomAPI_Interpolate^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI_Interpolate>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI_Interpolate(*(::GeomAPI_Interpolate*)parameter1->NativeInstance);
-}
-
 void Macad::Occt::GeomAPI_Interpolate::Load(Macad::Occt::Vec InitialTangent, Macad::Occt::Vec FinalTangent, bool Scale)
 {
     pin_ptr<Macad::Occt::Vec> pp_InitialTangent = &InitialTangent;
@@ -493,12 +476,6 @@ Macad::Occt::GeomAPI_IntSS::GeomAPI_IntSS(Macad::Occt::Geom_Surface^ S1, Macad::
     : Macad::Occt::BaseClass<::GeomAPI_IntSS>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::GeomAPI_IntSS(Handle(::Geom_Surface)(S1->NativeInstance), Handle(::Geom_Surface)(S2->NativeInstance), Tol);
-}
-
-Macad::Occt::GeomAPI_IntSS::GeomAPI_IntSS(Macad::Occt::GeomAPI_IntSS^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI_IntSS>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI_IntSS(*(::GeomAPI_IntSS*)parameter1->NativeInstance);
 }
 
 void Macad::Occt::GeomAPI_IntSS::Perform(Macad::Occt::Geom_Surface^ S1, Macad::Occt::Geom_Surface^ S2, double Tol)
@@ -618,12 +595,6 @@ Macad::Occt::GeomAPI_PointsToBSpline::GeomAPI_PointsToBSpline(Macad::Occt::TColg
     : Macad::Occt::BaseClass<::GeomAPI_PointsToBSpline>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::GeomAPI_PointsToBSpline(*(::TColgp_Array1OfPnt*)Points->NativeInstance, Weight1, Weight2, Weight3, 8, GeomAbs_C2, 0.001);
-}
-
-Macad::Occt::GeomAPI_PointsToBSpline::GeomAPI_PointsToBSpline(Macad::Occt::GeomAPI_PointsToBSpline^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI_PointsToBSpline>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI_PointsToBSpline(*(::GeomAPI_PointsToBSpline*)parameter1->NativeInstance);
 }
 
 void Macad::Occt::GeomAPI_PointsToBSpline::Init(Macad::Occt::TColgp_Array1OfPnt^ Points, int DegMin, int DegMax, Macad::Occt::GeomAbs_Shape Continuity, double Tol3D)
@@ -804,12 +775,6 @@ Macad::Occt::GeomAPI_PointsToBSplineSurface::GeomAPI_PointsToBSplineSurface(Maca
     _NativeInstance = new ::GeomAPI_PointsToBSplineSurface(*(::TColStd_Array2OfReal*)ZPoints->NativeInstance, X0, dX, Y0, dY, 3, 8, GeomAbs_C2, 0.001);
 }
 
-Macad::Occt::GeomAPI_PointsToBSplineSurface::GeomAPI_PointsToBSplineSurface(Macad::Occt::GeomAPI_PointsToBSplineSurface^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI_PointsToBSplineSurface>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI_PointsToBSplineSurface(*(::GeomAPI_PointsToBSplineSurface*)parameter1->NativeInstance);
-}
-
 void Macad::Occt::GeomAPI_PointsToBSplineSurface::Init(Macad::Occt::TColgp_Array2OfPnt^ Points, int DegMin, int DegMax, Macad::Occt::GeomAbs_Shape Continuity, double Tol3D)
 {
     ((::GeomAPI_PointsToBSplineSurface*)_NativeInstance)->Init(*(::TColgp_Array2OfPnt*)Points->NativeInstance, DegMin, DegMax, (::GeomAbs_Shape)Continuity, Tol3D);
@@ -931,12 +896,6 @@ Macad::Occt::GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(Macad::Occ
 {
     pin_ptr<Macad::Occt::Pnt> pp_P = &P;
     _NativeInstance = new ::GeomAPI_ProjectPointOnCurve(*(gp_Pnt*)pp_P, Handle(::Geom_Curve)(Curve->NativeInstance), Umin, Usup);
-}
-
-Macad::Occt::GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(Macad::Occt::GeomAPI_ProjectPointOnCurve^ parameter1)
-    : Macad::Occt::BaseClass<::GeomAPI_ProjectPointOnCurve>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::GeomAPI_ProjectPointOnCurve(*(::GeomAPI_ProjectPointOnCurve*)parameter1->NativeInstance);
 }
 
 void Macad::Occt::GeomAPI_ProjectPointOnCurve::Init(Macad::Occt::Pnt P, Macad::Occt::Geom_Curve^ Curve)

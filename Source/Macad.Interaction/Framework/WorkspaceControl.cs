@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
@@ -37,10 +38,11 @@ public abstract class WorkspaceControl : BaseObject, IMouseEventHandler, IContex
 
     WorkspaceController _WorkspaceController;
     List<PropertyPanel> _Panels;
-    bool _PanelsHidden = true;
+    bool _PanelsHidden;
     List<HudElement> _HudElements;
     List<VisualObject> _VisualObjects;
     List<SelectionContext> _SelectionContexts;
+    ISnapHandler _SnapHandler;
 
     //--------------------------------------------------------------------------------------------------
 
@@ -51,11 +53,13 @@ public abstract class WorkspaceControl : BaseObject, IMouseEventHandler, IContex
     protected virtual void Cleanup()
     {
         RemovePanels();
+        UnhidePanels();
         RemoveHudElements();
         RemoveVisuals();
         CloseSelectionContexts();
         RemoveHintMessage();
         RemoveCursor();
+        RemoveSnapHandler();
         WorkspaceController.Invalidate();
         CleanedUp = true;
     }
@@ -99,14 +103,11 @@ public abstract class WorkspaceControl : BaseObject, IMouseEventHandler, IContex
 
     protected void RemovePanels()
     {
+        if (_Panels == null || _Panels.Count == 0)
+            return;
+
         if (InteractiveContext.Current.PropertyPanelManager != null)
         {
-            if (_PanelsHidden)
-            {
-                InteractiveContext.Current.PropertyPanelManager.HidePanels(0, 0);
-                _PanelsHidden = false;
-            }
-
             _Panels?.ForEach(InteractiveContext.Current.PropertyPanelManager.RemovePanel);
         }
         _Panels?.Clear();
@@ -118,6 +119,17 @@ public abstract class WorkspaceControl : BaseObject, IMouseEventHandler, IContex
     {
         InteractiveContext.Current.PropertyPanelManager?.HidePanels(firstSortingKey, lastSortingKey);
         _PanelsHidden = true;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    protected void UnhidePanels()
+    {
+        if (_PanelsHidden)
+        {
+            InteractiveContext.Current.PropertyPanelManager?.HidePanels(0, 0);
+            _PanelsHidden = false;
+        }
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -272,6 +284,38 @@ public abstract class WorkspaceControl : BaseObject, IMouseEventHandler, IContex
 
     #endregion
 
+    #region Snapping
+
+    protected T SetSnapHandler<T>(T snapHandler) where T : SnapBase
+    {
+        RemoveSnapHandler();
+        snapHandler.WorkspaceController = WorkspaceController;
+        _SnapHandler = snapHandler;
+        WorkspaceController?.Selection?.Invalidate();
+        return snapHandler;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    protected void RemoveSnapHandler()
+    {
+        (_SnapHandler as IDisposable)?.Dispose();
+        _SnapHandler = null;
+        WorkspaceController?.Selection?.Invalidate();
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    public ISnapHandler GetSnapHandler()
+    {
+        return _SnapHandler ?? GetChildren().Select(child => child.GetSnapHandler())
+                                            .FirstOrDefault(handler => handler != null);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
+
     #region Event Forwarding
 
     public virtual bool OnMouseMove(MouseEventData data)
@@ -302,9 +346,9 @@ public abstract class WorkspaceControl : BaseObject, IMouseEventHandler, IContex
 
     //--------------------------------------------------------------------------------------------------
 
-    public virtual bool OnKeyPressed(Key key)
+    public virtual bool OnKeyPressed(Key key, ModifierKeys modifierKeys)
     {
-        return GetChildren().Any(child => child.OnKeyPressed(key));
+        return GetChildren().Any(child => child.OnKeyPressed(key, modifierKeys));
     }
     
     //--------------------------------------------------------------------------------------------------

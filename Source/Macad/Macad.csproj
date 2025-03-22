@@ -5,25 +5,18 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ApplicationIcon>..\Macad.Resources\Icons\App\App-MainLogo.ico</ApplicationIcon>  
     <Platforms>x64</Platforms>
-    <StartupObject>Macad.Window.App</StartupObject>
+    <StartupObject>Macad.Window.Program</StartupObject>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   
   <Import Project="$(MMBuildPropsDir)\Macad.Publish.props" />
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" Version="6.0.0" />
-    <PackageReference Include="Dirkster.AvalonDock" Version="4.72.0" />
-    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.72.0" />
-    <PackageReference Include="Fluent.Ribbon" Version="10.0.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <PackageReference Include="ControlzEx" />
+    <PackageReference Include="Dirkster.AvalonDock" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" />
+    <PackageReference Include="Fluent.Ribbon" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Macad.Common\Macad.Common.csproj" />
@@ -40,33 +33,8 @@
     <InternalsVisibleTo Include="Test.Memory" />
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Properties\SplashScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="obj\x64\Debug\App.g.cs" />
-    <Compile Remove="obj\x64\Debug\App.g.i.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Macad.args.json" />
     <None Remove="Macad.csproj.DotSettings" />
     <None Remove="Properties\launchSettings.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 </Project>

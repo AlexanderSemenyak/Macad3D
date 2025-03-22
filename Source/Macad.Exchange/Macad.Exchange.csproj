@@ -7,47 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Macad.Exchange.csproj.DotSettings" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Macad.Common\Macad.Common.csproj" />
     <ProjectReference Include="..\Macad.Core\Macad.Core.csproj" />
     <ProjectReference Include="..\Macad.Managed\Macad.Managed.vcxproj" />
     <ProjectReference Include="..\Macad.Presentation\Macad.Presentation.csproj" />
     <ProjectReference Include="..\Macad.Occt\Macad.Occt.vcxproj" />
-    <ProjectReference Include="..\SourceGenerator\SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\Tools\SourceGenerator\SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
   
   <ItemGroup>
     <InternalsVisibleTo Include="Test.Unit" />
     <InternalsVisibleTo Include="Test.Memory" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Page Update="Dxf\DxfExportSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Dxf\DxfImportSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Iges\IgesExchangerSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Obj\ObjSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="OpenCascade\OpenCascadeSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Step\StepSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Stl\StlExchangerSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Svg\SvgSettingsPanel.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-  </ItemGroup>
+
 </Project>

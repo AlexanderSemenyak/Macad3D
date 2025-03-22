@@ -18,10 +18,10 @@ namespace Occt
 /// coordinates of the point M are as follows:
 /// X   =   R *cos ( Theta )
 /// y   =   R * sin ( Theta )
-/// Similarly, for an ellipse with a center C, a major radius R and a minor radius r, the circle Circ
-/// with center C and radius R (and located in the same plane as the ellipse) lends its natural
-/// angular parameterization to the ellipse. This is achieved by an affine transformation in the plane
-/// of the ellipse, in the ratio r / R, about the 'X Axis' of its local coordinate system. The
+/// Similarly, for an ellipse with a center C, a major radius R and a minor radius r, the circle
+/// Circ with center C and radius R (and located in the same plane as the ellipse) lends its natural
+/// angular parameterization to the ellipse. This is achieved by an affine transformation in the
+/// plane of the ellipse, in the ratio r / R, about the 'X Axis' of its local coordinate system. The
 /// coordinates of the current point M are as follows:
 /// X   =   R * cos ( Theta )
 /// y   =   r * sin ( Theta )
@@ -36,21 +36,17 @@ namespace Occt
 /// The result of this definition is:
 /// cos ( Theta ) = ( 1. - t**2 ) / ( 1. + t**2 )
 /// sin ( Theta ) =      2. * t / ( 1. + t**2 )
-/// which ensures the rational parameterization of the circle or the ellipse. However, this is not the
-/// most suitable parameterization method where the arc of the circle or ellipse has a large opening
-/// angle. In such cases, the curve will be represented by a BSpline with intermediate knots. Each
-/// span, i.e. each portion of curve between two different knot values, will use parameterization of
-/// this type.
-/// The number of spans is calculated using the following rule:
-/// ( 1.2 * Delta / Pi ) + 1
-/// where Delta is equal to the opening angle (in radians) of the arc of the circle (Delta is
-/// equal to 2.* Pi in the case of a complete circle).
-/// The resulting BSpline curve is "exact", i.e. computing any point of parameter t on the BSpline
-/// curve gives an exact point on the circle or the ellipse.
-/// TgtThetaOver2_N
-/// Where N is equal to 1, 2, 3 or 4, this ensures the same type of parameterization as
-/// Convert_TgtThetaOver2 but sets the number of spans in the resulting BSpline curve to N
-/// rather than allowing the algorithm to make this calculation.
+/// which ensures the rational parameterization of the circle or the ellipse. However, this is not
+/// the most suitable parameterization method where the arc of the circle or ellipse has a large
+/// opening angle. In such cases, the curve will be represented by a BSpline with intermediate
+/// knots. Each span, i.e. each portion of curve between two different knot values, will use
+/// parameterization of this type. The number of spans is calculated using the following rule: ( 1.2
+/// * Delta / Pi ) + 1 where Delta is equal to the opening angle (in radians) of the arc of the
+/// circle (Delta is equal to 2.* Pi in the case of a complete circle). The resulting BSpline curve
+/// is "exact", i.e. computing any point of parameter t on the BSpline curve gives an exact point on
+/// the circle or the ellipse. TgtThetaOver2_N Where N is equal to 1, 2, 3 or 4, this ensures the
+/// same type of parameterization as Convert_TgtThetaOver2 but sets the number of spans in the
+/// resulting BSpline curve to N rather than allowing the algorithm to make this calculation.
 /// However, the opening angle Delta (parametric angle, given in radians) of the arc of the circle
 /// (or of the ellipse) must comply with the following:
 /// -   Delta <= 0.9999 * Pi for the Convert_TgtThetaOver2_1 method, or
@@ -71,9 +67,9 @@ namespace Occt
 /// curve gives an exact point on the circle or the ellipse.
 /// Polynomial
 /// The Convert_Polynomial method is used to produce polynomial (i.e. non-rational)
-/// parameterization of the resulting BSpline curve with 8 poles (i.e. a polynomial degree equal to 7).
-/// However, the result is an approximation of the circle or ellipse (i.e. computing the point of
-/// parameter t on the BSpline curve does not give an exact point on the circle or the ellipse).
+/// parameterization of the resulting BSpline curve with 8 poles (i.e. a polynomial degree equal to
+/// 7). However, the result is an approximation of the circle or ellipse (i.e. computing the point
+/// of parameter t on the BSpline curve does not give an exact point on the circle or the ellipse).
 /// </summary>
 public enum class Convert_ParameterisationType
 {
@@ -146,19 +142,16 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theSeq, bool isStart);
-        Iterator(Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theSeq);
-        Iterator(Macad::Occt::Convert_SequenceOfArray1OfPoles2d::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TColgp_HArray1OfPnt2d^ Value();
         Macad::Occt::TColgp_HArray1OfPnt2d^ ChangeValue();
         bool IsEqual(Macad::Occt::Convert_SequenceOfArray1OfPoles2d::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     Convert_SequenceOfArray1OfPoles2d();
     Convert_SequenceOfArray1OfPoles2d(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    Convert_SequenceOfArray1OfPoles2d(Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theOther);
     int Size();
     int Length();
     int Lower();
@@ -171,17 +164,10 @@ public:
     void Clear();
     Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ Assign(Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theOther);
     void Remove(Macad::Occt::Convert_SequenceOfArray1OfPoles2d::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
     void Append(Macad::Occt::TColgp_HArray1OfPnt2d^ theItem);
-    void Append(Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theSeq);
     void Prepend(Macad::Occt::TColgp_HArray1OfPnt2d^ theItem);
-    void Prepend(Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::TColgp_HArray1OfPnt2d^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theSeq);
     void InsertAfter(Macad::Occt::Convert_SequenceOfArray1OfPoles2d::Iterator^ thePosition, Macad::Occt::TColgp_HArray1OfPnt2d^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::TColgp_HArray1OfPnt2d^ theItem);
     void Split(int theIndex, Macad::Occt::Convert_SequenceOfArray1OfPoles2d^ theSeq);
     Macad::Occt::TColgp_HArray1OfPnt2d^ First();
     Macad::Occt::TColgp_HArray1OfPnt2d^ ChangeFirst();
@@ -253,19 +239,16 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::Convert_SequenceOfArray1OfPoles^ theSeq, bool isStart);
-        Iterator(Macad::Occt::Convert_SequenceOfArray1OfPoles^ theSeq);
-        Iterator(Macad::Occt::Convert_SequenceOfArray1OfPoles::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TColgp_HArray1OfPnt^ Value();
         Macad::Occt::TColgp_HArray1OfPnt^ ChangeValue();
         bool IsEqual(Macad::Occt::Convert_SequenceOfArray1OfPoles::Iterator^ theOther);
+        bool Equals(System::Object^ obj) override;
     }; // class Iterator
 
     Convert_SequenceOfArray1OfPoles();
     Convert_SequenceOfArray1OfPoles(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    Convert_SequenceOfArray1OfPoles(Macad::Occt::Convert_SequenceOfArray1OfPoles^ theOther);
     int Size();
     int Length();
     int Lower();
@@ -278,17 +261,10 @@ public:
     void Clear();
     Macad::Occt::Convert_SequenceOfArray1OfPoles^ Assign(Macad::Occt::Convert_SequenceOfArray1OfPoles^ theOther);
     void Remove(Macad::Occt::Convert_SequenceOfArray1OfPoles::Iterator^ thePosition);
-    void Remove(int theIndex);
-    void Remove(int theFromIndex, int theToIndex);
     void Append(Macad::Occt::TColgp_HArray1OfPnt^ theItem);
-    void Append(Macad::Occt::Convert_SequenceOfArray1OfPoles^ theSeq);
     void Prepend(Macad::Occt::TColgp_HArray1OfPnt^ theItem);
-    void Prepend(Macad::Occt::Convert_SequenceOfArray1OfPoles^ theSeq);
     void InsertBefore(int theIndex, Macad::Occt::TColgp_HArray1OfPnt^ theItem);
-    void InsertBefore(int theIndex, Macad::Occt::Convert_SequenceOfArray1OfPoles^ theSeq);
     void InsertAfter(Macad::Occt::Convert_SequenceOfArray1OfPoles::Iterator^ thePosition, Macad::Occt::TColgp_HArray1OfPnt^ theItem);
-    void InsertAfter(int theIndex, Macad::Occt::Convert_SequenceOfArray1OfPoles^ theSeq);
-    void InsertAfter(int theIndex, Macad::Occt::TColgp_HArray1OfPnt^ theItem);
     void Split(int theIndex, Macad::Occt::Convert_SequenceOfArray1OfPoles^ theSeq);
     Macad::Occt::TColgp_HArray1OfPnt^ First();
     Macad::Occt::TColgp_HArray1OfPnt^ ChangeFirst();
@@ -361,7 +337,6 @@ public:
     }
 
 public:
-    Convert_ConicToBSplineCurve(Macad::Occt::Convert_ConicToBSplineCurve^ parameter1);
     /// <summary>
     /// Returns the degree of the BSpline curve whose data is
     /// computed in this framework.
@@ -490,7 +465,6 @@ public:
     /// Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
     /// </summary>
     Convert_CircleToBSplineCurve(Macad::Occt::gp_Circ2d^ C, double U1, double U2);
-    Convert_CircleToBSplineCurve(Macad::Occt::Convert_CircleToBSplineCurve^ parameter1);
 }; // class Convert_CircleToBSplineCurve
 
 //---------------------------------------------------------------------
@@ -565,7 +539,6 @@ public:
     /// computed data. This data may be used to construct the BSpline curve.
     /// </summary>
     Convert_CompBezierCurves2dToBSplineCurve2d();
-    Convert_CompBezierCurves2dToBSplineCurve2d(Macad::Occt::Convert_CompBezierCurves2dToBSplineCurve2d^ parameter1);
     /// <summary>
     /// Adds the Bezier curve defined by the table of poles Poles, to
     /// the sequence (still contained in this framework) of adjacent
@@ -762,7 +735,6 @@ public:
     /// computed data. This data may be used to construct the BSpline curve.
     /// </summary>
     Convert_CompBezierCurvesToBSplineCurve();
-    Convert_CompBezierCurvesToBSplineCurve(Macad::Occt::Convert_CompBezierCurvesToBSplineCurve^ parameter1);
     /// <summary>
     /// Adds the Bezier curve defined by the table of poles Poles, to
     /// the sequence (still contained in this framework) of adjacent
@@ -907,7 +879,7 @@ public:
 /// TrueIntervals : the nth polynomial has to be mapped linearly to be
 /// defined on the following interval :
 /// myTrueIntervals->Value(n) and myTrueIntervals->Value(n+1)
-/// so that it represent adequatly the function with the
+/// so that it adequately represents the function with the
 /// required continuity
 /// </summary>
 public ref class Convert_CompPolynomialToPoles sealed
@@ -964,7 +936,7 @@ public:
     /// </summary>
     Convert_CompPolynomialToPoles(int NumCurves, int Continuity, int Dimension, int MaxDegree, Macad::Occt::TColStd_HArray1OfInteger^ NumCoeffPerCurve, Macad::Occt::TColStd_HArray1OfReal^ Coefficients, Macad::Occt::TColStd_HArray2OfReal^ PolynomialIntervals, Macad::Occt::TColStd_HArray1OfReal^ TrueIntervals);
     /// <summary>
-    /// To Convert sevral span with different order of Continuity.
+    /// To Convert several span with different order of Continuity.
     /// Warning: The Length of Continuity have to be NumCurves-1
     /// </summary>
     Convert_CompPolynomialToPoles(int NumCurves, int Dimension, int MaxDegree, Macad::Occt::TColStd_Array1OfInteger^ Continuity, Macad::Occt::TColStd_Array1OfInteger^ NumCoeffPerCurve, Macad::Occt::TColStd_Array1OfReal^ Coefficients, Macad::Occt::TColStd_Array2OfReal^ PolynomialIntervals, Macad::Occt::TColStd_Array1OfReal^ TrueIntervals);
@@ -972,7 +944,6 @@ public:
     /// To Convert only one span.
     /// </summary>
     Convert_CompPolynomialToPoles(int Dimension, int MaxDegree, int Degree, Macad::Occt::TColStd_Array1OfReal^ Coefficients, Macad::Occt::TColStd_Array1OfReal^ PolynomialIntervals, Macad::Occt::TColStd_Array1OfReal^ TrueIntervals);
-    Convert_CompPolynomialToPoles(Macad::Occt::Convert_CompPolynomialToPoles^ parameter1);
     /// <summary>
     /// number of poles of the n-dimensional BSpline
     /// </summary>
@@ -1065,7 +1036,6 @@ public:
     }
 
 public:
-    Convert_ElementarySurfaceToBSplineSurface(Macad::Occt::Convert_ElementarySurfaceToBSplineSurface^ parameter1);
     int UDegree();
     /// <summary>
     /// Returns the degree for the u or v parametric direction of
@@ -1195,7 +1165,6 @@ public:
     /// Raised if V1 = V2.
     /// </summary>
     Convert_ConeToBSplineSurface(Macad::Occt::gp_Cone^ C, double V1, double V2);
-    Convert_ConeToBSplineSurface(Macad::Occt::Convert_ConeToBSplineSurface^ parameter1);
 }; // class Convert_ConeToBSplineSurface
 
 //---------------------------------------------------------------------
@@ -1255,7 +1224,6 @@ public:
     /// Raised if V1 = V2.
     /// </summary>
     Convert_CylinderToBSplineSurface(Macad::Occt::gp_Cylinder^ Cyl, double V1, double V2);
-    Convert_CylinderToBSplineSurface(Macad::Occt::Convert_CylinderToBSplineSurface^ parameter1);
 }; // class Convert_CylinderToBSplineSurface
 
 //---------------------------------------------------------------------
@@ -1326,7 +1294,6 @@ public:
     /// Raised if U1 = U2 or U1 = U2 + 2.0 * Pi
     /// </summary>
     Convert_EllipseToBSplineCurve(Macad::Occt::gp_Elips2d^ E, double U1, double U2);
-    Convert_EllipseToBSplineCurve(Macad::Occt::Convert_EllipseToBSplineCurve^ parameter1);
 }; // class Convert_EllipseToBSplineCurve
 
 //---------------------------------------------------------------------
@@ -1393,7 +1360,6 @@ public:
     /// if <Coefficients> is not a
     /// </summary>
     Convert_GridPolynomialToPoles(int NbUSurfaces, int NBVSurfaces, int UContinuity, int VContinuity, int MaxUDegree, int MaxVDegree, Macad::Occt::TColStd_HArray2OfInteger^ NumCoeffPerSurface, Macad::Occt::TColStd_HArray1OfReal^ Coefficients, Macad::Occt::TColStd_HArray1OfReal^ PolynomialUIntervals, Macad::Occt::TColStd_HArray1OfReal^ PolynomialVIntervals, Macad::Occt::TColStd_HArray1OfReal^ TrueUIntervals, Macad::Occt::TColStd_HArray1OfReal^ TrueVIntervals);
-    Convert_GridPolynomialToPoles(Macad::Occt::Convert_GridPolynomialToPoles^ parameter1);
     void Perform(int UContinuity, int VContinuity, int MaxUDegree, int MaxVDegree, Macad::Occt::TColStd_HArray2OfInteger^ NumCoeffPerSurface, Macad::Occt::TColStd_HArray1OfReal^ Coefficients, Macad::Occt::TColStd_HArray1OfReal^ PolynomialUIntervals, Macad::Occt::TColStd_HArray1OfReal^ PolynomialVIntervals, Macad::Occt::TColStd_HArray1OfReal^ TrueUIntervals, Macad::Occt::TColStd_HArray1OfReal^ TrueVIntervals);
     int NbUPoles();
     int NbVPoles();
@@ -1472,7 +1438,6 @@ public:
     /// hyperbola.
     /// </summary>
     Convert_HyperbolaToBSplineCurve(Macad::Occt::gp_Hypr2d^ H, double U1, double U2);
-    Convert_HyperbolaToBSplineCurve(Macad::Occt::Convert_HyperbolaToBSplineCurve^ parameter1);
 }; // class Convert_HyperbolaToBSplineCurve
 
 //---------------------------------------------------------------------
@@ -1522,7 +1487,6 @@ public:
     /// parabola Prb.
     /// </summary>
     Convert_ParabolaToBSplineCurve(Macad::Occt::gp_Parab2d^ Prb, double U1, double U2);
-    Convert_ParabolaToBSplineCurve(Macad::Occt::Convert_ParabolaToBSplineCurve^ parameter1);
 }; // class Convert_ParabolaToBSplineCurve
 
 //---------------------------------------------------------------------
@@ -1599,7 +1563,6 @@ public:
     /// as the sphere in the U and V parametric directions.
     /// </summary>
     Convert_SphereToBSplineSurface(Macad::Occt::gp_Sphere^ Sph);
-    Convert_SphereToBSplineSurface(Macad::Occt::Convert_SphereToBSplineSurface^ parameter1);
 }; // class Convert_SphereToBSplineSurface
 
 //---------------------------------------------------------------------
@@ -1672,7 +1635,6 @@ public:
     /// torus in the U and V parametric directions.
     /// </summary>
     Convert_TorusToBSplineSurface(Macad::Occt::gp_Torus^ T);
-    Convert_TorusToBSplineSurface(Macad::Occt::Convert_TorusToBSplineSurface^ parameter1);
 }; // class Convert_TorusToBSplineSurface
 
 }; // namespace Occt

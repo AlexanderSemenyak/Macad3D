@@ -46,7 +46,7 @@
                    Stroke="{StaticResource Macad.Brushes.Separator}" />
 
         <!--List-->
-        <treeView:TreeViewEx ItemsSource="{Binding Layers}"
+        <treeView:TreeViewEx ItemsSource="{Binding LayersView}"
                              SelectedItems="{Binding SelectedLayers, Mode=OneWay}"
                              Background="{StaticResource Macad.Brushes.Panel.Background}"
                              BorderBrush="{StaticResource Macad.Brushes.Panel.Border}"
@@ -71,7 +71,8 @@
                     <MenuItem mmp:Command.Action="{x:Static mmi:LayerCommands.CreateNewLayer}" />
                     <MenuItem CommandParameter="{Binding SelectedLayer}" 
                               mmp:Command.Action="{x:Static mmi:LayerCommands.DeleteLayer}" />
-                    <MenuItem mmp:Command.Action="{Binding StartRenamingCommand}" />
+                    <MenuItem mmp:Command.Action="{Binding StartRenamingCommand}"
+                              InputGestureText="F2"/>
                     <Separator />
                     <MenuItem Header="Move Entities to Layer"
                               CommandParameter="{Binding SelectedLayer}" 
@@ -137,7 +138,8 @@
                         <Grid Margin="5,0">
                             <TextBlock Text="{Binding Name}" 
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Stretch">
+                                       HorizontalAlignment="Stretch"
+                                       AutomationProperties.AutomationId="LayerName">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>

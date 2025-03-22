@@ -1,348 +1,390 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Macad.Interaction.Editors.Shapes;
 using Macad.Common;
 using Macad.Common.Serialization;
+using Macad.Interaction.Panels;
+using System.Runtime.CompilerServices;
 
-namespace Macad.Interaction
+namespace Macad.Interaction;
+
+[SerializeType]
+public sealed class EditorState : BaseObject, IDisposable
 {
-    [SerializeType]
-    public class EditorState : BaseObject
+    #region Active Tools
+
+    public string ActiveTool
     {
-        #region Active Tools
-
-        public string ActiveTool
+        get { return _ActiveTool; }
+        // ReSharper disable once ValueParameterNotUsed
+        set
         {
-            get { return _ActiveTool; }
-            set
-            {
-                RaisePropertyChanged();
-            }
+            // Some controls need a TwoWay binding which triggers a property change to get correct state
+            // e.g. ToggleButton toggles itself, with TwoWay binding we get notified and can trigger state update
+            RaisePropertyChanged();
         }
+    }
 
-        string _ActiveTool;
+    string _ActiveTool;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        void _UpdateActiveTool(Tool tool)
-        {
-            _ActiveTool = tool?.Id ?? "";
-            RaisePropertyChanged(nameof(ActiveTool));
+    void _UpdateActiveTool(Tool tool)
+    {
+        _ActiveTool = tool?.Id ?? "";
+        RaisePropertyChanged(nameof(ActiveTool));
 
-            _UpdateSketchEditTool(tool as SketchEditorTool);
+        _UpdateSketchEditTool(tool as SketchEditorTool);
+    }
 
-        }
+    //--------------------------------------------------------------------------------------------------
 
-        //--------------------------------------------------------------------------------------------------
+    #endregion
 
-        #endregion
-
-        #region Sketch
+    #region Sketch
         
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        public bool SketchGroupVisible
+    public bool SketchGroupVisible
+    {
+        get { return _SketchGroupVisible; }
+        private set
         {
-            get { return _SketchGroupVisible; }
-            private set
-            {
-                _SketchGroupVisible = value;
-                RaisePropertyChanged();
-            }
+            _SketchGroupVisible = value;
+            RaisePropertyChanged();
         }
+    }
 
-        bool _SketchGroupVisible;
+    bool _SketchGroupVisible;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        public string ActiveSketchTool
+    public string ActiveSketchTool
+    {
+        get { return _ActiveSketchTool; }
+        private set
         {
-            get { return _ActiveSketchTool; }
-            private set
-            {
-                _ActiveSketchTool = value;
-                RaisePropertyChanged();
-            }
+            _ActiveSketchTool = value;
+            RaisePropertyChanged();
         }
+    }
 
-        string _ActiveSketchTool;
+    string _ActiveSketchTool;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        public bool SketchClipPlaneEnabled
-        {
-            get { return _CurrentSketchEditorTool?.ClipPlaneEnabled ?? false; }
-        }
+    public bool SketchContinuesSegmentCreation
+    {
+        get { return _CurrentSketchEditorTool?.CurrentTool is SketchSegmentCreator && (_CurrentSketchEditorTool?.ContinuesSegmentCreation ?? false); }
+    }
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        SketchEditorTool _CurrentSketchEditorTool;
+    public bool SketchClipPlaneEnabled
+    {
+        get { return _CurrentSketchEditorTool?.ClipPlaneEnabled ?? false; }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    SketchEditorTool _CurrentSketchEditorTool;
         
-        void _UpdateSketchEditTool(SketchEditorTool sketchEditorTool)
+    void _UpdateSketchEditTool(SketchEditorTool sketchEditorTool)
+    {
+        if (_CurrentSketchEditorTool != null)
         {
-            if (_CurrentSketchEditorTool != null)
-            {
-                _CurrentSketchEditorTool.PropertyChanged -= SketchEditorToolPropertyChanged;
-                _CurrentSketchEditorTool = null;
-                ActiveSketchTool = "";
-                SketchGroupVisible = false;
-            }
-
-            if (sketchEditorTool != null)
-            {
-                SketchGroupVisible = true;
-                _CurrentSketchEditorTool = sketchEditorTool;
-                _CurrentSketchEditorTool.PropertyChanged += SketchEditorToolPropertyChanged;
-                RaisePropertyChanged(nameof(SketchClipPlaneEnabled));
-            }
+            _CurrentSketchEditorTool.PropertyChanged -= _SketchEditorTool_PropertyChanged;
+            _CurrentSketchEditorTool = null;
+            ActiveSketchTool = "";
+            SketchGroupVisible = false;
         }
 
-        //--------------------------------------------------------------------------------------------------
-
-        void SketchEditorToolPropertyChanged(object sender, PropertyChangedEventArgs e)
+        if (sketchEditorTool != null)
         {
-            if (_CurrentSketchEditorTool != sender) return;
-
-            if (e.PropertyName == nameof(SketchEditorTool.CurrentTool))
-            {
-                if (_CurrentSketchEditorTool.CurrentTool is SketchSegmentLineCreator)
-                {
-                    ActiveSketchTool = _CurrentSketchEditorTool.ContinuesSegmentCreation ? "SketchSegmentPolyLineCreator" : "SketchSegmentLineCreator";
-                }
-                else
-                {
-                    ActiveSketchTool = _CurrentSketchEditorTool.CurrentTool?.GetType().Name ?? "";
-                }
-            }
-            else if (e.PropertyName == nameof(SketchEditorTool.ClipPlaneEnabled))
-            {
-                RaisePropertyChanged(nameof(SketchClipPlaneEnabled));
-            }
+            SketchGroupVisible = true;
+            _CurrentSketchEditorTool = sketchEditorTool;
+            _CurrentSketchEditorTool.PropertyChanged += _SketchEditorTool_PropertyChanged;
+            RaisePropertyChanged(nameof(SketchClipPlaneEnabled));
         }
+    }
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        #endregion
+    void _SketchEditorTool_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (_CurrentSketchEditorTool != sender) return;
 
-        #region Transform
-
-        [SerializeMember]
-        public TransformTool.PivotPoint TransformPivot
+        if (e.PropertyName == nameof(SketchEditorTool.CurrentTool))
         {
-            get { return _TransformPivot; }
-            set
-            {
-                _TransformPivot = value;
-                RaisePropertyChanged();
-            }
+            ActiveSketchTool = _CurrentSketchEditorTool.CurrentTool?.GetType().Name ?? "";
+            RaisePropertyChanged(nameof(SketchContinuesSegmentCreation));
         }
-
-        TransformTool.PivotPoint _TransformPivot;
-
-        //--------------------------------------------------------------------------------------------------
-
-        [SerializeMember]
-        public TransformTool.Options TransformOptions
+        else if (e.PropertyName == nameof(SketchEditorTool.ClipPlaneEnabled))
         {
-            get { return _TransformOptions; }
-            set
-            {
-                _TransformOptions = value;
-                RaisePropertyChanged();
-            }
+            RaisePropertyChanged(nameof(SketchClipPlaneEnabled));
         }
+    }
 
-        TransformTool.Options _TransformOptions;
+    //--------------------------------------------------------------------------------------------------
 
-        //--------------------------------------------------------------------------------------------------
+    #endregion
 
-        #endregion
+    #region Transform
 
-        #region Selection
-
-        [SerializeMember]
-        public ViewportController.RubberbandSelectionMode RubberbandSelectionMode
+    [SerializeMember]
+    public TransformTool.PivotPoint TransformPivot
+    {
+        get { return _TransformPivot; }
+        set
         {
-            get { return _RubberbandSelectionMode; }
-            set
-            {
-                _RubberbandSelectionMode = value; 
-                RaisePropertyChanged();
-            }
+            _TransformPivot = value;
+            RaisePropertyChanged();
         }
+    }
 
-        ViewportController.RubberbandSelectionMode _RubberbandSelectionMode;
+    TransformTool.PivotPoint _TransformPivot;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        public bool RubberbandIncludeTouched
+    [SerializeMember]
+    public TransformTool.Options TransformOptions
+    {
+        get { return _TransformOptions; }
+        set
         {
-            get { return _RubberbandIncludeTouched; }
-            set
-            {
-                _RubberbandIncludeTouched = value;
-                RaisePropertyChanged();
-            }
+            _TransformOptions = value;
+            RaisePropertyChanged();
         }
+    }
 
-        bool _RubberbandIncludeTouched;
+    TransformTool.Options _TransformOptions;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        #endregion
+    #endregion
 
-        #region Workspace
+    #region Selection
 
-        WorkspaceController _WorkspaceController;
-
-        //--------------------------------------------------------------------------------------------------
-
-        void _WorkspaceController_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    [SerializeMember]
+    public ViewportController.RubberbandSelectionMode RubberbandSelectionMode
+    {
+        get { return _RubberbandSelectionMode; }
+        set
         {
-            if (e.PropertyName == nameof(WorkspaceController.CurrentTool))
-            {
-                _UpdateActiveTool((sender as WorkspaceController)?.CurrentTool);
-            }
+            _RubberbandSelectionMode = value; 
+            RaisePropertyChanged();
         }
+    }
 
-        //--------------------------------------------------------------------------------------------------
+    ViewportController.RubberbandSelectionMode _RubberbandSelectionMode;
 
-        #endregion
+    //--------------------------------------------------------------------------------------------------
 
-        #region Snapping
+    public bool RubberbandIncludeTouched
+    {
+        get { return _RubberbandIncludeTouched; }
+        set
+        {
+            _RubberbandIncludeTouched = value;
+            RaisePropertyChanged();
+        }
+    }
 
+    bool _RubberbandIncludeTouched;
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
+
+    #region Workspace
+    
+    WorkspaceController _WorkspaceController;
+
+    //--------------------------------------------------------------------------------------------------
+
+    void _WorkspaceController_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(WorkspaceController.CurrentTool))
+        {
+            _UpdateActiveTool((sender as WorkspaceController)?.CurrentTool);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
+
+    #region Snapping
         
-        [SerializeMember]
-        public bool SnapToGridSelected
+    [SerializeMember]
+    public bool SnapToGridSelected
+    {
+        get { return _SnapToGridSelected; }
+        set
         {
-            get { return _SnapToGridSelected; }
-            set
+            if (_SnapToGridSelected != value)
             {
-                if (_SnapToGridSelected != value)
-                {
-                    _SnapToGridSelected = value;
-                    RaisePropertyChanged();
-                }
+                _SnapToGridSelected = value;
+                RaisePropertyChanged();
             }
         }
+    }
 
-        bool _SnapToGridSelected;
+    bool _SnapToGridSelected;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        [SerializeMember]
-        public bool SnapToVertexSelected
+    [SerializeMember]
+    public bool SnapToVertexSelected
+    {
+        get { return _SnapToVertexSelected; }
+        set
         {
-            get { return _SnapToVertexSelected; }
-            set
+            if (_SnapToVertexSelected != value)
             {
-                if (_SnapToVertexSelected != value)
-                {
-                    _SnapToVertexSelected = value;
-                    RaisePropertyChanged();
-                    _WorkspaceController?.Selection?.Invalidate();
-                }
+                _SnapToVertexSelected = value;
+                RaisePropertyChanged();
+                _WorkspaceController?.Selection?.Invalidate();
             }
         }
+    }
 
-        bool _SnapToVertexSelected;
+    bool _SnapToVertexSelected;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        [SerializeMember]
-        public bool SnapToEdgeSelected
+    [SerializeMember]
+    public bool SnapToEdgeSelected
+    {
+        get { return _SnapToEdgeSelected; }
+        set
         {
-            get { return _SnapToEdgeSelected; }
-            set
+            if (_SnapToEdgeSelected != value)
             {
-                if (_SnapToEdgeSelected != value)
-                {
-                    _SnapToEdgeSelected = value;
-                    RaisePropertyChanged();
-                    _WorkspaceController?.Selection?.Invalidate();
-                }
+                _SnapToEdgeSelected = value;
+                RaisePropertyChanged();
+                _WorkspaceController?.Selection?.Invalidate();
             }
         }
+    }
 
-        bool _SnapToEdgeSelected;
+    bool _SnapToEdgeSelected;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        [SerializeMember]
-        public bool SnappingEnabled
+    [SerializeMember]
+    public bool SnappingEnabled
+    {
+        get { return _SnappingEnabled; }
+        set
         {
-            get { return _SnappingEnabled; }
-            set
+            if (_SnappingEnabled != value)
             {
-                if (_SnappingEnabled != value)
-                {
-                    _SnappingEnabled = value;
-                    RaisePropertyChanged();
-                    _WorkspaceController?.Selection?.Invalidate();
-                }
+                _SnappingEnabled = value;
+                RaisePropertyChanged();
+                _WorkspaceController?.Selection?.Invalidate();
             }
         }
+    }
 
-        bool _SnappingEnabled;
+    bool _SnappingEnabled;
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        [SerializeMember]
-        public double SnappingPixelTolerance
+    public SnapInfo SnapInfo { get; private set; }
+
+    //--------------------------------------------------------------------------------------------------
+    
+    void _SnapBase_SnapInfoChanged(SnapInfo snapInfo)
+    {
+        SnapInfo = snapInfo;
+        RaisePropertyChanged(nameof(SnapInfo));
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
+
+    #region Document Explorer
+
+    [SerializeMember]
+    public DocumentFilterFlags DocumentFilterFlags
+    {
+        get { return _DocumentFilterFlags; }
+        set
         {
-            get { return _SnappingPixelTolerance; }
-            set
-            {
-                _WorkspaceController?.Workspace?.AisContext?.SetPixelTolerance((int)value);
-                if (_SnappingPixelTolerance != value)
-                {
-                    _SnappingPixelTolerance = value;
-                    RaisePropertyChanged();
-                }
-            }
+            if (_DocumentFilterFlags == value)
+                return;
+
+            _DocumentFilterFlags = value; 
+            RaisePropertyChanged();
+        }
+    }
+
+    DocumentFilterFlags _DocumentFilterFlags = DocumentFilterFlags.None;
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
+
+    #region c'tor and property handling
+
+    internal EditorState()
+    {
+        InteractiveContext.Current.PropertyChanged += _InteractiveContext_PropertyChanged;
+
+        _WorkspaceController = InteractiveContext.Current.WorkspaceController;
+        if (_WorkspaceController != null)
+        {
+            _WorkspaceController.PropertyChanged += _WorkspaceController_PropertyChanged;
         }
 
-        double _SnappingPixelTolerance = 2.0;
+        ISnapHandler.SnapInfoChanged += _SnapBase_SnapInfoChanged;
+    }
 
-        //--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
 
-        #endregion
-
-        #region c'tor and property handling
-
-        public EditorState()
+    public void Dispose()
+    {
+        ISnapHandler.SnapInfoChanged -= _SnapBase_SnapInfoChanged;
+        if (_WorkspaceController != null)
         {
-            InteractiveContext.Current.PropertyChanged += _InteractiveContext_PropertyChanged;
+            _WorkspaceController.PropertyChanged -= _WorkspaceController_PropertyChanged;
+        }
+        InteractiveContext.Current.PropertyChanged -= _InteractiveContext_PropertyChanged;
+    }
 
+    //--------------------------------------------------------------------------------------------------
+
+    void _InteractiveContext_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(InteractiveContext.WorkspaceController))
+        {
+            if (_WorkspaceController != null)
+            {
+                _WorkspaceController.PropertyChanged -= _WorkspaceController_PropertyChanged;
+            }
             _WorkspaceController = InteractiveContext.Current.WorkspaceController;
             if (_WorkspaceController != null)
             {
                 _WorkspaceController.PropertyChanged += _WorkspaceController_PropertyChanged;
             }
+
+            _WorkspaceController_PropertyChanged(_WorkspaceController, new PropertyChangedEventArgs(nameof(WorkspaceController.CurrentTool)));
         }
-
-        //--------------------------------------------------------------------------------------------------
-
-        void _InteractiveContext_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "WorkspaceController")
-            {
-                if (_WorkspaceController != null)
-                {
-                    _WorkspaceController.PropertyChanged -= _WorkspaceController_PropertyChanged;
-                }
-                _WorkspaceController = InteractiveContext.Current.WorkspaceController;
-                if (_WorkspaceController != null)
-                {
-                    _WorkspaceController.PropertyChanged += _WorkspaceController_PropertyChanged;
-                }
-
-                _WorkspaceController_PropertyChanged(_WorkspaceController, new PropertyChangedEventArgs(nameof(WorkspaceController.CurrentTool)));
-            }
-        }
-
-        //--------------------------------------------------------------------------------------------------
-       
-
-        #endregion
     }
+
+    //--------------------------------------------------------------------------------------------------
+
+    public static event PropertyChangedEventHandler StateChanged;
+
+    protected override void RaisePropertyChanged([CallerMemberName]string propertyName = "")
+    {
+        base.RaisePropertyChanged(propertyName);
+        StateChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    //--------------------------------------------------------------------------------------------------
+
+    #endregion
 }

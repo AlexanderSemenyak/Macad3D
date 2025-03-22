@@ -51,7 +51,8 @@ public enum class BOPAlgo_Operation
 /// The performance improvement in gluing mode is achieved by excluding
 /// the most time consuming computations according to the given Gluing parameter:<br>
 /// 1. Computation of FACE/FACE intersections for partial coincidence;<br>
-/// 2. And computation of VERTEX/FACE, EDGE/FACE and FACE/FACE intersections for full coincidence.<br>
+/// 2. And computation of VERTEX/FACE, EDGE/FACE and FACE/FACE intersections for full
+/// coincidence.<br>
 /// 
 /// By setting the Gluing option for the operation user should guarantee
 /// that the arguments are really coinciding. The algorithms do not check this itself.
@@ -126,7 +127,6 @@ public:
     /// Constructor with allocator
     /// </summary>
     BOPAlgo_Options(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    BOPAlgo_Options(Macad::Occt::BOPAlgo_Options^ parameter1);
     /// <summary>
     /// Returns allocator
     /// </summary>
@@ -238,7 +238,6 @@ public:
     }
 
 public:
-    BOPAlgo_Algo(Macad::Occt::BOPAlgo_Algo^ parameter1);
     /// <summary>
     /// The main method to implement the operation
     /// Providing the range allows to enable Progress indicator User break functionalities.
@@ -294,14 +293,15 @@ public:
     }
 
 public:
-    BOPAlgo_BuilderShape(Macad::Occt::BOPAlgo_BuilderShape^ parameter1);
     /// <summary>
-    /// Returns the result of algorithm
     /// </summary>
+    /// @name Getting the result
+    /// Returns the result of algorithm
     Macad::Occt::TopoDS_Shape^ Shape();
     /// <summary>
-    /// Returns the list of shapes Modified from the shape theS.
     /// </summary>
+    /// @name History methods
+    /// Returns the list of shapes Modified from the shape theS.
     Macad::Occt::TopTools_ListOfShape^ Modified(Macad::Occt::TopoDS_Shape^ theS);
     /// <summary>
     /// Returns the list of shapes Generated from the shape theS.
@@ -330,8 +330,9 @@ public:
     /// </summary>
     Macad::Occt::BRepTools_History^ History();
     /// <summary>
-    /// Allows disabling the history collection
     /// </summary>
+    /// @name Enabling/Disabling the history collection.
+    /// Allows disabling the history collection
     void SetToFillHistory(bool theHistFlag);
     /// <summary>
     /// Returns flag of history availability
@@ -359,18 +360,22 @@ public:
 /// on the special cases, in which some sub-shapes are coinciding.<br>
 /// - *Disabling the check for inverted solids* - Disables/Enables the check of the input solids
 /// for inverted status (holes in the space). The default value is TRUE,
-/// i.e. the check is performed. Setting this flag to FALSE for inverted solids,
-/// most likely will lead to incorrect results.
+/// i.e. the check is performed. Setting this flag to FALSE for inverted
+/// solids, most likely will lead to incorrect results.
 /// 
 /// The algorithm returns the following warnings:
-/// - *BOPAlgo_AlertUnableToOrientTheShape* - in case the check on the orientation of the split shape
-/// to match the orientation of the original shape has failed.
+/// - *BOPAlgo_AlertUnableToOrientTheShape* - in case the check on the orientation of the split
+/// shape
+/// to match the orientation of the original shape has
+/// failed.
 /// 
 /// The algorithm returns the following Error statuses:
-/// - *BOPAlgo_AlertTooFewArguments* - in case there are no enough arguments to perform the operation;
+/// - *BOPAlgo_AlertTooFewArguments* - in case there are no enough arguments to perform the
+/// operation;
 /// - *BOPAlgo_AlertNoFiller* - in case the intersection tool has not been created;
 /// - *BOPAlgo_AlertIntersectionFailed* - in case the intersection of the arguments has failed;
-/// - *BOPAlgo_AlertBuilderFailed* - in case building splits of arguments has failed with some unexpected error.
+/// - *BOPAlgo_AlertBuilderFailed* - in case building splits of arguments has failed with some
+/// unexpected error.
 /// 
 /// </summary>
 public ref class BOPAlgo_Builder
@@ -410,7 +415,6 @@ public:
     /// </summary>
     BOPAlgo_Builder();
     BOPAlgo_Builder(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    BOPAlgo_Builder(Macad::Occt::BOPAlgo_Builder^ parameter1);
     /// <summary>
     /// Clears the content of the algorithm.
     /// </summary>
@@ -419,8 +423,9 @@ public:
     /* Method skipped due to unknown mapping: BOPDS_DS PDS() */
     /* Method skipped due to unknown mapping: IntTools_Context Context() */
     /// <summary>
-    /// Adds the argument to the operation.
     /// </summary>
+    /// @name Arguments
+    /// Adds the argument to the operation.
     void AddArgument(Macad::Occt::TopoDS_Shape^ theShape);
     /// <summary>
     /// Sets the list of arguments for the operation.
@@ -431,13 +436,14 @@ public:
     /// </summary>
     Macad::Occt::TopTools_ListOfShape^ Arguments();
     /// <summary>
+    /// </summary>
+    /// @name Options
     /// Sets the flag that defines the mode of treatment.
     /// In non-destructive mode the argument shapes are not modified. Instead
     /// a copy of a sub-shape is created in the result if it is needed to be updated.
     /// This flag is taken into account if internal PaveFiller is used only.
     /// In the case of calling PerformWithFiller the corresponding flag of that PaveFiller
     /// is in force.
-    /// </summary>
     void SetNonDestructive(bool theFlag);
     /// <summary>
     /// Returns the flag that defines the mode of treatment.
@@ -463,18 +469,22 @@ public:
     /// </summary>
     bool CheckInverted();
     /// <summary>
+    /// </summary>
+    /// @name Performing the operation
     /// Performs the operation.
     /// The intersection will be performed also.
-    /// </summary>
     void Perform(Macad::Occt::Message_ProgressRange^ theRange);
     /// <summary>
+    /// </summary>
+    /// @name Performing the operation
     /// Performs the operation.
     /// The intersection will be performed also.
-    /// </summary>
     void Perform();
     /* Method skipped due to unknown mapping: void PerformWithFiller(BOPAlgo_PaveFiller theFiller, Message_ProgressRange theRange, ) */
     /* Method skipped due to unknown mapping: void PerformWithFiller(BOPAlgo_PaveFiller theFiller, Message_ProgressRange theRange, ) */
     /// <summary>
+    /// </summary>
+    /// @name BOPs on open solids
     /// Builds the result shape according to the given states for the objects
     /// and tools. These states can be unambiguously converted into the Boolean operation type.
     /// Thus, it performs the Boolean operation on the given groups of shapes.
@@ -509,7 +519,6 @@ public:
     /// - BOPAlgo_AlertUnknownShape - the shape is unknown for the operation.
     /// 
     /// Parameters:
-    /// </summary>
     /// <param name="theObjects">
     ///     - The group of Objects for BOP;
     /// </param>
@@ -527,6 +536,8 @@ public:
     /// </param>
     void BuildBOP(Macad::Occt::TopTools_ListOfShape^ theObjects, Macad::Occt::TopAbs_State theObjState, Macad::Occt::TopTools_ListOfShape^ theTools, Macad::Occt::TopAbs_State theToolsState, Macad::Occt::Message_ProgressRange^ theRange, Macad::Occt::Message_Report^ theReport);
     /// <summary>
+    /// </summary>
+    /// @name BOPs on open solids
     /// Builds the result shape according to the given states for the objects
     /// and tools. These states can be unambiguously converted into the Boolean operation type.
     /// Thus, it performs the Boolean operation on the given groups of shapes.
@@ -561,7 +572,6 @@ public:
     /// - BOPAlgo_AlertUnknownShape - the shape is unknown for the operation.
     /// 
     /// Parameters:
-    /// </summary>
     /// <param name="theObjects">
     ///     - The group of Objects for BOP;
     /// </param>
@@ -645,8 +655,9 @@ public:
     /// </param>
     void BuildBOP(Macad::Occt::TopTools_ListOfShape^ theObjects, Macad::Occt::TopTools_ListOfShape^ theTools, Macad::Occt::BOPAlgo_Operation theOperation, Macad::Occt::Message_ProgressRange^ theRange);
     /// <summary>
-    /// Returns the map of images.
     /// </summary>
+    /// @name Images/Origins
+    /// Returns the map of images.
     Macad::Occt::TopTools_DataMapOfShapeListOfShape^ Images();
     /// <summary>
     /// Returns the map of origins.
@@ -702,7 +713,6 @@ public:
     /// </summary>
     BOPAlgo_ToolsProvider();
     BOPAlgo_ToolsProvider(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    BOPAlgo_ToolsProvider(Macad::Occt::BOPAlgo_ToolsProvider^ parameter1);
     /// <summary>
     /// Clears internal fields and arguments
     /// </summary>
@@ -797,7 +807,6 @@ public:
     /// </summary>
     BOPAlgo_BOP();
     BOPAlgo_BOP(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    BOPAlgo_BOP(Macad::Occt::BOPAlgo_BOP^ parameter1);
     /// <summary>
     /// Clears internal fields and arguments
     /// </summary>
@@ -842,7 +851,6 @@ public:
 
 public:
     BOPAlgo_Tools();
-    BOPAlgo_Tools(Macad::Occt::BOPAlgo_Tools^ parameter1);
     /* Method skipped due to unknown mapping: void FillMap(BOPDS_PaveBlock thePB1, int theF, BOPDS_IndexedDataMapOfPaveBlockListOfInteger theMILI, NCollection_BaseAllocator theAllocator, ) */
     /* Method skipped due to unknown mapping: void PerformCommonBlocks(BOPDS_IndexedDataMapOfPaveBlockListOfPaveBlock theMBlocks, NCollection_BaseAllocator theAllocator, BOPDS_DS theDS, IntTools_Context theContext, ) */
     /* Method skipped due to unknown mapping: void PerformCommonBlocks(BOPDS_IndexedDataMapOfPaveBlockListOfPaveBlock theMBlocks, NCollection_BaseAllocator theAllocator, BOPDS_DS theDS, IntTools_Context theContext, ) */

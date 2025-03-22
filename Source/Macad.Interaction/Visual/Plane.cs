@@ -30,7 +30,7 @@ public class Plane : VisualObject
 
     //--------------------------------------------------------------------------------------------------
 
-    public Quantity_Color Color
+    public Color Color
     {
         get { return _Color; }
         set
@@ -100,7 +100,7 @@ public class Plane : VisualObject
     XY _Size = new XY(100, 100);
     Vec2d _Margin;
     bool _IsSelectable;
-    Quantity_Color _Color = Colors.Auxillary;
+    Color _Color = Colors.Auxillary;
     double _Transparency = 0.8;
     bool _Boundary = true;
 
@@ -155,10 +155,15 @@ public class Plane : VisualObject
             _UpdatePresentation();
             AisContext.RecomputePrsOnly(_AisObject, false);
         }
-        if(_IsSelectable)
+
+        if (_IsSelectable)
+        {
             AisContext.Activate(_AisObject);
+        }
         else
+        {
             AisContext.Deactivate(_AisObject);
+        }
     }
     
     //--------------------------------------------------------------------------------------------------
@@ -177,7 +182,7 @@ public class Plane : VisualObject
             Graphic3d_TransformPers transformPers = new(Graphic3d_TransModeFlags.ZoomPers, _Plane.Location);
             _AisObject.SetTransformPersistence(transformPers);
 
-            double scale = 50.0 * WorkspaceController.ActiveViewport.DpiScale;
+            double scale = 50.0 * WorkspaceController.ActiveViewControlller.DpiScale;
             _AisObject.SetPlane(planeOrigin.Translated(vecMargin.Scaled(scale)));
             _AisObject.SetSize(_Size.X * scale, _Size.Y * scale);
         }
@@ -187,7 +192,7 @@ public class Plane : VisualObject
             _AisObject.SetSize(_Size.X, _Size.Y);
         }
 
-        _AisObject.SetColor(_Color, true);
+        _AisObject.SetColor(_Color.ToQuantityColor(), true);
         _AisObject.SetTransparency(Transparency);
         _AisObject.Attributes().SetFaceBoundaryDraw(_Boundary);
 
@@ -196,20 +201,21 @@ public class Plane : VisualObject
 
     //--------------------------------------------------------------------------------------------------
 
-    bool _EnsureAisObject()
+    void _EnsureAisObject()
     {
         if (_AisObject != null)
-            return true;
+            return;
 
         _AisObject = new AISX_Plane();
-                
+
         if (_Style.HasFlag(Style.Topmost))
+        {
             _AisObject.SetZLayer(-3); // TOPMOST
+        }
 
         _UpdatePresentation();
 
         AisContext.Display(_AisObject, false);
-        return true;
     }
 
     //--------------------------------------------------------------------------------------------------

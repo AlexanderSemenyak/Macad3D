@@ -8,7 +8,7 @@ using Macad.Core;
 
 namespace Macad.Interaction.Editors.Shapes;
 
-public class TaperEditor : Editor<Taper>
+public sealed class TaperEditor : Editor<Taper>
 {
     TranslateAxisLiveAction _OffsetAction;
     RotateLiveAction _AngleAction;
@@ -68,7 +68,7 @@ public class TaperEditor : Editor<Taper>
 
         if (_OffsetAction == null)
         {
-            _OffsetAction = new()
+            _OffsetAction = new(Entity.Body)
             {
                 Color = Colors.ActionRed,
                 Cursor = Cursors.SetHeight,
@@ -82,7 +82,7 @@ public class TaperEditor : Editor<Taper>
 
         if (_AngleAction == null)
         {
-            _AngleAction = new()
+            _AngleAction = new(Entity.Body)
             {
                 Color = Colors.ActionGreen,
                 NoResize = true,
@@ -129,6 +129,7 @@ public class TaperEditor : Editor<Taper>
             {
                 _AngleAction.VisualSector = (0, 0);
                 _StartAngle = Entity.Angle.ToRad();
+                _AngleAction.SnapAngleOffset = _StartAngle;
             }
             else
             {
@@ -146,7 +147,7 @@ public class TaperEditor : Editor<Taper>
             _IsMovingAngle = true;
             StopAction(_OffsetAction);
             _OffsetAction = null;
-            SetHintMessage("Adjust angle using gizmo, press 'CTRL' to round to 5°.");
+            SetHintMessage("__Adjust angle__ using gizmo, press `k:Ctrl` to round to 5°.");
         }
 
         double newAngle = _StartAngle + args.DeltaSum;
@@ -190,7 +191,7 @@ public class TaperEditor : Editor<Taper>
             _IsMovingOffset = true;
             StopAction(_AngleAction);
             _AngleAction = null;
-            SetHintMessage("Adjust offset using gizmo, press 'CTRL' to round to grid stepping.");
+            SetHintMessage("__Adjust offset__ using gizmo, press `k:Ctrl` to round to grid stepping.");
         }
 
         double newOffset = _StartOffset + args.Distance * Math.Sign(Entity.Angle);

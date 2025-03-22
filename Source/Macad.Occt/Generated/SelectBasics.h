@@ -11,8 +11,9 @@ namespace Occt
 //  Class  SelectBasics_PickResult
 //---------------------------------------------------------------------
 /// <summary>
-/// This structure provides unified access to the results of Matches() method in all sensitive entities,
-/// so that it defines a Depth (distance to the entity along picking ray) and a closest Point on entity.
+/// This structure provides unified access to the results of Matches() method in all sensitive
+/// entities, so that it defines a Depth (distance to the entity along picking ray) and a closest
+/// Point on entity.
 /// </summary>
 public ref class SelectBasics_PickResult sealed
     : public Macad::Occt::BaseClass<::SelectBasics_PickResult>
@@ -49,7 +50,6 @@ public:
     /// Constructor with initialization.
     /// </summary>
     SelectBasics_PickResult(double theDepth, double theDistToCenter, Macad::Occt::Pnt theObjPickedPnt);
-    SelectBasics_PickResult(Macad::Occt::SelectBasics_PickResult^ parameter1);
     /// <summary>
     /// Return closest result between two Pick Results according to Depth value.
     /// </summary>
@@ -76,7 +76,8 @@ public:
     bool HasPickedPoint();
     /// <summary>
     /// Return picked point lying on detected entity.
-    /// WARNING! Point is defined in local coordinate system and should be translated into World System before usage!
+    /// WARNING! Point is defined in local coordinate system and should be translated into World
+    /// System before usage!
     /// </summary>
     Macad::Occt::Pnt PickedPoint();
     /// <summary>
@@ -93,7 +94,8 @@ public:
     void SetDistToGeomCenter(double theDistToCenter);
     /// <summary>
     /// Return (unnormalized) surface normal at picked point or zero vector if undefined.
-    /// WARNING! Normal is defined in local coordinate system and should be translated into World System before usage!
+    /// WARNING! Normal is defined in local coordinate system and should be translated into World
+    /// System before usage!
     /// </summary>
     Macad::Occt::gp_Vec3f^ SurfaceNormal();
     /// <summary>
@@ -140,9 +142,9 @@ public:
 
 public:
     SelectBasics();
-    SelectBasics(Macad::Occt::SelectBasics^ parameter1);
     /// <summary>
-    /// Structure to provide all-in-one result of selection of sensitive for "Matches" method of Select3D_SensitiveEntity.
+    /// Structure to provide all-in-one result of selection of sensitive for "Matches" method of
+    /// Select3D_SensitiveEntity.
     /// </summary>
     static int MaxOwnerPriority();
     static int MinOwnerPriority();
@@ -193,7 +195,6 @@ public:
     /// Empty constructor.
     /// </summary>
     SelectBasics_SelectingVolumeManager();
-    SelectBasics_SelectingVolumeManager(Macad::Occt::SelectBasics_SelectingVolumeManager^ parameter1);
     /// <summary>
     /// Return selection type.
     /// </summary>
@@ -253,18 +254,21 @@ public:
     /// </summary>
     bool OverlapsSphere(Macad::Occt::Pnt theCenter, double theRadius);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight, the boolean theIsHollow and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight, the boolean theIsHollow and transformation to
+    /// apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, Macad::Occt::SelectBasics_PickResult^ thePickResult);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight, the boolean theIsHollow and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight, the boolean theIsHollow and transformation to
+    /// apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow, bool% theInside);
     /// <summary>
-    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses theBottomRad
-    /// and theTopRad, height theHeight, the boolean theIsHollow and transformation to apply theTrsf.
+    /// Returns true if selecting volume is overlapped by cylinder (or cone) with radiuses
+    /// theBottomRad and theTopRad, height theHeight, the boolean theIsHollow and transformation to
+    /// apply theTrsf.
     /// </summary>
     bool OverlapsCylinder(double theBottomRad, double theTopRad, double theHeight, Macad::Occt::Trsf theTrsf, bool theIsHollow);
     /// <summary>
@@ -328,10 +332,11 @@ public:
     /// Returns mouse coordinates for Point selection mode.
     /// </summary>
     /// <returns>
-    /// infinite point in case of unsupport of mouse position for this active selection volume.
+    /// infinite point in case of unsupport of mouse position for this active selection
+    /// volume.
     /// </returns>
     Macad::Occt::Pnt2d GetMousePosition();
-    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_Vector<NCollection_Vec4<double>> thePlaneEquations, ) */
+    /* Method skipped due to unknown mapping: void GetPlanes(NCollection_DynamicArray<NCollection_Vec4<double>> thePlaneEquations, ) */
     /// <summary>
     /// Dumps the content of me into the stream
     /// </summary>

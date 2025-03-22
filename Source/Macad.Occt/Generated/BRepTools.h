@@ -66,8 +66,6 @@ public:
 
     public:
         Iterator();
-        Iterator(Macad::Occt::BRepTools_MapOfVertexPnt2d^ theMap);
-        Iterator(Macad::Occt::BRepTools_MapOfVertexPnt2d::Iterator^ parameter1);
         bool More();
         void Next();
         Macad::Occt::TColgp_SequenceOfPnt2d^ Value();
@@ -78,7 +76,6 @@ public:
     BRepTools_MapOfVertexPnt2d();
     BRepTools_MapOfVertexPnt2d(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     BRepTools_MapOfVertexPnt2d(int theNbBuckets);
-    BRepTools_MapOfVertexPnt2d(Macad::Occt::BRepTools_MapOfVertexPnt2d^ theOther);
     void Exchange(Macad::Occt::BRepTools_MapOfVertexPnt2d^ theOther);
     Macad::Occt::BRepTools_MapOfVertexPnt2d^ Assign(Macad::Occt::BRepTools_MapOfVertexPnt2d^ theOther);
     void ReSize(int N);
@@ -88,12 +85,10 @@ public:
     bool UnBind(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TColgp_SequenceOfPnt2d^ Seek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TColgp_SequenceOfPnt2d^ Find(Macad::Occt::TopoDS_Shape^ theKey);
-    bool Find(Macad::Occt::TopoDS_Shape^ theKey, Macad::Occt::TColgp_SequenceOfPnt2d^ theValue);
     Macad::Occt::TColgp_SequenceOfPnt2d^ ChangeSeek(Macad::Occt::TopoDS_Shape^ theKey);
     Macad::Occt::TColgp_SequenceOfPnt2d^ ChangeFind(Macad::Occt::TopoDS_Shape^ theKey);
     void Clear(bool doReleaseMemory);
     void Clear();
-    void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
     int Size();
 }; // class BRepTools_MapOfVertexPnt2d
 
@@ -160,7 +155,6 @@ public:
 
 public:
     BRepTools();
-    BRepTools(Macad::Occt::BRepTools^ parameter1);
     /// <summary>
     /// Returns in UMin,  UMax, VMin,  VMax  the  bounding
     /// values in the parametric space of F.
@@ -240,12 +234,13 @@ public:
     /// In case polygonal representation is the only available representation
     /// for the shape (shape does not have geometry) it is not removed.
     /// </summary>
-    /// <param name="theShape">
-    ///  [in] the shape to clean
+    /// <param name="in]">
+    /// theShape   the shape to clean
     /// </param>
-    /// <param name="theForce">
-    ///  [in] allows removing all polygonal representations from the shape,
-    /// including polygons on triangulations irrelevant for the faces of the given shape.
+    /// <param name="in]">
+    /// theForce   allows removing all polygonal representations from the shape,
+    /// including polygons on triangulations irrelevant for the faces of the
+    /// given shape.
     /// </param>
     static void Clean(Macad::Occt::TopoDS_Shape^ theShape, bool theForce);
     /// <summary>
@@ -255,12 +250,13 @@ public:
     /// In case polygonal representation is the only available representation
     /// for the shape (shape does not have geometry) it is not removed.
     /// </summary>
-    /// <param name="theShape">
-    ///  [in] the shape to clean
+    /// <param name="in]">
+    /// theShape   the shape to clean
     /// </param>
-    /// <param name="theForce">
-    ///  [in] allows removing all polygonal representations from the shape,
-    /// including polygons on triangulations irrelevant for the faces of the given shape.
+    /// <param name="in]">
+    /// theForce   allows removing all polygonal representations from the shape,
+    /// including polygons on triangulations irrelevant for the faces of the
+    /// given shape.
     /// </param>
     static void Clean(Macad::Occt::TopoDS_Shape^ theShape);
     /// <summary>
@@ -273,17 +269,17 @@ public:
     /// </summary>
     static void RemoveUnusedPCurves(Macad::Occt::TopoDS_Shape^ S);
     /// <summary>
-    /// Verifies that each Face from the shape has got a triangulation with a deflection smaller or equal to specified one
-    /// and the Edges a discretization on this triangulation.
+    /// Verifies that each Face from the shape has got a triangulation with a deflection smaller or
+    /// equal to specified one and the Edges a discretization on this triangulation.
     /// </summary>
-    /// <param name="theShape">
-    ///   [in] shape to verify
+    /// <param name="in]">
+    /// theShape    shape to verify
     /// </param>
-    /// <param name="theLinDefl">
-    /// [in] maximum allowed linear deflection
+    /// <param name="in]">
+    /// theLinDefl  maximum allowed linear deflection
     /// </param>
-    /// <param name="theToCheckFreeEdges">
-    /// [in] if TRUE, then free Edges are required to have 3D polygon
+    /// <param name="in]">
+    /// theToCheckFreeEdges  if TRUE, then free Edges are required to have 3D polygon
     /// </param>
     /// <returns>
     /// FALSE if input Shape contains Faces without triangulation,
@@ -293,17 +289,17 @@ public:
     /// </returns>
     static bool Triangulation(Macad::Occt::TopoDS_Shape^ theShape, double theLinDefl, bool theToCheckFreeEdges);
     /// <summary>
-    /// Verifies that each Face from the shape has got a triangulation with a deflection smaller or equal to specified one
-    /// and the Edges a discretization on this triangulation.
+    /// Verifies that each Face from the shape has got a triangulation with a deflection smaller or
+    /// equal to specified one and the Edges a discretization on this triangulation.
     /// </summary>
-    /// <param name="theShape">
-    ///   [in] shape to verify
+    /// <param name="in]">
+    /// theShape    shape to verify
     /// </param>
-    /// <param name="theLinDefl">
-    /// [in] maximum allowed linear deflection
+    /// <param name="in]">
+    /// theLinDefl  maximum allowed linear deflection
     /// </param>
-    /// <param name="theToCheckFreeEdges">
-    /// [in] if TRUE, then free Edges are required to have 3D polygon
+    /// <param name="in]">
+    /// theToCheckFreeEdges  if TRUE, then free Edges are required to have 3D polygon
     /// </param>
     /// <returns>
     /// FALSE if input Shape contains Faces without triangulation,
@@ -317,20 +313,21 @@ public:
     /// Loads triangulation data for each face of the shape
     /// from some deferred storage using specified shared input file system
     /// </summary>
-    /// <param name="theShape">
-    ///            [in] shape to load triangulations
+    /// <param name="in]">
+    /// theShape             shape to load triangulations
     /// </param>
-    /// <param name="theTriangulationIdx">
-    /// [in] index defining what triangulation should be loaded. Starts from 0.
+    /// <param name="in]">
+    /// theTriangulationIdx  index defining what triangulation should be loaded. Starts
+    /// from 0.
     /// -1 is used in specific case to load currently already active triangulation.
-    /// If some face doesn't contain triangulation with this index, nothing will be loaded for it.
-    /// Exception will be thrown in case of invalid negative index
+    /// If some face doesn't contain triangulation with this index, nothing will be loaded for
+    /// it. Exception will be thrown in case of invalid negative index
     /// </param>
-    /// <param name="theToSetAsActive">
-    ///    [in] flag to activate triangulation after its loading
+    /// <param name="in]">
+    /// theToSetAsActive     flag to activate triangulation after its loading
     /// </param>
-    /// <param name="theFileSystem">
-    ///       [in] shared file system
+    /// <param name="in]">
+    /// theFileSystem        shared file system
     /// </param>
     /// <returns>
     /// TRUE if at least one triangulation is loaded.
@@ -340,20 +337,21 @@ public:
     /// Loads triangulation data for each face of the shape
     /// from some deferred storage using specified shared input file system
     /// </summary>
-    /// <param name="theShape">
-    ///            [in] shape to load triangulations
+    /// <param name="in]">
+    /// theShape             shape to load triangulations
     /// </param>
-    /// <param name="theTriangulationIdx">
-    /// [in] index defining what triangulation should be loaded. Starts from 0.
+    /// <param name="in]">
+    /// theTriangulationIdx  index defining what triangulation should be loaded. Starts
+    /// from 0.
     /// -1 is used in specific case to load currently already active triangulation.
-    /// If some face doesn't contain triangulation with this index, nothing will be loaded for it.
-    /// Exception will be thrown in case of invalid negative index
+    /// If some face doesn't contain triangulation with this index, nothing will be loaded for
+    /// it. Exception will be thrown in case of invalid negative index
     /// </param>
-    /// <param name="theToSetAsActive">
-    ///    [in] flag to activate triangulation after its loading
+    /// <param name="in]">
+    /// theToSetAsActive     flag to activate triangulation after its loading
     /// </param>
-    /// <param name="theFileSystem">
-    ///       [in] shared file system
+    /// <param name="in]">
+    /// theFileSystem        shared file system
     /// </param>
     /// <returns>
     /// TRUE if at least one triangulation is loaded.
@@ -363,52 +361,57 @@ public:
     /// Loads triangulation data for each face of the shape
     /// from some deferred storage using specified shared input file system
     /// </summary>
-    /// <param name="theShape">
-    ///            [in] shape to load triangulations
+    /// <param name="in]">
+    /// theShape             shape to load triangulations
     /// </param>
-    /// <param name="theTriangulationIdx">
-    /// [in] index defining what triangulation should be loaded. Starts from 0.
+    /// <param name="in]">
+    /// theTriangulationIdx  index defining what triangulation should be loaded. Starts
+    /// from 0.
     /// -1 is used in specific case to load currently already active triangulation.
-    /// If some face doesn't contain triangulation with this index, nothing will be loaded for it.
-    /// Exception will be thrown in case of invalid negative index
+    /// If some face doesn't contain triangulation with this index, nothing will be loaded for
+    /// it. Exception will be thrown in case of invalid negative index
     /// </param>
-    /// <param name="theToSetAsActive">
-    ///    [in] flag to activate triangulation after its loading
+    /// <param name="in]">
+    /// theToSetAsActive     flag to activate triangulation after its loading
     /// </param>
-    /// <param name="theFileSystem">
-    ///       [in] shared file system
+    /// <param name="in]">
+    /// theFileSystem        shared file system
     /// </param>
     /// <returns>
     /// TRUE if at least one triangulation is loaded.
     /// </returns>
     static bool LoadTriangulation(Macad::Occt::TopoDS_Shape^ theShape);
     /// <summary>
-    /// Releases triangulation data for each face of the shape if there is deferred storage to load it later
+    /// Releases triangulation data for each face of the shape if there is deferred storage to load it
+    /// later
     /// </summary>
-    /// <param name="theShape">
-    ///            [in] shape to unload triangulations
+    /// <param name="in]">
+    /// theShape             shape to unload triangulations
     /// </param>
-    /// <param name="theTriangulationIdx">
-    /// [in] index defining what triangulation should be unloaded. Starts from 0.
+    /// <param name="in]">
+    /// theTriangulationIdx  index defining what triangulation should be unloaded. Starts
+    /// from 0.
     /// -1 is used in specific case to unload currently already active triangulation.
-    /// If some face doesn't contain triangulation with this index, nothing will be unloaded for it.
-    /// Exception will be thrown in case of invalid negative index
+    /// If some face doesn't contain triangulation with this index, nothing will be unloaded
+    /// for it. Exception will be thrown in case of invalid negative index
     /// </param>
     /// <returns>
     /// TRUE if at least one triangulation is unloaded.
     /// </returns>
     static bool UnloadTriangulation(Macad::Occt::TopoDS_Shape^ theShape, int theTriangulationIdx);
     /// <summary>
-    /// Releases triangulation data for each face of the shape if there is deferred storage to load it later
+    /// Releases triangulation data for each face of the shape if there is deferred storage to load it
+    /// later
     /// </summary>
-    /// <param name="theShape">
-    ///            [in] shape to unload triangulations
+    /// <param name="in]">
+    /// theShape             shape to unload triangulations
     /// </param>
-    /// <param name="theTriangulationIdx">
-    /// [in] index defining what triangulation should be unloaded. Starts from 0.
+    /// <param name="in]">
+    /// theTriangulationIdx  index defining what triangulation should be unloaded. Starts
+    /// from 0.
     /// -1 is used in specific case to unload currently already active triangulation.
-    /// If some face doesn't contain triangulation with this index, nothing will be unloaded for it.
-    /// Exception will be thrown in case of invalid negative index
+    /// If some face doesn't contain triangulation with this index, nothing will be unloaded
+    /// for it. Exception will be thrown in case of invalid negative index
     /// </param>
     /// <returns>
     /// TRUE if at least one triangulation is unloaded.
@@ -418,17 +421,20 @@ public:
     /// Activates triangulation data for each face of the shape
     /// from some deferred storage using specified shared input file system
     /// </summary>
-    /// <param name="theShape">
-    ///              [in] shape to activate triangulations
+    /// <param name="in]">
+    /// theShape               shape to activate triangulations
     /// </param>
-    /// <param name="theTriangulationIdx">
-    ///   [in] index defining what triangulation should be activated. Starts from 0.
+    /// <param name="in]">
+    /// theTriangulationIdx    index defining what triangulation should be activated.
+    /// Starts from 0.
     /// Exception will be thrown in case of invalid negative index
     /// </param>
-    /// <param name="theToActivateStrictly">
-    /// [in] flag to activate exactly triangulation with defined theTriangulationIdx index.
-    /// In TRUE case if some face doesn't contain triangulation with this index, active triangulation
-    /// will not be changed for it. Else the last available triangulation will be activated.
+    /// <param name="in]">
+    /// theToActivateStrictly  flag to activate exactly triangulation with defined
+    /// theTriangulationIdx index.
+    /// In TRUE case if some face doesn't contain triangulation with this index, active
+    /// triangulation will not be changed for it. Else the last available triangulation will be
+    /// activated.
     /// </param>
     /// <returns>
     /// TRUE if at least one active triangulation was changed.
@@ -438,17 +444,20 @@ public:
     /// Activates triangulation data for each face of the shape
     /// from some deferred storage using specified shared input file system
     /// </summary>
-    /// <param name="theShape">
-    ///              [in] shape to activate triangulations
+    /// <param name="in]">
+    /// theShape               shape to activate triangulations
     /// </param>
-    /// <param name="theTriangulationIdx">
-    ///   [in] index defining what triangulation should be activated. Starts from 0.
+    /// <param name="in]">
+    /// theTriangulationIdx    index defining what triangulation should be activated.
+    /// Starts from 0.
     /// Exception will be thrown in case of invalid negative index
     /// </param>
-    /// <param name="theToActivateStrictly">
-    /// [in] flag to activate exactly triangulation with defined theTriangulationIdx index.
-    /// In TRUE case if some face doesn't contain triangulation with this index, active triangulation
-    /// will not be changed for it. Else the last available triangulation will be activated.
+    /// <param name="in]">
+    /// theToActivateStrictly  flag to activate exactly triangulation with defined
+    /// theTriangulationIdx index.
+    /// In TRUE case if some face doesn't contain triangulation with this index, active
+    /// triangulation will not be changed for it. Else the last available triangulation will be
+    /// activated.
     /// </param>
     /// <returns>
     /// TRUE if at least one active triangulation was changed.
@@ -459,21 +468,22 @@ public:
     /// Loads all available triangulations for each face of the shape
     /// from some deferred storage using specified shared input file system
     /// </summary>
-    /// <param name="theShape">
-    ///      [in] shape to load triangulations
+    /// <param name="in]">
+    /// theShape       shape to load triangulations
     /// </param>
-    /// <param name="theFileSystem">
-    /// [in] shared file system
+    /// <param name="in]">
+    /// theFileSystem  shared file system
     /// </param>
     /// <returns>
     /// TRUE if at least one triangulation is loaded.
     /// </returns>
     static bool LoadAllTriangulations(Macad::Occt::TopoDS_Shape^ theShape);
     /// <summary>
-    /// Releases all available triangulations for each face of the shape if there is deferred storage to load them later
+    /// Releases all available triangulations for each face of the shape if there is deferred storage
+    /// to load them later
     /// </summary>
-    /// <param name="theShape">
-    ///      [in] shape to unload triangulations
+    /// <param name="in]">
+    /// theShape       shape to unload triangulations
     /// </param>
     /// <returns>
     /// TRUE if at least one triangulation is unloaded.
@@ -517,11 +527,11 @@ public:
     /// Writes the shape to the stream in an ASCII format TopTools_FormatVersion_VERSION_1.
     /// This alias writes shape with triangulation data.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]       the shape to write
+    /// <param name="in]">
+    /// theShape        the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out] the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream  the stream to output shape into
     /// </param>
     /// <param name="theRange">
     ///            the range of progress indicator to fill in
@@ -531,11 +541,11 @@ public:
     /// Writes the shape to the stream in an ASCII format TopTools_FormatVersion_VERSION_1.
     /// This alias writes shape with triangulation data.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]       the shape to write
+    /// <param name="in]">
+    /// theShape        the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out] the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream  the stream to output shape into
     /// </param>
     /// <param name="theRange">
     ///            the range of progress indicator to fill in
@@ -544,22 +554,24 @@ public:
     /// <summary>
     /// Writes the shape to the stream in an ASCII format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out]   the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream    the stream to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the TopTools format version
+    /// <param name="in]">
+    /// theVersion        the TopTools format version
     /// </param>
     /// <param name="theProgress">
     /// the range of progress indicator to fill in
@@ -568,22 +580,24 @@ public:
     /// <summary>
     /// Writes the shape to the stream in an ASCII format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out]   the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream    the stream to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the TopTools format version
+    /// <param name="in]">
+    /// theVersion        the TopTools format version
     /// </param>
     /// <param name="theProgress">
     /// the range of progress indicator to fill in
@@ -595,11 +609,11 @@ public:
     /// Writes the shape to the file in an ASCII format TopTools_FormatVersion_VERSION_1.
     /// This alias writes shape with triangulation data.
     /// </summary>
-    /// <param name="theShape">
-    /// [in] the shape to write
+    /// <param name="in]">
+    /// theShape  the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]  the path to file to output shape into
+    /// <param name="in]">
+    /// theFile   the path to file to output shape into
     /// </param>
     /// <param name="theProgress">
     /// the range of progress indicator to fill in
@@ -609,11 +623,11 @@ public:
     /// Writes the shape to the file in an ASCII format TopTools_FormatVersion_VERSION_1.
     /// This alias writes shape with triangulation data.
     /// </summary>
-    /// <param name="theShape">
-    /// [in] the shape to write
+    /// <param name="in]">
+    /// theShape  the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]  the path to file to output shape into
+    /// <param name="in]">
+    /// theFile   the path to file to output shape into
     /// </param>
     /// <param name="theProgress">
     /// the range of progress indicator to fill in
@@ -622,22 +636,24 @@ public:
     /// <summary>
     /// Writes the shape to the file in an ASCII format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]          the path to file to output shape into
+    /// <param name="in]">
+    /// theFile           the path to file to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the TopTools format version
+    /// <param name="in]">
+    /// theVersion        the TopTools format version
     /// </param>
     /// <param name="theProgress">
     /// the range of progress indicator to fill in
@@ -646,22 +662,24 @@ public:
     /// <summary>
     /// Writes the shape to the file in an ASCII format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]          the path to file to output shape into
+    /// <param name="in]">
+    /// theFile           the path to file to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the TopTools format version
+    /// <param name="in]">
+    /// theVersion        the TopTools format version
     /// </param>
     /// <param name="theProgress">
     /// the range of progress indicator to fill in
@@ -758,7 +776,6 @@ public:
     }
 
 public:
-    BRepTools_Modification(Macad::Occt::BRepTools_Modification^ parameter1);
     BRepTools_Modification();
     /// <summary>
     /// Returns true if the face, F, has been modified.
@@ -871,30 +888,29 @@ public:
 public:
     /// <summary>
     /// Constructor.
-    /// \param[in] theCopyGeom  indicates that the geomtery (surfaces and curves) should be copied
+    /// \param[in] theCopyGeom  indicates that the geometry (surfaces and curves) should be copied
     /// \param[in] theCopyMesh  indicates that the triangulation should be copied
     /// </summary>
     BRepTools_CopyModification(bool theCopyGeom, bool theCopyMesh);
     /// <summary>
     /// Constructor.
-    /// \param[in] theCopyGeom  indicates that the geomtery (surfaces and curves) should be copied
+    /// \param[in] theCopyGeom  indicates that the geometry (surfaces and curves) should be copied
     /// \param[in] theCopyMesh  indicates that the triangulation should be copied
     /// </summary>
     BRepTools_CopyModification(bool theCopyGeom);
     /// <summary>
     /// Constructor.
-    /// \param[in] theCopyGeom  indicates that the geomtery (surfaces and curves) should be copied
+    /// \param[in] theCopyGeom  indicates that the geometry (surfaces and curves) should be copied
     /// \param[in] theCopyMesh  indicates that the triangulation should be copied
     /// </summary>
     BRepTools_CopyModification();
-    BRepTools_CopyModification(Macad::Occt::BRepTools_CopyModification^ parameter1);
     /// <summary>
     /// Returns true if theFace has been modified.
     /// If the face has been modified:
     /// - theSurf is the new geometry of the face,
     /// - theLoc is its new location, and
     /// - theTol is the new tolerance.
-    /// theRevWires, theRevFace are always set to false, because the orientaion is not changed.
+    /// theRevWires, theRevFace are always set to false, because the orientation is not changed.
     /// </summary>
     bool NewSurface(Macad::Occt::TopoDS_Face^ theFace, Macad::Occt::Geom_Surface^ theSurf, Macad::Occt::TopLoc_Location^ theLoc, double% theTol, bool% theRevWires, bool% theRevFace);
     /// <summary>
@@ -983,7 +999,6 @@ public:
 
 public:
     BRepTools_GTrsfModification(Macad::Occt::gp_GTrsf^ T);
-    BRepTools_GTrsfModification(Macad::Occt::BRepTools_GTrsfModification^ parameter1);
     /// <summary>
     /// Gives an access on the GTrsf.
     /// </summary>
@@ -1159,15 +1174,16 @@ public:
     }; // enum  class TRelationType
 
     /// <summary>
-    /// Empty constructor
     /// </summary>
+    /// @name Constructors for History creation
+    /// Empty constructor
     BRepTools_History();
-    BRepTools_History(Macad::Occt::BRepTools_History^ parameter1);
     /// <summary>
     /// Returns 'true' if the type of the shape is supported by the history.
     /// </summary>
     static bool IsSupportedType(Macad::Occt::TopoDS_Shape^ theShape);
     /// <summary>
+    /// Methods to set the history.
     /// Set the second shape as generated one from the first shape.
     /// </summary>
     void AddGenerated(Macad::Occt::TopoDS_Shape^ theInitial, Macad::Occt::TopoDS_Shape^ theGenerated);
@@ -1192,6 +1208,7 @@ public:
     /// </summary>
     void Clear();
     /// <summary>
+    /// Methods to read the history.
     /// Returns all shapes generated from the shape.
     /// </summary>
     Macad::Occt::TopTools_ListOfShape^ Generated(Macad::Occt::TopoDS_Shape^ theInitial);
@@ -1216,10 +1233,12 @@ public:
     /// </summary>
     bool HasRemoved();
     /// <summary>
+    /// A method to merge a next history to this history.
     /// Merges the next history to this history.
     /// </summary>
     void Merge(Macad::Occt::BRepTools_History^ theHistory23);
     /// <summary>
+    /// A method to dump a history
     /// Prints the brief description of the history into a stream
     /// </summary>
     void Dump(System::IO::TextWriter^ theS);
@@ -1276,7 +1295,6 @@ public:
     /// the modifications described by <M>.
     /// </summary>
     BRepTools_Modifier(Macad::Occt::TopoDS_Shape^ S, Macad::Occt::BRepTools_Modification^ M);
-    BRepTools_Modifier(Macad::Occt::BRepTools_Modifier^ parameter1);
     /// <summary>
     /// Initializes the modifier with the shape <S>.
     /// </summary>
@@ -1346,7 +1364,6 @@ public:
 
 public:
     BRepTools_NurbsConvertModification();
-    BRepTools_NurbsConvertModification(Macad::Occt::BRepTools_NurbsConvertModification^ parameter1);
     /// <summary>
     /// Returns Standard_True  if  the face  <F> has  been
     /// modified.  In this  case, <S> is the new geometric
@@ -1493,7 +1510,6 @@ public:
     /// Returns an empty Reshape
     /// </summary>
     BRepTools_ReShape();
-    BRepTools_ReShape(Macad::Occt::BRepTools_ReShape^ parameter1);
     /// <summary>
     /// Clears all substitutions requests
     /// </summary>
@@ -1610,9 +1626,8 @@ public:
 
 public:
     BRepTools_PurgeLocations();
-    BRepTools_PurgeLocations(Macad::Occt::BRepTools_PurgeLocations^ parameter1);
     /// <summary>
-    /// Removes all locations correspodingly to criterium from theShape.
+    /// Removes all locations correspondingly to criterium from theShape.
     /// </summary>
     bool Perform(Macad::Occt::TopoDS_Shape^ theShape);
     /// <summary>
@@ -1636,9 +1651,11 @@ public:
 /// The user can add shapes with the Add method, all the faces are registered and copies of faces
 /// and edges are made to glue at the bound edges.
 /// 
-/// The user can call the Shells methods to compute a compound of shells from the current set of faces.
+/// The user can call the Shells methods to compute a compound of shells from the current set of
+/// faces.
 /// 
-/// If no binding is made this class can be used to make shell from faces already sharing their edges.
+/// If no binding is made this class can be used to make shell from faces already sharing their
+/// edges.
 /// </summary>
 public ref class BRepTools_Quilt sealed
     : public Macad::Occt::BaseClass<::BRepTools_Quilt>
@@ -1668,7 +1685,6 @@ public:
 
 public:
     BRepTools_Quilt();
-    BRepTools_Quilt(Macad::Occt::BRepTools_Quilt^ parameter1);
     /// <summary>
     /// Binds <Enew> to   be  the  new edge  instead   of
     /// <Eold>.
@@ -1795,7 +1811,6 @@ public:
     /// flag to write triangulation data
     /// </param>
     BRepTools_ShapeSet(Macad::Occt::BRep_Builder^ theBuilder);
-    BRepTools_ShapeSet(Macad::Occt::BRepTools_ShapeSet^ parameter1);
     /// <summary>
     /// Return true if shape should be stored with triangles.
     /// </summary>
@@ -1819,7 +1834,7 @@ public:
     /// </summary>
     void Clear();
     /// <summary>
-    /// Stores the goemetry of <S>.
+    /// Stores the geometry of <S>.
     /// </summary>
     void AddGeometry(Macad::Occt::TopoDS_Shape^ S);
     /// <summary>
@@ -1975,7 +1990,6 @@ public:
 
 public:
     BRepTools_Substitution();
-    BRepTools_Substitution(Macad::Occt::BRepTools_Substitution^ parameter1);
     /// <summary>
     /// Reset all the fields.
     /// </summary>
@@ -2056,7 +2070,6 @@ public:
     }
 
     BRepTools_TrsfModification(Macad::Occt::Trsf T);
-    BRepTools_TrsfModification(Macad::Occt::BRepTools_TrsfModification^ parameter1);
     /// <summary>
     /// Provides access to the gp_Trsf associated with this
     /// modification. The transformation can be changed.
@@ -2080,13 +2093,10 @@ public:
     /* Method skipped due to unknown mapping: bool NewPolygon(TopoDS_Edge E, Poly_Polygon3D P, ) */
     /* Method skipped due to unknown mapping: bool NewPolygonOnTriangulation(TopoDS_Edge E, TopoDS_Face F, Poly_PolygonOnTriangulation P, ) */
     /// <summary>
-    /// Returns true if the edge E has been modified.
-    /// If the edge has been modified:
+    /// Always returns true indicating that the edge E is always modified.
     /// - C is the new geometric support of the edge,
     /// - L is the new location, and
     /// - Tol is the new tolerance.
-    /// If the edge has not been modified, this function
-    /// returns false, and the values of C, L and Tol are not significant.
     /// </summary>
     bool NewCurve(Macad::Occt::TopoDS_Edge^ E, Macad::Occt::Geom_Curve^ C, Macad::Occt::TopLoc_Location^ L, double% Tol);
     /// <summary>
@@ -2188,7 +2198,6 @@ public:
     /// previous in the parametric representation of <F>.
     /// </summary>
     BRepTools_WireExplorer(Macad::Occt::TopoDS_Wire^ W, Macad::Occt::TopoDS_Face^ F);
-    BRepTools_WireExplorer(Macad::Occt::BRepTools_WireExplorer^ parameter1);
     /// <summary>
     /// Initializes an exploration of the wire <W>.
     /// </summary>

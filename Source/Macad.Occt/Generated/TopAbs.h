@@ -150,7 +150,6 @@ public:
 
 public:
     TopAbs();
-    TopAbs(Macad::Occt::TopAbs^ parameter1);
     /// <summary>
     /// Compose  the Orientation    <Or1>  and  <Or2>.    This
     /// composition is not symmetric (if  you switch <Or1> and
@@ -221,7 +220,8 @@ public:
     /// shape type
     /// </param>
     /// <returns>
-    /// string identifier from the list COMPOUND, COMPSOLID, SOLID, SHELL, FACE, WIRE, EDGE, VERTEX, SHAPE
+    /// string identifier from the list COMPOUND, COMPSOLID, SOLID, SHELL, FACE, WIRE, EDGE,
+    /// VERTEX, SHAPE
     /// </returns>
     static System::String^ ShapeTypeToString(Macad::Occt::TopAbs_ShapeEnum theType);
     /// <summary>
@@ -235,7 +235,8 @@ public:
     /// </returns>
     static Macad::Occt::TopAbs_ShapeEnum ShapeTypeFromString(System::String^ theTypeString);
     /// <summary>
-    /// Determines the shape type from the given string identifier (using case-insensitive comparison).
+    /// Determines the shape type from the given string identifier (using case-insensitive
+    /// comparison).
     /// </summary>
     /// <param name="theTypeString">
     /// string identifier
@@ -258,7 +259,8 @@ public:
     /// </returns>
     static System::String^ ShapeOrientationToString(Macad::Occt::TopAbs_Orientation theOrientation);
     /// <summary>
-    /// Returns the shape orientation from the given string identifier (using case-insensitive comparison).
+    /// Returns the shape orientation from the given string identifier (using case-insensitive
+    /// comparison).
     /// </summary>
     /// <param name="theOrientationString">
     /// string identifier
@@ -268,7 +270,8 @@ public:
     /// </returns>
     static Macad::Occt::TopAbs_Orientation ShapeOrientationFromString(System::String^ theOrientationString);
     /// <summary>
-    /// Determines the shape orientation from the given string identifier (using case-insensitive comparison).
+    /// Determines the shape orientation from the given string identifier (using case-insensitive
+    /// comparison).
     /// </summary>
     /// <param name="theOrientationString">
     /// string identifier

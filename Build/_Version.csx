@@ -113,7 +113,6 @@ class Version
         var lines = File.ReadAllLines(Path.Combine(Common.GetRootFolder(), "License.txt"));
         lines[2] = $"Copyright (c) 2015-{DateTime.Now.Year} Tobias Schachte";
         File.WriteAllLines(Path.Combine(Common.GetRootFolder(), "License.txt"), lines);
-        File.WriteAllLines(Path.Combine(Common.GetRootFolder(), @"Source\Macad.UserGuide\License\Macad3D.txt"), lines);
         return true;
     }
 
@@ -123,14 +122,10 @@ class Version
     {
         svnRevision = 0;
 
-        var svnPath = Packages.FindPackageFile($"Subversion", @"bin\svn.exe");
-        if(string.IsNullOrEmpty(svnPath))
-            return false;
-
         var commandLine = $"info {Common.GetRootFolder()}";
         var svnOutput = new List<string>();
 
-        if (Common.Run(svnPath, commandLine, output: svnOutput) != 0)
+        if (Common.Run("svn.exe", commandLine, output: svnOutput) != 0)
         {
             Printer.Error("Reading Subversion revision failed: Starting svn.exe failed.");
             return false;

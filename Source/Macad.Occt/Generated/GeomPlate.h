@@ -44,9 +44,9 @@ public:
 
 public:
     /// <summary>
-    /// Tol is a  Tolerance to make the difference between
+    /// Tol is a Tolerance to make the difference between
     /// the result plane and the result line.
-    /// if POption = 1 : automatical parametrisation
+    /// if POption = 1 : automatic parametrisation
     /// if POption = 2 : parametrisation by eigen vectors
     /// if NOption = 1 : the average plane is the inertial plane.
     /// if NOption = 2 : the average plane is the plane of max. flux.
@@ -56,7 +56,6 @@ public:
     /// Creates the plane from the "best vector"
     /// </summary>
     GeomPlate_BuildAveragePlane(Macad::Occt::TColgp_SequenceOfVec^ Normals, Macad::Occt::TColgp_HArray1OfPnt^ Pts);
-    GeomPlate_BuildAveragePlane(Macad::Occt::GeomPlate_BuildAveragePlane^ parameter1);
     /// <summary>
     /// Return the average Plane.
     /// </summary>

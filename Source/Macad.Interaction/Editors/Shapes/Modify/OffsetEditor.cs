@@ -63,7 +63,7 @@ public sealed class OffsetEditor : Editor<Offset>
 
         if (_ScaleAction == null)
         {
-            _ScaleAction = new BoxScaleLiveAction(Entity.ShapeType==ShapeType.Sketch);
+            _ScaleAction = new BoxScaleLiveAction(Entity.ShapeType==ShapeType.Sketch, Entity.Body);
             _ScaleAction.Preview += _ScaleAction_Preview;
             _ScaleAction.Finished += _ScaleAction_Finished;
             StartAction(_ScaleAction);
@@ -85,7 +85,7 @@ public sealed class OffsetEditor : Editor<Offset>
         var trsf = Entity.Body.GetTransformation();
 
         if (Entity.ShapeType == ShapeType.Sketch
-            && EdgeAlgo.GetPlaneOfEdges(brep, out Geom_Plane plane))
+            && Topo2dUtils.GetPlaneOfEdges(brep, out Geom_Plane plane))
         {
             brep = brep.Located(new TopLoc_Location(new Trsf(Ax3.XOY, plane.Position())));
             trsf.Multiply(new Trsf(plane.Position(), Ax3.XOY));
@@ -99,7 +99,7 @@ public sealed class OffsetEditor : Editor<Offset>
 
     void _ScaleAction_Preview(BoxScaleLiveAction sender, BoxScaleLiveAction.EventArgs args)
     {
-        SetHintMessage("Change distance box using gizmo, press 'CTRL' to round to grid stepping.");
+        SetHintMessage("__Change distance__ using gizmo, press `k:Ctrl` to round to grid stepping.");
 
         double delta = args.Delta * Math.Max(args.Direction.X.Abs(),
                                              Math.Max(args.Direction.Y.Abs(),

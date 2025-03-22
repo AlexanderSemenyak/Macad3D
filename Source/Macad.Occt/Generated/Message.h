@@ -83,7 +83,6 @@ public:
 public:
     Message_ListOfAlert();
     Message_ListOfAlert(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
-    Message_ListOfAlert(Macad::Occt::Message_ListOfAlert^ theOther);
     int Size();
     Macad::Occt::Message_ListOfAlert^ Assign(Macad::Occt::Message_ListOfAlert^ theOther);
     void Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator);
@@ -91,16 +90,11 @@ public:
     /* Method skipped due to unknown mapping: Message_Alert First() */
     /* Method skipped due to unknown mapping: Message_Alert Last() */
     /* Method skipped due to unknown mapping: Message_Alert Append(Message_Alert theItem, ) */
-    /* Method skipped due to unknown mapping: void Append(Message_Alert theItem, Iterator theIter, ) */
-    void Append(Macad::Occt::Message_ListOfAlert^ theOther);
     /* Method skipped due to unknown mapping: Message_Alert Prepend(Message_Alert theItem, ) */
-    void Prepend(Macad::Occt::Message_ListOfAlert^ theOther);
     void RemoveFirst();
     /* Method skipped due to unknown mapping: void Remove(Iterator theIter, ) */
     /* Method skipped due to unknown mapping: Message_Alert InsertBefore(Message_Alert theItem, Iterator theIter, ) */
-    /* Method skipped due to unknown mapping: void InsertBefore(Message_ListOfAlert theOther, Iterator theIter, ) */
     /* Method skipped due to unknown mapping: Message_Alert InsertAfter(Message_Alert theItem, Iterator theIter, ) */
-    /* Method skipped due to unknown mapping: void InsertAfter(Message_ListOfAlert theOther, Iterator theIter, ) */
     void Reverse();
 }; // class Message_ListOfAlert
 
@@ -140,7 +134,6 @@ public:
     }
 
 public:
-    Message_Printer(Macad::Occt::Message_Printer^ parameter1);
     /// <summary>
     /// Return trace level used for filtering messages;
     /// messages with lover gravity will be ignored.
@@ -241,7 +234,6 @@ public:
     /// Create messenger with single printer
     /// </summary>
     Message_Messenger(Macad::Occt::Message_Printer^ thePrinter);
-    Message_Messenger(Macad::Occt::Message_Messenger^ parameter1);
     /// <summary>
     /// Add a printer to the messenger.
     /// The printer will be added only if it is not yet in the list.
@@ -413,7 +405,8 @@ public:
     /// </param>
     bool IsActiveInMessenger();
     /// <summary>
-    /// Creates an instance of Message_PrinterToReport with the current report and register it in messenger
+    /// Creates an instance of Message_PrinterToReport with the current report and register it in
+    /// messenger
     /// </summary>
     /// <param name="toActivate">
     /// if true, activated else deactivated
@@ -423,7 +416,8 @@ public:
     /// </param>
     void ActivateInMessenger(bool toActivate, Macad::Occt::Message_Messenger^ theMessenger);
     /// <summary>
-    /// Creates an instance of Message_PrinterToReport with the current report and register it in messenger
+    /// Creates an instance of Message_PrinterToReport with the current report and register it in
+    /// messenger
     /// </summary>
     /// <param name="toActivate">
     /// if true, activated else deactivated
@@ -459,7 +453,7 @@ public:
     /// </summary>
     void Clear(Macad::Occt::Message_Gravity theGravity);
     /* Method skipped due to unknown mapping: void Clear(Standard_Type theType, ) */
-    /* Method skipped due to unknown mapping: NCollection_IndexedMap<Message_MetricType, NCollection_DefaultHasher<Message_MetricType>> ActiveMetrics() */
+    /* Method skipped due to unknown mapping: NCollection_IndexedMap<Message_MetricType> ActiveMetrics() */
     /// <summary>
     /// Sets metrics to compute when alerts are performed
     /// </summary>
@@ -559,7 +553,6 @@ public:
 
 public:
     Message();
-    Message(Macad::Occt::Message^ parameter1);
     /// <summary>
     /// Defines default messenger for OCCT applications.
     /// This is global static instance of the messenger.
@@ -696,10 +689,6 @@ public:
     /// Constructor of the empty range
     /// </summary>
     Message_ProgressRange();
-    /// <summary>
-    /// Copy constructor disarms the source
-    /// </summary>
-    Message_ProgressRange(Macad::Occt::Message_ProgressRange^ theOther);
     /// <summary>
     /// Returns true if ProgressIndicator signals UserBreak
     /// </summary>

@@ -40,9 +40,6 @@ public class SelectEntityAction<T> : ToolAction where T: InteractiveEntity
 
         foreach (var entity in WorkspaceController.VisualObjects.GetVisibleEntities())
         {
-            if(!entity.IsVisible)
-                continue;
-
             var castedEntity = entity as T;
             if(castedEntity == null)
                 continue;
@@ -88,14 +85,7 @@ public class SelectEntityAction<T> : ToolAction where T: InteractiveEntity
 
     void ProcessMouseInput(MouseEventData data)
     {
-        if (data.DetectedEntities.Count == 1)
-        {
-            _SelectedEntity = data.DetectedEntities[0] as T;
-        }
-        else
-        {
-            _SelectedEntity = null;
-        }
+        _SelectedEntity = data.DetectedEntity as T;
     }
 
     //--------------------------------------------------------------------------------------------------

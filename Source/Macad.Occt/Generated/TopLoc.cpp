@@ -10,201 +10,6 @@ using namespace System::Runtime::InteropServices; // for class Marshal
 
 
 //---------------------------------------------------------------------
-//  Class  TopLoc_MapLocationHasher
-//---------------------------------------------------------------------
-
-Macad::Occt::TopLoc_MapLocationHasher::TopLoc_MapLocationHasher()
-    : Macad::Occt::BaseClass<::TopLoc_MapLocationHasher>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_MapLocationHasher();
-}
-
-Macad::Occt::TopLoc_MapLocationHasher::TopLoc_MapLocationHasher(Macad::Occt::TopLoc_MapLocationHasher^ parameter1)
-    : Macad::Occt::BaseClass<::TopLoc_MapLocationHasher>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_MapLocationHasher(*(::TopLoc_MapLocationHasher*)parameter1->NativeInstance);
-}
-
-int Macad::Occt::TopLoc_MapLocationHasher::HashCode(Macad::Occt::TopLoc_Location^ theKey, int theUpperBound)
-{
-    int _result = ::TopLoc_MapLocationHasher::HashCode(*(::TopLoc_Location*)theKey->NativeInstance, theUpperBound);
-    return _result;
-}
-
-bool Macad::Occt::TopLoc_MapLocationHasher::IsEqual(Macad::Occt::TopLoc_Location^ theKey1, Macad::Occt::TopLoc_Location^ theKey2)
-{
-    bool _result = ::TopLoc_MapLocationHasher::IsEqual(*(::TopLoc_Location*)theKey1->NativeInstance, *(::TopLoc_Location*)theKey2->NativeInstance);
-    return _result;
-}
-
-
-
-//---------------------------------------------------------------------
-//  Class  TopLoc_IndexedMapOfLocation
-//---------------------------------------------------------------------
-
-Macad::Occt::TopLoc_IndexedMapOfLocation::TopLoc_IndexedMapOfLocation()
-    : Macad::Occt::BaseClass<::TopLoc_IndexedMapOfLocation>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_IndexedMapOfLocation();
-}
-
-Macad::Occt::TopLoc_IndexedMapOfLocation::TopLoc_IndexedMapOfLocation(int theNbBuckets, Macad::Occt::NCollection_BaseAllocator^ theAllocator)
-    : Macad::Occt::BaseClass<::TopLoc_IndexedMapOfLocation>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_IndexedMapOfLocation(theNbBuckets, Handle(::NCollection_BaseAllocator)(theAllocator->NativeInstance));
-}
-
-Macad::Occt::TopLoc_IndexedMapOfLocation::TopLoc_IndexedMapOfLocation(int theNbBuckets)
-    : Macad::Occt::BaseClass<::TopLoc_IndexedMapOfLocation>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_IndexedMapOfLocation(theNbBuckets, 0L);
-}
-
-Macad::Occt::TopLoc_IndexedMapOfLocation::TopLoc_IndexedMapOfLocation(Macad::Occt::TopLoc_IndexedMapOfLocation^ theOther)
-    : Macad::Occt::BaseClass<::TopLoc_IndexedMapOfLocation>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_IndexedMapOfLocation(*(::TopLoc_IndexedMapOfLocation*)theOther->NativeInstance);
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::Exchange(Macad::Occt::TopLoc_IndexedMapOfLocation^ theOther)
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Exchange(*(::TopLoc_IndexedMapOfLocation*)theOther->NativeInstance);
-}
-
-int Macad::Occt::TopLoc_IndexedMapOfLocation::Add(Macad::Occt::TopLoc_Location^ theKey1)
-{
-    int _result = ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Add(*(::TopLoc_Location*)theKey1->NativeInstance);
-    return _result;
-}
-
-bool Macad::Occt::TopLoc_IndexedMapOfLocation::Contains(Macad::Occt::TopLoc_Location^ theKey1)
-{
-    bool _result = ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Contains(*(::TopLoc_Location*)theKey1->NativeInstance);
-    return _result;
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::Substitute(int theIndex, Macad::Occt::TopLoc_Location^ theKey1)
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Substitute(theIndex, *(::TopLoc_Location*)theKey1->NativeInstance);
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::Swap(int theIndex1, int theIndex2)
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Swap(theIndex1, theIndex2);
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::RemoveLast()
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->RemoveLast();
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::RemoveFromIndex(int theIndex)
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->RemoveFromIndex(theIndex);
-}
-
-bool Macad::Occt::TopLoc_IndexedMapOfLocation::RemoveKey(Macad::Occt::TopLoc_Location^ theKey1)
-{
-    bool _result = ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->RemoveKey(*(::TopLoc_Location*)theKey1->NativeInstance);
-    return _result;
-}
-
-Macad::Occt::TopLoc_Location^ Macad::Occt::TopLoc_IndexedMapOfLocation::FindKey(int theIndex)
-{
-    ::TopLoc_Location* _result = new ::TopLoc_Location();
-    *_result = (::TopLoc_Location)((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->FindKey(theIndex);
-    return _result==nullptr ? nullptr : gcnew Macad::Occt::TopLoc_Location(_result);
-}
-
-int Macad::Occt::TopLoc_IndexedMapOfLocation::FindIndex(Macad::Occt::TopLoc_Location^ theKey1)
-{
-    int _result = ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->FindIndex(*(::TopLoc_Location*)theKey1->NativeInstance);
-    return _result;
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::Clear(bool doReleaseMemory)
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Clear(doReleaseMemory);
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::Clear()
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Clear(true);
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator)
-{
-    ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Clear(Handle(::NCollection_BaseAllocator)(theAllocator->NativeInstance));
-}
-
-int Macad::Occt::TopLoc_IndexedMapOfLocation::Size()
-{
-    int _result = ((::TopLoc_IndexedMapOfLocation*)_NativeInstance)->Size();
-    return _result;
-}
-
-System::Collections::Generic::IEnumerator<Macad::Occt::TopLoc_Location^>^ Macad::Occt::TopLoc_IndexedMapOfLocation::GetEnumerator()
-{
-    return gcnew Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator(this);
-}
-
-System::Collections::IEnumerator^ Macad::Occt::TopLoc_IndexedMapOfLocation::GetEnumerator2()
-{
-    return gcnew Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator(this);
-}
-
-
-
-//---------------------------------------------------------------------
-//  Class  TopLoc_IndexedMapOfLocation::Iterator
-//---------------------------------------------------------------------
-
-Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator::Iterator()
-    : Macad::Occt::IteratorEnumerator<Macad::Occt::TopLoc_Location^, ::TopLoc_IndexedMapOfLocation::Iterator>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_IndexedMapOfLocation::Iterator();
-}
-
-Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator::Iterator(Macad::Occt::TopLoc_IndexedMapOfLocation^ theMap)
-    : Macad::Occt::IteratorEnumerator<Macad::Occt::TopLoc_Location^, ::TopLoc_IndexedMapOfLocation::Iterator>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_IndexedMapOfLocation::Iterator(*(::TopLoc_IndexedMapOfLocation*)theMap->NativeInstance);
-}
-
-Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator::Iterator(Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator^ parameter1)
-    : Macad::Occt::IteratorEnumerator<Macad::Occt::TopLoc_Location^, ::TopLoc_IndexedMapOfLocation::Iterator>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_IndexedMapOfLocation::Iterator(*(::TopLoc_IndexedMapOfLocation::Iterator*)parameter1->NativeInstance);
-}
-
-bool Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator::More()
-{
-    bool _result = ((::TopLoc_IndexedMapOfLocation::Iterator*)_NativeInstance)->More();
-    return _result;
-}
-
-void Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator::Next()
-{
-    ((::TopLoc_IndexedMapOfLocation::Iterator*)_NativeInstance)->Next();
-}
-
-Macad::Occt::TopLoc_Location^ Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator::Value()
-{
-    ::TopLoc_Location* _result = new ::TopLoc_Location();
-    *_result = (::TopLoc_Location)((::TopLoc_IndexedMapOfLocation::Iterator*)_NativeInstance)->Value();
-    return _result==nullptr ? nullptr : gcnew Macad::Occt::TopLoc_Location(_result);
-}
-
-bool Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator::IsEqual(Macad::Occt::TopLoc_IndexedMapOfLocation::Iterator^ theOther)
-{
-    bool _result = ((::TopLoc_IndexedMapOfLocation::Iterator*)_NativeInstance)->IsEqual(*(::TopLoc_IndexedMapOfLocation::Iterator*)theOther->NativeInstance);
-    return _result;
-}
-
-
-
-//---------------------------------------------------------------------
 //  Class  TopLoc_MapOfLocation
 //---------------------------------------------------------------------
 
@@ -226,12 +31,6 @@ Macad::Occt::TopLoc_MapOfLocation::TopLoc_MapOfLocation(int theNbBuckets)
     _NativeInstance = new ::TopLoc_MapOfLocation(theNbBuckets, 0L);
 }
 
-Macad::Occt::TopLoc_MapOfLocation::TopLoc_MapOfLocation(Macad::Occt::TopLoc_MapOfLocation^ theOther)
-    : Macad::Occt::BaseClass<::TopLoc_MapOfLocation>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_MapOfLocation(*(::TopLoc_MapOfLocation*)theOther->NativeInstance);
-}
-
 void Macad::Occt::TopLoc_MapOfLocation::Exchange(Macad::Occt::TopLoc_MapOfLocation^ theOther)
 {
     ((::TopLoc_MapOfLocation*)_NativeInstance)->Exchange(*(::TopLoc_MapOfLocation*)theOther->NativeInstance);
@@ -249,22 +48,22 @@ void Macad::Occt::TopLoc_MapOfLocation::ReSize(int N)
     ((::TopLoc_MapOfLocation*)_NativeInstance)->ReSize(N);
 }
 
-bool Macad::Occt::TopLoc_MapOfLocation::Add(Macad::Occt::TopLoc_Location^ K)
+bool Macad::Occt::TopLoc_MapOfLocation::Add(Macad::Occt::TopLoc_Location^ theKey)
 {
-    bool _result = ((::TopLoc_MapOfLocation*)_NativeInstance)->Add(*(::TopLoc_Location*)K->NativeInstance);
+    bool _result = ((::TopLoc_MapOfLocation*)_NativeInstance)->Add(*(::TopLoc_Location*)theKey->NativeInstance);
     return _result;
 }
 
-Macad::Occt::TopLoc_Location^ Macad::Occt::TopLoc_MapOfLocation::Added(Macad::Occt::TopLoc_Location^ K)
+Macad::Occt::TopLoc_Location^ Macad::Occt::TopLoc_MapOfLocation::Added(Macad::Occt::TopLoc_Location^ theKey)
 {
     ::TopLoc_Location* _result = new ::TopLoc_Location();
-    *_result = (::TopLoc_Location)((::TopLoc_MapOfLocation*)_NativeInstance)->Added(*(::TopLoc_Location*)K->NativeInstance);
+    *_result = (::TopLoc_Location)((::TopLoc_MapOfLocation*)_NativeInstance)->Added(*(::TopLoc_Location*)theKey->NativeInstance);
     return _result==nullptr ? nullptr : gcnew Macad::Occt::TopLoc_Location(_result);
 }
 
-bool Macad::Occt::TopLoc_MapOfLocation::Contains(Macad::Occt::TopLoc_Location^ K)
+bool Macad::Occt::TopLoc_MapOfLocation::Contains(Macad::Occt::TopLoc_Location^ theKey)
 {
-    bool _result = ((::TopLoc_MapOfLocation*)_NativeInstance)->Contains(*(::TopLoc_Location*)K->NativeInstance);
+    bool _result = ((::TopLoc_MapOfLocation*)_NativeInstance)->Contains(*(::TopLoc_Location*)theKey->NativeInstance);
     return _result;
 }
 
@@ -281,12 +80,7 @@ void Macad::Occt::TopLoc_MapOfLocation::Clear(bool doReleaseMemory)
 
 void Macad::Occt::TopLoc_MapOfLocation::Clear()
 {
-    ((::TopLoc_MapOfLocation*)_NativeInstance)->Clear(true);
-}
-
-void Macad::Occt::TopLoc_MapOfLocation::Clear(Macad::Occt::NCollection_BaseAllocator^ theAllocator)
-{
-    ((::TopLoc_MapOfLocation*)_NativeInstance)->Clear(Handle(::NCollection_BaseAllocator)(theAllocator->NativeInstance));
+    ((::TopLoc_MapOfLocation*)_NativeInstance)->Clear(false);
 }
 
 int Macad::Occt::TopLoc_MapOfLocation::Size()
@@ -298,12 +92,6 @@ int Macad::Occt::TopLoc_MapOfLocation::Size()
 bool Macad::Occt::TopLoc_MapOfLocation::IsEqual(Macad::Occt::TopLoc_MapOfLocation^ theOther)
 {
     bool _result = ((::TopLoc_MapOfLocation*)_NativeInstance)->IsEqual(*(::TopLoc_MapOfLocation*)theOther->NativeInstance);
-    return _result;
-}
-
-bool Macad::Occt::TopLoc_MapOfLocation::Contains(Macad::Occt::TopLoc_MapOfLocation^ theOther)
-{
-    bool _result = ((::TopLoc_MapOfLocation*)_NativeInstance)->Contains(*(::TopLoc_MapOfLocation*)theOther->NativeInstance);
     return _result;
 }
 
@@ -357,14 +145,33 @@ bool Macad::Occt::TopLoc_MapOfLocation::Differ(Macad::Occt::TopLoc_MapOfLocation
     return _result;
 }
 
+bool Macad::Occt::TopLoc_MapOfLocation::Equals(System::Object^ obj)
+{
+    if(ReferenceEquals(this, obj))
+    {
+        return true;
+    }
+    if(ReferenceEquals(nullptr, obj))
+    {
+        return false;
+    }
+    System::Type^ myType = Macad::Occt::TopLoc_MapOfLocation::GetType();
+    System::Type^ objType = obj->GetType();
+    if (myType->Equals(objType) || objType->IsSubclassOf(myType))
+    {
+        return NativeInstance->IsEqual(*((TopLoc_MapOfLocation^)obj)->NativeInstance);
+    }
+    return false;
+}
+
 System::Collections::Generic::IEnumerator<Macad::Occt::TopLoc_Location^>^ Macad::Occt::TopLoc_MapOfLocation::GetEnumerator()
 {
-    return gcnew Macad::Occt::TopLoc_MapOfLocation::Iterator(this);
+    return gcnew Macad::Occt::TopLoc_MapOfLocation::Iterator(new ::TopLoc_MapOfLocation::Iterator(*NativeInstance));
 }
 
 System::Collections::IEnumerator^ Macad::Occt::TopLoc_MapOfLocation::GetEnumerator2()
 {
-    return gcnew Macad::Occt::TopLoc_MapOfLocation::Iterator(this);
+    return gcnew Macad::Occt::TopLoc_MapOfLocation::Iterator(new ::TopLoc_MapOfLocation::Iterator(*NativeInstance));
 }
 
 
@@ -377,18 +184,6 @@ Macad::Occt::TopLoc_MapOfLocation::Iterator::Iterator()
     : Macad::Occt::IteratorEnumerator<Macad::Occt::TopLoc_Location^, ::TopLoc_MapOfLocation::Iterator>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::TopLoc_MapOfLocation::Iterator();
-}
-
-Macad::Occt::TopLoc_MapOfLocation::Iterator::Iterator(Macad::Occt::TopLoc_MapOfLocation^ theMap)
-    : Macad::Occt::IteratorEnumerator<Macad::Occt::TopLoc_Location^, ::TopLoc_MapOfLocation::Iterator>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_MapOfLocation::Iterator(*(::TopLoc_MapOfLocation*)theMap->NativeInstance);
-}
-
-Macad::Occt::TopLoc_MapOfLocation::Iterator::Iterator(Macad::Occt::TopLoc_MapOfLocation::Iterator^ parameter1)
-    : Macad::Occt::IteratorEnumerator<Macad::Occt::TopLoc_Location^, ::TopLoc_MapOfLocation::Iterator>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_MapOfLocation::Iterator(*(::TopLoc_MapOfLocation::Iterator*)parameter1->NativeInstance);
 }
 
 bool Macad::Occt::TopLoc_MapOfLocation::Iterator::More()
@@ -433,12 +228,6 @@ Macad::Occt::TopLoc_Datum3D::TopLoc_Datum3D(Macad::Occt::Trsf T)
 {
     pin_ptr<Macad::Occt::Trsf> pp_T = &T;
     NativeInstance = new ::TopLoc_Datum3D(*(gp_Trsf*)pp_T);
-}
-
-Macad::Occt::TopLoc_Datum3D::TopLoc_Datum3D(Macad::Occt::TopLoc_Datum3D^ parameter1)
-    : Macad::Occt::Standard_Transient(BaseClass::InitMode::Uninitialized)
-{
-    NativeInstance = new ::TopLoc_Datum3D(*(::TopLoc_Datum3D*)parameter1->NativeInstance);
 }
 
 Macad::Occt::Trsf Macad::Occt::TopLoc_Datum3D::Transformation()
@@ -497,12 +286,6 @@ Macad::Occt::TopLoc_SListNodeOfItemLocation::TopLoc_SListNodeOfItemLocation(Maca
     NativeInstance = new ::TopLoc_SListNodeOfItemLocation(*(::TopLoc_ItemLocation*)I->NativeInstance, *(::TopLoc_SListOfItemLocation*)aTail->NativeInstance);
 }
 
-Macad::Occt::TopLoc_SListNodeOfItemLocation::TopLoc_SListNodeOfItemLocation(Macad::Occt::TopLoc_SListNodeOfItemLocation^ parameter1)
-    : Macad::Occt::Standard_Transient(BaseClass::InitMode::Uninitialized)
-{
-    NativeInstance = new ::TopLoc_SListNodeOfItemLocation(*(::TopLoc_SListNodeOfItemLocation*)parameter1->NativeInstance);
-}
-
 Macad::Occt::TopLoc_SListOfItemLocation^ Macad::Occt::TopLoc_SListNodeOfItemLocation::Tail()
 {
     ::TopLoc_SListOfItemLocation* _result = new ::TopLoc_SListOfItemLocation();
@@ -530,12 +313,6 @@ Macad::Occt::TopLoc_ItemLocation::TopLoc_ItemLocation(Macad::Occt::TopLoc_Datum3
     : Macad::Occt::BaseClass<::TopLoc_ItemLocation>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::TopLoc_ItemLocation(Handle(::TopLoc_Datum3D)(D->NativeInstance), P);
-}
-
-Macad::Occt::TopLoc_ItemLocation::TopLoc_ItemLocation(Macad::Occt::TopLoc_ItemLocation^ parameter1)
-    : Macad::Occt::BaseClass<::TopLoc_ItemLocation>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_ItemLocation(*(::TopLoc_ItemLocation*)parameter1->NativeInstance);
 }
 
 void Macad::Occt::TopLoc_ItemLocation::DumpJson(System::IO::TextWriter^ theOStream, int theDepth)
@@ -568,12 +345,6 @@ Macad::Occt::TopLoc_SListOfItemLocation::TopLoc_SListOfItemLocation(Macad::Occt:
     : Macad::Occt::BaseClass<::TopLoc_SListOfItemLocation>(BaseClass::InitMode::Uninitialized)
 {
     _NativeInstance = new ::TopLoc_SListOfItemLocation(*(::TopLoc_ItemLocation*)anItem->NativeInstance, *(::TopLoc_SListOfItemLocation*)aTail->NativeInstance);
-}
-
-Macad::Occt::TopLoc_SListOfItemLocation::TopLoc_SListOfItemLocation(Macad::Occt::TopLoc_SListOfItemLocation^ Other)
-    : Macad::Occt::BaseClass<::TopLoc_SListOfItemLocation>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_SListOfItemLocation(*(::TopLoc_SListOfItemLocation*)Other->NativeInstance);
 }
 
 Macad::Occt::TopLoc_SListOfItemLocation^ Macad::Occt::TopLoc_SListOfItemLocation::Assign(Macad::Occt::TopLoc_SListOfItemLocation^ Other)
@@ -652,12 +423,6 @@ Macad::Occt::TopLoc_Location::TopLoc_Location(Macad::Occt::TopLoc_Datum3D^ D)
     _NativeInstance = new ::TopLoc_Location(Handle(::TopLoc_Datum3D)(D->NativeInstance));
 }
 
-Macad::Occt::TopLoc_Location::TopLoc_Location(Macad::Occt::TopLoc_Location^ parameter1)
-    : Macad::Occt::BaseClass<::TopLoc_Location>(BaseClass::InitMode::Uninitialized)
-{
-    _NativeInstance = new ::TopLoc_Location(*(::TopLoc_Location*)parameter1->NativeInstance);
-}
-
 bool Macad::Occt::TopLoc_Location::IsIdentity()
 {
     bool _result = ((::TopLoc_Location*)_NativeInstance)->IsIdentity();
@@ -729,9 +494,9 @@ Macad::Occt::TopLoc_Location^ Macad::Occt::TopLoc_Location::Powered(int pwr)
     return _result==nullptr ? nullptr : gcnew Macad::Occt::TopLoc_Location(_result);
 }
 
-int Macad::Occt::TopLoc_Location::HashCode(int theUpperBound)
+long long unsigned int Macad::Occt::TopLoc_Location::HashCode()
 {
-    int _result = ((::TopLoc_Location*)_NativeInstance)->HashCode(theUpperBound);
+    long long unsigned int _result = ((::TopLoc_Location*)_NativeInstance)->HashCode();
     return _result;
 }
 
@@ -781,6 +546,14 @@ double Macad::Occt::TopLoc_Location::ScalePrec()
 
 bool Macad::Occt::TopLoc_Location::Equals(System::Object^ obj)
 {
+    if(ReferenceEquals(this, obj))
+    {
+        return true;
+    }
+    if(ReferenceEquals(nullptr, obj))
+    {
+        return false;
+    }
     System::Type^ myType = Macad::Occt::TopLoc_Location::GetType();
     System::Type^ objType = obj->GetType();
     if (myType->Equals(objType) || objType->IsSubclassOf(myType))
@@ -788,11 +561,6 @@ bool Macad::Occt::TopLoc_Location::Equals(System::Object^ obj)
         return NativeInstance->IsEqual(*((TopLoc_Location^)obj)->NativeInstance);
     }
     return false;
-}
-
-int Macad::Occt::TopLoc_Location::GetHashCode()
-{
-    return NativeInstance->HashCode(MAXINT);
 }
 
 

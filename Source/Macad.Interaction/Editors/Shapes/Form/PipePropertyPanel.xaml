@@ -11,7 +11,7 @@
                    Style="{DynamicResource Macad.Styles.PropertyPanel}"
                    Header="Pipe"
                    mmp:Help.TopicId="69425fd0-ff1a-4dc3-9014-12860684e057">
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="90" />
@@ -89,9 +89,16 @@
                               AutomationProperties.AutomationId="DimensionX"/>
             <mmp:ValueEditBox mmp:GroupControls.Position="Right"
                               Units="Length" MinValue="0.01" 
-                              Value="{Binding Pipe.SizeY, NotifyOnSourceUpdated=True}"
                               IsEnabled="{Binding Pipe.Flags, Converter={mmp:HasFlagToNotBoolConverter}, ConverterParameter=SymmetricProfile}"
-                              AutomationProperties.AutomationId="DimensionY"/>
+                              AutomationProperties.AutomationId="DimensionY">
+                <mmp:ValueEditBox.Value>
+                    <MultiBinding Converter="{mmp:BooleanConditionalMultiConverter}" ConverterParameter="UpdateSecond" NotifyOnSourceUpdated="True">
+                        <Binding Path="Pipe.Flags" Converter="{mmp:HasFlagToBoolConverter}" ConverterParameter="SymmetricProfile"/>
+                        <Binding Path="Pipe.SizeX" Mode="OneWay"/>
+                        <Binding Path="Pipe.SizeY"/>
+                    </MultiBinding>
+                </mmp:ValueEditBox.Value>
+            </mmp:ValueEditBox>
         </StackPanel>
 
         <!-- Symmetric -->
@@ -102,7 +109,7 @@
                   Visibility="{Binding Pipe.Profile, Converter={mmp:EqualityToInvisibleCollapsedConverter}, ConverterParameter=Custom}"
                   IsChecked="{Binding Pipe.Flags, Converter={mmp:HasFlagToBoolConverter}, ConverterParameter=SymmetricProfile, Mode=OneWay}"
                   Command="{Binding ToggleFlagCommand}" CommandParameter="SymmetricProfile"
-                  AutomationProperties.AutomationId="SymmetricProfile"/>    
+                  AutomationProperties.AutomationId="SymmetricProfile"/>
 
         <!-- Rotation -->
         <TextBlock Grid.Row="3" Grid.Column="0" 
@@ -132,16 +139,24 @@
                    Style="{DynamicResource Macad.Styles.TextBlock.Property}"/>
         <mmp:ValueEditBox Grid.Row="6" Grid.Column="1" 
                           Units="Length" MinValue="0.01"
-                          Value="{Binding Pipe.BendRadius, NotifyOnSourceUpdated=True}"
                           IsEnabled="{Binding Pipe.Flags, Converter={mmp:HasFlagToNotBoolConverter}, ConverterParameter=AutoBendRadius}"
-                          AutomationProperties.AutomationId="BendRadius"/>
+                          AutomationProperties.AutomationId="BendRadius">
+            <mmp:ValueEditBox.Value>
+                <MultiBinding Converter="{mmp:BooleanConditionalMultiConverter}" ConverterParameter="UpdateSecond" NotifyOnSourceUpdated="True">
+                    <Binding Path="Pipe.Flags" Converter="{mmp:HasFlagToBoolConverter}" ConverterParameter="AutoBendRadius"/>
+                    <Binding Path="Pipe.EffectiveBendRadius" Mode="OneWay"/>
+                    <Binding Path="Pipe.BendRadius"/>
+                </MultiBinding>
+            </mmp:ValueEditBox.Value>
+        </mmp:ValueEditBox>
+
         <CheckBox Grid.Row="7" Grid.Column="1"
                   Margin="0,4,0,4"
                   VerticalAlignment="Center" HorizontalAlignment="Left"
                   Content="Automatic"
                   IsChecked="{Binding Pipe.Flags, Converter={mmp:HasFlagToBoolConverter}, ConverterParameter=AutoBendRadius, Mode=OneWay}"
                   Command="{Binding ToggleFlagCommand}" CommandParameter="AutoBendRadius"
-                  AutomationProperties.AutomationId="AutoBendRadius"/>    
+                  AutomationProperties.AutomationId="AutoBendRadius"/>
 
         <!-- Length -->
         <TextBlock Grid.Row="9" Grid.Column="0" 

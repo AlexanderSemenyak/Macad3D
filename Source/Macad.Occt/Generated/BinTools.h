@@ -89,7 +89,6 @@ public:
 
 public:
     BinTools();
-    BinTools(Macad::Occt::BinTools^ parameter1);
     static System::IO::TextWriter^ PutReal(System::IO::TextWriter^ OS, double theValue);
     static System::IO::TextWriter^ PutShortReal(System::IO::TextWriter^ OS, float theValue);
     static System::IO::TextWriter^ PutInteger(System::IO::TextWriter^ OS, int theValue);
@@ -104,11 +103,11 @@ public:
     /// Writes the shape to the stream in binary format BinTools_FormatVersion_CURRENT.
     /// This alias writes shape with triangulation data.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]       the shape to write
+    /// <param name="in]">
+    /// theShape        the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out] the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream  the stream to output shape into
     /// </param>
     /// <param name="theRange">
     ///            the range of progress indicator to fill in
@@ -118,11 +117,11 @@ public:
     /// Writes the shape to the stream in binary format BinTools_FormatVersion_CURRENT.
     /// This alias writes shape with triangulation data.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]       the shape to write
+    /// <param name="in]">
+    /// theShape        the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out] the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream  the stream to output shape into
     /// </param>
     /// <param name="theRange">
     ///            the range of progress indicator to fill in
@@ -131,22 +130,24 @@ public:
     /// <summary>
     /// Writes the shape to the stream in binary format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out]   the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream    the stream to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the BinTools format version
+    /// <param name="in]">
+    /// theVersion        the BinTools format version
     /// </param>
     /// <param name="theRange">
     ///              the range of progress indicator to fill in
@@ -155,22 +156,24 @@ public:
     /// <summary>
     /// Writes the shape to the stream in binary format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theStream">
-    /// [in][out]   the stream to output shape into
+    /// <param name="in][out]">
+    /// theStream    the stream to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the BinTools format version
+    /// <param name="in]">
+    /// theVersion        the BinTools format version
     /// </param>
     /// <param name="theRange">
     ///              the range of progress indicator to fill in
@@ -181,11 +184,11 @@ public:
     /// <summary>
     /// Writes the shape to the file in binary format BinTools_FormatVersion_CURRENT.
     /// </summary>
-    /// <param name="theShape">
-    /// [in] the shape to write
+    /// <param name="in]">
+    /// theShape  the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]  the path to file to output shape into
+    /// <param name="in]">
+    /// theFile   the path to file to output shape into
     /// </param>
     /// <param name="theRange">
     ///      the range of progress indicator to fill in
@@ -194,11 +197,11 @@ public:
     /// <summary>
     /// Writes the shape to the file in binary format BinTools_FormatVersion_CURRENT.
     /// </summary>
-    /// <param name="theShape">
-    /// [in] the shape to write
+    /// <param name="in]">
+    /// theShape  the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]  the path to file to output shape into
+    /// <param name="in]">
+    /// theFile   the path to file to output shape into
     /// </param>
     /// <param name="theRange">
     ///      the range of progress indicator to fill in
@@ -207,22 +210,24 @@ public:
     /// <summary>
     /// Writes the shape to the file in binary format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]          the path to file to output shape into
+    /// <param name="in]">
+    /// theFile           the path to file to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the BinTools format version
+    /// <param name="in]">
+    /// theVersion        the BinTools format version
     /// </param>
     /// <param name="theRange">
     ///              the range of progress indicator to fill in
@@ -231,22 +236,24 @@ public:
     /// <summary>
     /// Writes the shape to the file in binary format of specified version.
     /// </summary>
-    /// <param name="theShape">
-    /// [in]         the shape to write
+    /// <param name="in]">
+    /// theShape          the shape to write
     /// </param>
-    /// <param name="theFile">
-    /// [in]          the path to file to output shape into
+    /// <param name="in]">
+    /// theFile           the path to file to output shape into
     /// </param>
-    /// <param name="theWithTriangles">
-    /// [in] flag which specifies whether to save shape with (TRUE) or without (FALSE) triangles;
+    /// <param name="in]">
+    /// theWithTriangles  flag which specifies whether to save shape with (TRUE) or without
+    /// (FALSE) triangles;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theWithNormals">
-    /// [in]   flag which specifies whether to save triangulation with (TRUE) or without (FALSE) normals;
+    /// <param name="in]">
+    /// theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
+    /// without (FALSE) normals;
     /// has no effect on triangulation-only geometry
     /// </param>
-    /// <param name="theVersion">
-    /// [in]       the BinTools format version
+    /// <param name="in]">
+    /// theVersion        the BinTools format version
     /// </param>
     /// <param name="theRange">
     ///              the range of progress indicator to fill in
@@ -300,7 +307,6 @@ public:
     /// Creates OStream using the current stream OStream.
     /// </summary>
     BinTools_OStream(System::IO::TextWriter^ theStream);
-    BinTools_OStream(Macad::Occt::BinTools_OStream^ parameter1);
     /// <summary>
     /// Returns the current position of the stream
     /// </summary>
@@ -360,7 +366,6 @@ public:
     /// Returns an empty set of Curves.
     /// </summary>
     BinTools_Curve2dSet();
-    BinTools_Curve2dSet(Macad::Occt::BinTools_Curve2dSet^ parameter1);
     /// <summary>
     /// Clears the content of the set.
     /// </summary>
@@ -434,7 +439,6 @@ public:
     /// Returns an empty set of Curves.
     /// </summary>
     BinTools_CurveSet();
-    BinTools_CurveSet(Macad::Occt::BinTools_CurveSet^ parameter1);
     /// <summary>
     /// Clears the content of the set.
     /// </summary>
@@ -476,8 +480,8 @@ public:
 //  Class  BinTools_IStream
 //---------------------------------------------------------------------
 /// <summary>
-/// Substitution of IStream for shape reader for fast management of position in the file (get and go)
-/// and operation on all reading types.
+/// Substitution of IStream for shape reader for fast management of position in the file (get and
+/// go) and operation on all reading types.
 /// </summary>
 public ref class BinTools_IStream sealed
     : public Macad::Occt::BaseClass<::BinTools_IStream>
@@ -507,7 +511,6 @@ public:
 
 public:
     /* Method skipped due to unknown mapping: void BinTools_IStream(istream theStream, ) */
-    BinTools_IStream(Macad::Occt::BinTools_IStream^ parameter1);
     /// <summary>
     /// Reads and returns the type.
     /// </summary>
@@ -621,7 +624,6 @@ public:
     /// Returns an empty set of locations.
     /// </summary>
     BinTools_LocationSet();
-    BinTools_LocationSet(Macad::Occt::BinTools_LocationSet^ parameter1);
     /// <summary>
     /// Clears the content of the set.
     /// </summary>
@@ -693,7 +695,6 @@ public:
     /// A default constructor.
     /// </summary>
     BinTools_ShapeSetBase();
-    BinTools_ShapeSetBase(Macad::Occt::BinTools_ShapeSetBase^ parameter1);
     /// <summary>
     /// Return true if shape should be stored with triangles.
     /// </summary>
@@ -803,7 +804,6 @@ public:
     /// Initializes a shape reader.
     /// </summary>
     BinTools_ShapeReader();
-    BinTools_ShapeReader(Macad::Occt::BinTools_ShapeReader^ parameter1);
     /// <summary>
     /// Clears the content of the set.
     /// </summary>
@@ -852,7 +852,6 @@ public:
     /// Returns an empty set of Surfaces.
     /// </summary>
     BinTools_SurfaceSet();
-    BinTools_SurfaceSet(Macad::Occt::BinTools_SurfaceSet^ parameter1);
     /// <summary>
     /// Clears the content of the set.
     /// </summary>
@@ -926,11 +925,10 @@ public:
     /// <summary>
     /// Builds an empty ShapeSet.
     /// </summary>
-    /// <param name="theWithTriangles">
-    /// [in] flag to write triangulation data
+    /// <param name="in]">
+    /// theWithTriangles  flag to write triangulation data
     /// </param>
     BinTools_ShapeSet();
-    BinTools_ShapeSet(Macad::Occt::BinTools_ShapeSet^ parameter1);
     /// <summary>
     /// Clears the content of the set.
     /// </summary>

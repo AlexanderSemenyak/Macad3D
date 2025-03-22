@@ -40,7 +40,6 @@ public:
 public:
     gp_TrsfNLerp();
     gp_TrsfNLerp(Macad::Occt::Trsf theStart, Macad::Occt::Trsf theEnd);
-    gp_TrsfNLerp(Macad::Occt::gp_TrsfNLerp^ parameter1);
     void Init(Macad::Occt::Trsf theStart, Macad::Occt::Trsf theEnd);
     void Interpolate(double theT, Macad::Occt::Trsf% theResult);
 }; // class gp_TrsfNLerp
@@ -77,7 +76,6 @@ public:
 public:
     gp_Vec2f(float theXY);
     gp_Vec2f(float theX, float theY);
-    gp_Vec2f(Macad::Occt::gp_Vec2f^ theOtherVec2);
     static int Length();
     void SetValues(float theX, float theY);
     float x();
@@ -101,6 +99,7 @@ public:
     static Macad::Occt::gp_Vec2f^ DY();
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
+    bool Equals(System::Object^ obj) override;
 }; // class gp_Vec2f
 
 //---------------------------------------------------------------------
@@ -138,10 +137,8 @@ public:
     gp_Vec3f(float theX, float theY, float theZ);
     gp_Vec3f(Macad::Occt::gp_Vec2f^ theVec2, float theZ);
     gp_Vec3f(Macad::Occt::gp_Vec2f^ theVec2);
-    gp_Vec3f(Macad::Occt::gp_Vec3f^ parameter1);
     static int Length();
     void SetValues(float theX, float theY, float theZ);
-    void SetValues(Macad::Occt::gp_Vec2f^ theVec2, float theZ);
     float x();
     float r();
     float y();
@@ -182,6 +179,7 @@ public:
     static Macad::Occt::gp_Vec3f^ DZ();
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
     /* Method skipped due to unknown mapping: void DumpJson(ostream theOStream, int theDepth, ) */
+    bool Equals(System::Object^ obj) override;
 }; // class gp_Vec3f
 
 //---------------------------------------------------------------------
@@ -217,7 +215,6 @@ public:
     gp_VectorWithNullMagnitude();
     gp_VectorWithNullMagnitude(System::String^ theMessage);
     gp_VectorWithNullMagnitude(System::String^ theMessage, System::String^ theStackTrace);
-    gp_VectorWithNullMagnitude(Macad::Occt::gp_VectorWithNullMagnitude^ parameter1);
     static void Raise(System::String^ theMessage);
     static void Raise();
     /* Method skipped due to unknown mapping: void Raise(stringstream theMessage, ) */
@@ -292,10 +289,10 @@ public:
     /// <summary>
     /// A2 locates the circle and gives its orientation in 3D space.
     /// Warnings :
-    /// It is not forbidden to create a circle with theRadius = 0.0  Raises ConstructionError if theRadius < 0.0
+    /// It is not forbidden to create a circle with theRadius = 0.0  Raises ConstructionError if
+    /// theRadius < 0.0
     /// </summary>
     gp_Circ(Macad::Occt::Ax2 theA2, double theRadius);
-    gp_Circ(Macad::Occt::gp_Circ^ parameter1);
     /// <summary>
     /// Changes the main axis of the circle. It is the axis
     /// perpendicular to the plane of the circle.
@@ -491,15 +488,15 @@ public:
     /// <summary>
     /// The location point of theXAxis is the center of the circle.
     /// Warnings :
-    /// It is not forbidden to create a circle with theRadius = 0.0   Raises ConstructionError if theRadius < 0.0.
-    /// Raised if theRadius < 0.0.
+    /// It is not forbidden to create a circle with theRadius = 0.0   Raises ConstructionError if
+    /// theRadius < 0.0. Raised if theRadius < 0.0.
     /// </summary>
     gp_Circ2d(Macad::Occt::Ax2d theXAxis, double theRadius, bool theIsSense);
     /// <summary>
     /// The location point of theXAxis is the center of the circle.
     /// Warnings :
-    /// It is not forbidden to create a circle with theRadius = 0.0   Raises ConstructionError if theRadius < 0.0.
-    /// Raised if theRadius < 0.0.
+    /// It is not forbidden to create a circle with theRadius = 0.0   Raises ConstructionError if
+    /// theRadius < 0.0. Raised if theRadius < 0.0.
     /// </summary>
     gp_Circ2d(Macad::Occt::Ax2d theXAxis, double theRadius);
     /// <summary>
@@ -507,11 +504,10 @@ public:
     /// the origin and the sense of parametrization.
     /// The location point of theAxis is the center of the circle.
     /// Warnings :
-    /// It is not forbidden to create a circle with theRadius = 0.0 Raises ConstructionError if theRadius < 0.0.
-    /// Raised if theRadius < 0.0.
+    /// It is not forbidden to create a circle with theRadius = 0.0 Raises ConstructionError if
+    /// theRadius < 0.0. Raised if theRadius < 0.0.
     /// </summary>
     gp_Circ2d(Macad::Occt::Ax22d theAxis, double theRadius);
-    gp_Circ2d(Macad::Occt::gp_Circ2d^ parameter1);
     /// <summary>
     /// Changes the location point (center) of the circle.
     /// </summary>
@@ -732,7 +728,6 @@ public:
     /// * Abs(theAng) < Resolution from gp  or Abs(theAng) >= (PI/2) - Resolution.
     /// </summary>
     gp_Cone(Macad::Occt::Ax3 theA3, double theAng, double theRadius);
-    gp_Cone(Macad::Occt::gp_Cone^ parameter1);
     /// <summary>
     /// Changes the symmetry axis of the cone.  Raises ConstructionError
     /// the direction of theA1 is parallel to the "XDirection"
@@ -758,7 +753,8 @@ public:
     /// Changes the semi-angle of the cone.
     /// Semi-angle can be negative. Its absolute value
     /// Abs(theAng) is in range ]0,PI/2[.
-    /// Raises ConstructionError if Abs(theAng) < Resolution from gp or Abs(theAng) >= PI/2 - Resolution
+    /// Raises ConstructionError if Abs(theAng) < Resolution from gp or Abs(theAng) >= PI/2 -
+    /// Resolution
     /// </summary>
     void SetSemiAngle(double theAng);
     /// <summary>
@@ -924,13 +920,13 @@ public:
     gp_Cylinder();
     /// <summary>
     /// Creates a cylinder of radius Radius, whose axis is the "main
-    /// Axis" of theA3. theA3 is the local coordinate system of the cylinder.   Raises ConstructionErrord if theRadius < 0.0
+    /// Axis" of theA3. theA3 is the local coordinate system of the cylinder.   Raises
+    /// ConstructionErrord if theRadius < 0.0
     /// </summary>
     gp_Cylinder(Macad::Occt::Ax3 theA3, double theRadius);
-    gp_Cylinder(Macad::Occt::gp_Cylinder^ parameter1);
     /// <summary>
-    /// Changes the symmetry axis of the cylinder. Raises ConstructionError if the direction of theA1 is parallel to the "XDirection"
-    /// of the coordinate system of the cylinder.
+    /// Changes the symmetry axis of the cylinder. Raises ConstructionError if the direction of theA1
+    /// is parallel to the "XDirection" of the coordinate system of the cylinder.
     /// </summary>
     void SetAxis(Macad::Occt::Ax1 theA1);
     /// <summary>
@@ -1115,7 +1111,6 @@ public:
     /// Raises ConstructionError if theMajorRadius < theMinorRadius or theMinorRadius < 0.
     /// </summary>
     gp_Elips(Macad::Occt::Ax2 theA2, double theMajorRadius, double theMinorRadius);
-    gp_Elips(Macad::Occt::gp_Elips^ parameter1);
     /// <summary>
     /// Changes the axis normal to the plane of the ellipse.
     /// It modifies the definition of this plane.
@@ -1384,7 +1379,6 @@ public:
     /// Raises ConstructionError if theMajorRadius < theMinorRadius or theMinorRadius < 0.0
     /// </summary>
     gp_Elips2d(Macad::Occt::Ax22d theA, double theMajorRadius, double theMinorRadius);
-    gp_Elips2d(Macad::Occt::gp_Elips2d^ parameter1);
     /// <summary>
     /// Modifies this ellipse, by redefining its local coordinate system so that
     /// -   its origin becomes theP.
@@ -1621,7 +1615,6 @@ public:
     /// the transformation, and V the translation part, or
     /// </summary>
     gp_GTrsf(Macad::Occt::Mat theM, Macad::Occt::XYZ theV);
-    gp_GTrsf(Macad::Occt::gp_GTrsf^ parameter1);
     /// <summary>
     /// Changes this transformation into an affinity of ratio theRatio
     /// with respect to the axis theA1.
@@ -1851,7 +1844,6 @@ public:
     /// transformation, and theV the translation part.
     /// </summary>
     gp_GTrsf2d(Macad::Occt::Mat2d theM, Macad::Occt::XY theV);
-    gp_GTrsf2d(Macad::Occt::gp_GTrsf2d^ parameter1);
     /// <summary>
     /// Changes this transformation into an affinity of ratio theRatio
     /// with respect to the axis theA.
@@ -2085,7 +2077,6 @@ public:
     /// Raised if theMajorRadius < 0.0 or theMinorRadius < 0.0
     /// </summary>
     gp_Hypr(Macad::Occt::Ax2 theA2, double theMajorRadius, double theMinorRadius);
-    gp_Hypr(Macad::Occt::gp_Hypr^ parameter1);
     /// <summary>
     /// Modifies this hyperbola, by redefining its local coordinate
     /// system so that:
@@ -2122,14 +2113,16 @@ public:
     /// In the local coordinate system of the hyperbola the equation of
     /// the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the
     /// equation of the first asymptote is Y = (B/A)*X
-    /// where A is the major radius and B is the minor radius. Raises ConstructionError if MajorRadius = 0.0
+    /// where A is the major radius and B is the minor radius. Raises ConstructionError if MajorRadius
+    /// = 0.0
     /// </summary>
     Macad::Occt::Ax1 Asymptote1();
     /// <summary>
     /// In the local coordinate system of the hyperbola the equation of
     /// the hyperbola is (X*X)/(A*A) - (Y*Y)/(B*B) = 1.0 and the
     /// equation of the first asymptote is Y = -(B/A)*X.
-    /// where A is the major radius and B is the minor radius. Raises ConstructionError if MajorRadius = 0.0
+    /// where A is the major radius and B is the minor radius. Raises ConstructionError if MajorRadius
+    /// = 0.0
     /// </summary>
     Macad::Occt::Ax1 Asymptote2();
     /// <summary>
@@ -2166,7 +2159,8 @@ public:
     /// <summary>
     /// Returns the eccentricity of the hyperbola (e > 1).
     /// If f is the distance between the location of the hyperbola
-    /// and the Focus1 then the eccentricity e = f / MajorRadius. Raises DomainError if MajorRadius = 0.0
+    /// and the Focus1 then the eccentricity e = f / MajorRadius. Raises DomainError if MajorRadius =
+    /// 0.0
     /// </summary>
     double Eccentricity();
     /// <summary>
@@ -2401,7 +2395,6 @@ public:
     /// Raises ConstructionError if theMajorRadius < 0.0 or theMinorRadius < 0.0
     /// </summary>
     gp_Hypr2d(Macad::Occt::Ax22d theA, double theMajorRadius, double theMinorRadius);
-    gp_Hypr2d(Macad::Occt::gp_Hypr2d^ parameter1);
     /// <summary>
     /// Modifies this hyperbola, by redefining its local
     /// coordinate system so that its origin becomes theP.
@@ -2489,7 +2482,8 @@ public:
     /// <summary>
     /// Returns the eccentricity of the hyperbola (e > 1).
     /// If f is the distance between the location of the hyperbola
-    /// and the Focus1 then the eccentricity e = f / MajorRadius. Raises DomainError if MajorRadius = 0.0.
+    /// and the Focus1 then the eccentricity e = f / MajorRadius. Raises DomainError if MajorRadius =
+    /// 0.0.
     /// </summary>
     double Eccentricity();
     /// <summary>
@@ -2676,7 +2670,6 @@ public:
     /// the unit vector of the positioning axis of the line).
     /// </summary>
     gp_Lin(Macad::Occt::Pnt theP, Macad::Occt::Dir theV);
-    gp_Lin(Macad::Occt::gp_Lin^ parameter1);
     void Reverse();
     /// <summary>
     /// Reverses the direction of the line.
@@ -2864,11 +2857,11 @@ public:
     /// </summary>
     gp_Lin2d(Macad::Occt::Pnt2d theP, Macad::Occt::Dir2d theV);
     /// <summary>
-    /// Creates the line from the equation theA*X + theB*Y + theC = 0.0 Raises ConstructionError if Sqrt(theA*theA + theB*theB) <= Resolution from gp.
-    /// Raised if Sqrt(theA*theA + theB*theB) <= Resolution from gp.
+    /// Creates the line from the equation theA*X + theB*Y + theC = 0.0 Raises ConstructionError if
+    /// Sqrt(theA*theA + theB*theB) <= Resolution from gp. Raised if Sqrt(theA*theA + theB*theB) <=
+    /// Resolution from gp.
     /// </summary>
     gp_Lin2d(double theA, double theB, double theC);
-    gp_Lin2d(Macad::Occt::gp_Lin2d^ parameter1);
     void Reverse();
     /// <summary>
     /// Reverses the positioning axis of this line.
@@ -3070,7 +3063,6 @@ public:
     /// YAxis.
     /// </summary>
     gp_Parab(Macad::Occt::Ax1 theD, Macad::Occt::Pnt theF);
-    gp_Parab(Macad::Occt::gp_Parab^ parameter1);
     /// <summary>
     /// Modifies this parabola by redefining its local coordinate system so that
     /// -   its origin and "main Direction" become those of the
@@ -3316,7 +3308,6 @@ public:
     /// like a line, which is perpendicular to the directrix.
     /// </summary>
     gp_Parab2d(Macad::Occt::Ax2d theDirectrix, Macad::Occt::Pnt2d theFocus);
-    gp_Parab2d(Macad::Occt::gp_Parab2d^ parameter1);
     /// <summary>
     /// Changes the focal distance of the parabola
     /// Warnings : It is possible to have theFocal = 0.
@@ -3488,7 +3479,6 @@ public:
     /// Constructor with initialization.
     /// </summary>
     gp_QuaternionNLerp(Macad::Occt::Quaternion theQStart, Macad::Occt::Quaternion theQEnd);
-    gp_QuaternionNLerp(Macad::Occt::gp_QuaternionNLerp^ parameter1);
     /// <summary>
     /// Compute interpolated quaternion between two quaternions.
     /// </summary>
@@ -3559,7 +3549,6 @@ public:
     /// Constructor with initialization.
     /// </summary>
     gp_QuaternionSLerp(Macad::Occt::Quaternion theQStart, Macad::Occt::Quaternion theQEnd);
-    gp_QuaternionSLerp(Macad::Occt::gp_QuaternionSLerp^ parameter1);
     /// <summary>
     /// Compute interpolated quaternion between two quaternions.
     /// </summary>
@@ -3652,7 +3641,6 @@ public:
     /// Raises ConstructionError if theRadius < 0.0
     /// </summary>
     gp_Sphere(Macad::Occt::Ax3 theA3, double theRadius);
-    gp_Sphere(Macad::Occt::gp_Sphere^ parameter1);
     /// <summary>
     /// Changes the center of the sphere.
     /// </summary>
@@ -3851,7 +3839,6 @@ public:
     /// Raises ConstructionError if theMinorRadius < 0.0 or if theMajorRadius < 0.0
     /// </summary>
     gp_Torus(Macad::Occt::Ax3 theA3, double theMajorRadius, double theMinorRadius);
-    gp_Torus(Macad::Occt::gp_Torus^ parameter1);
     /// <summary>
     /// Modifies this torus, by redefining its local coordinate
     /// system so that:
